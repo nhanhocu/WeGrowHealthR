@@ -8,6 +8,7 @@ title: "WeGrowHealthR: Child Growth Data Analysis, Modelling and Reproducible Re
 version: 1.0.1
 date-released: 2026-10-21
 license: GPL-3.0-only
+"https://github.com/nhanhocu/WeGrowHealthR"
 authors:
   - family-names: Ho
     given-names: Nhan Thi

@@ -26,7 +26,7 @@ From the release tarball:
 install.packages("WeGrowHealthR_1.0.1.tar.gz", repos = NULL, type = "source")
 ```
 
-Once the package is on GitHub or CRAN, `remotes::install_github()` or
+Once the package is on GitHub or CRAN, `remotes::install_github("nhanhocu/WeGrowHealthR")` or
 `install.packages("WeGrowHealthR")` will work too. Parallel computing needs
 the package installed (not loaded with `devtools::load_all()`).
 
