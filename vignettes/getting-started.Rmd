@@ -1,0 +1,347 @@
+---
+title: "Getting started with WeGrowHealthR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with WeGrowHealthR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 7, fig.height = 4.2, dpi = 90)
+```
+
+WeGrowHealthR takes longitudinal child growth data from raw visits to
+publication tables and figures. This vignette walks through the first steps
+that almost every analysis shares: describing your data to the package,
+cleaning a raw export, computing z-scores and percentiles against the WHO or
+CDC references, classifying nutritional status, estimating prevalence,
+drawing growth charts, and tuning any plot. Each section explains the code,
+the main options, what the output means and where to go next.
+
+All examples use `growdat`, a simulated school health cohort of about 3,300
+children aged 18 months to 18 years with yearly visits. It resembles a large
+urban school health cohort, so the numbers look like those of the published
+studies, but they are not findings.
+
+```{r}
+library(WeGrowHealthR)
+head(growdat)
+```
+
+Each row is one visit. `pid` identifies the child, `site` the school site,
+`dob` and `examdate` are the date of birth and the date of measurement, and
+`age` is the decimal age in years.
+
+## 1. Describe your data once with `wgh_data()`
+
+`wgh_data()` is the data contract. You tell it which of your columns holds
+each role (child identifier, sex, age or dates, height, weight, site, year)
+and it returns a `wgh_data` object with standard column names that every
+function in the package understands. You do this once per data set.
+
+### Ages from dates
+
+If you have the date of birth and the date of measurement, give them as
+`dob` and `date` and leave out `age`. Age at measurement is computed as the
+number of days between the two dates divided by 365.25, which is the
+convention of the WHO software.
+
+```{r}
+gd <- wgh_data(growdat, id = "pid", sex = "sex", dob = "dob", date = "examdate",
+               height = "height", weight = "weight", site = "site")
+gd
+head(gd$data)
+```
+
+Column names can be given as strings (`"pid"`) or bare names (`pid`). The
+printed summary shows the number of children and visits, the age range and
+the column mapping. `year` was filled from the date of measurement because
+no year column was mapped, and BMI was computed from height and weight.
+
+Dates stored as text are read with `date_format`. Here is a small data set
+in which dates are written day/month/year, a common format in clinic
+records:
+
+```{r}
+clinic <- data.frame(
+  child = c("A", "A", "B"), gender = c("F", "F", "M"),
+  birth = c("03/02/2015", "03/02/2015", "21/11/2012"),
+  visit = c("10/09/2021", "12/09/2022", "15/09/2021"),
+  ht = c(121.5, 127.0, 134.2), wt = c(23.1, 26.4, 31.0))
+wgh_data(clinic, id = "child", sex = "gender", dob = "birth", date = "visit",
+         height = "ht", weight = "wt", date_format = "%d/%m/%Y")$data
+```
+
+Sex codes such as `"F"`, `"M"`, `1` and `2`, `"girl"` and `"boy"` are
+recognised and stored as `"Female"` and `"Male"`.
+
+### Ages recorded directly
+
+When only age is available, map it with `age`. The `age_unit` option takes
+`"years"` (default), `"months"` or `"days"`. When you give both an age column
+and dates, `age_from = "auto"` (default) keeps the recorded ages, fills any
+missing age from the dates, and warns when a recorded age and the
+date-based age differ by more than 0.1 years. That warning is a useful data
+quality check. Use `age_from = "dates"` to always compute age from the dates.
+
+```{r}
+gd2 <- wgh_data(growdat, id = "pid", sex = "sex", age = "age", height = "height",
+                weight = "weight", site = "site", year = "yearvisit")
+wgh_map(gd2)
+```
+
+`wgh_map()` shows which original column holds each role.
+
+**Next steps.** Pass `gd` (or `gd$data`) to any function. Most functions
+also accept a plain data frame that already uses the book column names
+(`pid`, `site`, `yearvisit`), so `growdat` itself works everywhere.
+
+## 2. Clean a raw export with `wgh_clean()`
+
+`growdat_raw` is the same cohort as a messy export from a school health
+information system, with heights entered in metres, weights in grams,
+height and weight swapped, duplicated visits and implausible values.
+
+```{r}
+clean <- wgh_clean(growdat_raw)
+attr(clean, "cleaning_log")
+```
+
+`wgh_clean()` repairs only errors whose type is unambiguous and logs every
+change. Everything else is flagged in the `implausible` column rather than
+altered, so you decide what to do with it. The options `repair_units`,
+`drop_duplicates` and `z_limit` switch individual steps on or off.
+
+**Next steps.** Inspect the flagged rows with
+`clean[clean$implausible, ]`, then use the cleaned data in the steps below.
+
+## 3. Z-scores and percentiles
+
+`wgh_add_zscores()` adds height-for-age (`haz`), weight-for-age (`waz`) and
+BMI-for-age (`baz`) z-scores. With `reference = "who"` (default) it uses the
+WHO 2006 Child Growth Standards below 60 months and the WHO 2007 Growth
+Reference from 60 months, with the WHO restricted tails for weight and BMI.
+The values agree with the `anthro` and `anthroplus` packages. With
+`reference = "cdc"` it uses the CDC 2000 growth charts (2 to 20 years).
+`percentiles = TRUE` adds the matching percentiles.
+
+```{r}
+z_who <- wgh_add_zscores(growdat[1:5, c("pid", "sex", "age", "height", "weight", "bmi")],
+                         percentiles = TRUE)
+z_who[, c("pid", "age", "haz", "haz_pct", "baz", "baz_pct")]
+z_cdc <- wgh_add_zscores(growdat[1:5, c("pid", "sex", "age", "height", "weight", "bmi")],
+                         reference = "cdc")
+z_cdc[, c("pid", "age", "haz", "baz")]
+```
+
+The two references differ, most for BMI, because they were built from
+different populations and periods. Weight-for-age is not defined by WHO
+after 10 years or by CDC before 2 years, so those cells are missing.
+
+For single values, `wgh_zscore()` takes the measurement, age, sex and
+indicator. `wgh_compare_references()` shows several versions side by side,
+which helps when you need to explain why two software packages disagree:
+
+```{r}
+wgh_zscore(130, age = 9, sex = "Female", indicator = "hfa")
+wgh_zscore(130, age = 9, sex = "Female", indicator = "hfa", reference = "cdc")
+wgh_compare_references(c(22, 28), age = c(10, 15), sex = "Male", indicator = "bfa")
+```
+
+The columns are the WHO value with restricted tails (`who`), the plain LMS
+value without them (`who_plain_lms`), a symmetric approximation, the CDC
+value, and the `anthroplus` value when that package is installed.
+
+You can also give your own reference as a data frame with columns `sex`,
+`age` (years), `L`, `M` and `S` (and optionally `indicator`), for example a
+national growth reference.
+
+## 4. Nutritional status with `wgh_classify()`
+
+`wgh_classify()` adds z-scores and status categories. The WHO system
+(default) uses BMI-for-age cut-offs of -3 and -2 SD for severe thinness and
+thinness, +1 and +2 SD for overweight and obesity from 5 years (+2 and +3 SD
+below 5 years), and HAZ below -2 (and -3) for stunting (and severe
+stunting). The CDC system uses the 5th, 85th and 95th BMI percentiles.
+
+```{r}
+cl <- wgh_classify(growdat)
+table(cl$bmi_status[cl$age >= 5], cl$sex[cl$age >= 5])
+cl_cdc <- wgh_classify(growdat[growdat$age >= 2, ], system = "cdc")
+table(cl_cdc$bmi_status, cl_cdc$sex)
+```
+
+Besides the categories, the output has indicator columns such as
+`overweight_obesity`, `obesity`, `stunting` and `thinness` (TRUE or FALSE),
+ready for prevalence estimation.
+
+## 5. Prevalence and trends
+
+`wgh_prevalence()` estimates the prevalence of an indicator, or the share of
+each category of a status variable, with confidence intervals. `by` sets the
+groups. For a categorical status, `method = "sison_glaz"` gives simultaneous
+intervals for all categories together, as in Ho et al. (2026, Sci Rep
+16:7515).
+
+```{r}
+older <- cl[cl$age >= 5, ]
+wgh_prevalence(older, "bmi_status", by = "sex", method = "sison_glaz")
+pv <- wgh_prevalence(older, "overweight_obesity", by = c("sex", "yearvisit"))
+head(pv)
+```
+
+Each row gives the number of visits (`n`), the number with the condition
+(`cases`), the prevalence in percent and its interval. A trend over
+calendar time is tested with the Cochran-Armitage test:
+
+```{r}
+wgh_trend_test(older, "overweight_obesity", "yearvisit", by = "sex")
+```
+
+A small p-value says the prevalence changes steadily across years. Repeated
+visits of the same child are not independent, so for formal inference on
+trends use the GEE models in `wgh_gee_trend()`, which the trend flows apply
+(see `vignette("trends-malnutrition")`).
+
+```{r, fig.alt = "Overweight or obesity prevalence by year and sex"}
+wgh_plot_prevalence(pv)
+```
+
+## 6. Growth charts
+
+`wgh_plot_growth_chart()` draws a child's measurements over reference
+curves. Two choices matter:
+
+* `lines = "percentile"` (default) draws percentile curves, set with
+  `centiles` (default 3, 15, 50, 85 and 97). `lines = "sd"` draws z-score
+  curves, set with `sd_lines` (default -3 to +3).
+* `reference = "who"` (default), `"cdc"` or your own LMS table.
+
+`indicator` chooses height (`"hfa"`), weight (`"wfa"`) or BMI (`"bfa"`),
+and `age_range` the ages shown.
+
+```{r, fig.alt = "WHO height-for-age percentiles with one girl's measurements"}
+girl <- growdat$pid[growdat$sex == "Female"][1]
+wgh_plot_growth_chart(growdat, ids = girl)
+```
+
+```{r, fig.alt = "WHO height-for-age SD curves with one girl's measurements"}
+wgh_plot_growth_chart(growdat, ids = girl, lines = "sd")
+```
+
+```{r, fig.alt = "CDC BMI-for-age percentiles with a shaded band"}
+wgh_plot_growth_chart(growdat, ids = girl, indicator = "bfa", reference = "cdc",
+                      centiles = c(5, 50, 85, 95), band = TRUE)
+```
+
+The CDC BMI chart marks the 85th and 95th percentiles, the CDC cut-offs for
+overweight and obesity. Several children can be shown together, each in its
+own colour, with `child_colour = NULL`:
+
+```{r, fig.alt = "Three girls on one chart"}
+three <- unique(growdat$pid[growdat$sex == "Female"])[1:3]
+wgh_plot_growth_chart(growdat, ids = three, child_colour = NULL, age_range = c(2, 14))
+```
+
+**Next steps.** To judge whether a child's growth follows the expected
+course given the child's own history, rather than the population, use the
+conditional references in `vignette("growth-distributions")`.
+
+## 7. Tuning any plot
+
+Every plot function and `plot()` method in the package accepts the same
+display options through `...`. They are documented in `?wgh_plot_options`:
+titles and axis labels, `base_size`, `legend` position, a `palette`,
+`point_size`, `line_width`, `alpha`, `show_ci`, facets and axis limits.
+
+```{r, fig.alt = "The prevalence plot restyled"}
+wgh_plot_prevalence(pv, title = "Overweight or obesity, 5 to 18 years",
+                    palette = c(Male = "black", Female = "grey55"),
+                    show_ci = FALSE, y_limits = c(0, 50), base_size = 12, legend = "right")
+```
+
+To use the same settings for several plots, build them once:
+
+```{r, eval = FALSE}
+opts <- wgh_plot_options(base_size = 9, legend = "none")
+do.call(wgh_plot_prevalence, c(list(pv), opts))
+```
+
+Plots are ggplot objects, so you can also add any ggplot2 layer, scale or
+theme, and save them with `wgh_save_figure()` (TIFF and PDF at 600 dpi by
+default, the format most journals ask for).
+
+## 8. Tracking the analytic sample
+
+Analyses usually restrict the data step by step. `wgh_sample_flow()` records
+how many children and visits remain after each step and, when there is a
+`site` column, the share retained at each site. A step that removes one site
+much more than the others is flagged, because it can bias comparisons.
+
+```{r}
+fl <- wgh_sample_flow(growdat,
+  "Ages 5 to 18" = ~ age >= 5 & age <= 18.5,
+  "At least 3 visits" = wgh_min_visits(3))
+fl
+```
+
+```{r, fig.alt = "Children retained at each step by site"}
+plot(fl)
+```
+
+The restricted data are in `fl$data`.
+
+## 9. Run modes, reports and export
+
+Heavy functions read their defaults (bootstrap replicates, folds, quantile
+grids, subsample sizes) from a run mode. `wgh_config("dev")` gives settings
+that run in seconds for checking code, `"analysis"` is the default and
+`"publication"` uses full grids and bootstraps. Any argument you pass
+explicitly overrides the mode, and single settings can be overridden with
+`wgh_config("analysis", B = 1000)`.
+
+```{r}
+old <- wgh_config("dev")
+wgh_opt("B")
+```
+
+The study workflows (`wgh_flow_*()`) return a `wgh_report` that holds every
+table, figure and model of one study, the analytic sample flow and the
+status of each model (fitted, failed or skipped, with the reason).
+
+```{r}
+rep <- wgh_flow_malnutrition_trends(growdat, mode = "dev")
+rep
+```
+
+```{r, eval = FALSE}
+rep$tables$prevalence_by_year        # a table
+plot(rep, "fig_trends", base_size = 13)       # a figure, restyled
+wgh_export(rep, "malnutrition_results")       # Excel workbook, TIFF and PDF figures
+```
+
+```{r, include = FALSE}
+wgh_config(old)
+```
+
+## Where to go next
+
+* `vignette("trends-malnutrition")`: secular trends, prevalence, the double
+  burden of malnutrition and GEE trend models.
+* `vignette("trajectories")`: how a prepubertal exposure relates to later
+  height trajectories with mixed models.
+* `vignette("growth-curves")`: SITAR growth curves, the pubertal spurt,
+  its timing, intensity and duration.
+* `vignette("growth-distributions")`: quantile regression, growth
+  inequality and conditional growth references.
+* `vignette("phenotypes-states")`: growth phenotypes, canalization and
+  multistate models.
+* `vignette("prediction")`: predicting late-adolescent height and
+  explaining predictions.
+* `vignette("simulated-data")` and `vignette("reproducing-the-program")`,
+  which runs all 14 study flows.
+* `vignette("parallel-computing")`: running bootstraps, quantile grids and
+  cross-validation on several cores with identical results.
+
+`wgh_references()` lists the studies whose analyses the package reproduces.

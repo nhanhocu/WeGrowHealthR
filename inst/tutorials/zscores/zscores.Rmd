@@ -1,0 +1,150 @@
+---
+title: "WeGrowHealthR tutorial: from visits to z-scores, status and growth charts"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include = FALSE}
+library(learnr)
+library(WeGrowHealthR)
+```
+
+## Welcome
+
+This tutorial takes you from raw visits to z-scores, nutritional status and
+growth charts. Each step explains the code, its options and its output, and
+says what you can do next with the result. Run the code in each box, then
+change it as suggested. Start it with
+`learnr::run_tutorial("zscores", package = "WeGrowHealthR")`.
+
+All data are simulated. They resemble a school health cohort, but the
+numbers are not findings.
+
+## 1. Describing your data
+
+`wgh_data()` maps your columns to standard roles. When you have the date of
+birth and the date of measurement, age is computed for you as days divided
+by 365.25.
+
+```{r data1, exercise = TRUE}
+gd <- wgh_data(growdat, id = "pid", sex = "sex", dob = "dob", date = "examdate",
+               height = "height", weight = "weight", site = "site")
+gd
+```
+
+Look at the printout: it shows the number of children and visits, the age
+range and the mapping. Now try a small data set with day/month/year text
+dates:
+
+```{r data2, exercise = TRUE}
+clinic <- data.frame(child = c("A", "B"), gender = c("F", "M"),
+                     birth = c("03/02/2015", "21/11/2012"), visit = c("10/09/2021", "15/09/2021"),
+                     ht = c(121.5, 134.2), wt = c(23.1, 31.0))
+wgh_data(clinic, id = "child", sex = "gender", dob = "birth", date = "visit",
+         height = "ht", weight = "wt", date_format = "%d/%m/%Y")$data
+```
+
+```{r data2-hint}
+# If dates are written month/day/year, use date_format = "%m/%d/%Y".
+# If you only have ages in months, map age = "age_mo" and add age_unit = "months".
+```
+
+**Next step.** Pass `gd` to any function of the package.
+
+## 2. Z-scores and percentiles
+
+A z-score says how many standard deviations a measurement lies from the
+reference median for the child's age and sex. The percentile is the share
+of the reference population below the measurement.
+
+```{r z1, exercise = TRUE}
+wgh_zscore(130, age = 9, sex = "Female", indicator = "hfa")
+100 * pnorm(wgh_zscore(130, age = 9, sex = "Female", indicator = "hfa"))
+```
+
+Change the age to 8 and to 10. How does the z-score change? Then compare the
+WHO and CDC references with `reference = "cdc"`:
+
+```{r z2, exercise = TRUE}
+wgh_zscore(20, age = 10, sex = "Male", indicator = "bfa", reference = "who")
+wgh_zscore(20, age = 10, sex = "Male", indicator = "bfa", reference = "cdc")
+```
+
+For a whole data set, `wgh_add_zscores()` adds `haz`, `waz` and `baz`, and
+the percentiles with `percentiles = TRUE`:
+
+```{r z3, exercise = TRUE}
+z <- wgh_add_zscores(growdat[1:6, c("pid", "sex", "age", "height", "weight", "bmi")], percentiles = TRUE)
+z[, c("pid", "age", "haz", "haz_pct", "baz", "baz_pct")]
+```
+
+## 3. Nutritional status
+
+`wgh_classify()` adds z-scores and categories. `system = "who"` (default)
+uses WHO z-score cut-offs and `system = "cdc"` the CDC percentiles.
+
+```{r c1, exercise = TRUE}
+cl <- wgh_classify(growdat)
+table(cl$bmi_status[cl$age >= 5], cl$sex[cl$age >= 5])
+```
+
+```{r c1-hint}
+# Try the CDC system for children aged 2 years or older:
+cl_cdc <- wgh_classify(growdat[growdat$age >= 2, ], system = "cdc")
+table(cl_cdc$bmi_status, cl_cdc$sex)
+```
+
+Prevalence with confidence intervals:
+
+```{r c2, exercise = TRUE}
+cl <- wgh_classify(growdat)
+wgh_prevalence(cl[cl$age >= 5, ], "obesity", by = "sex")
+```
+
+**Next step.** `wgh_trend_test()` tests a trend over years and
+`wgh_plot_prevalence()` draws prevalence over time.
+
+## 4. Growth charts
+
+`wgh_plot_growth_chart()` draws percentile curves (`lines = "percentile"`)
+or SD curves (`lines = "sd"`) from the WHO (`reference = "who"`) or CDC
+(`reference = "cdc"`) references, with a child's measurements.
+
+```{r g1, exercise = TRUE, fig.height = 4}
+girl <- growdat$pid[growdat$sex == "Female"][1]
+wgh_plot_growth_chart(growdat, ids = girl, lines = "sd")
+```
+
+Try `indicator = "bfa"`, `reference = "cdc"` and
+`centiles = c(5, 50, 85, 95)`. Add display options such as
+`title = "My chart"` or `base_size = 14`.
+
+```{r g1-hint}
+wgh_plot_growth_chart(growdat, ids = girl, indicator = "bfa", reference = "cdc",
+                      centiles = c(5, 50, 85, 95), band = TRUE, title = "BMI, CDC 2000")
+```
+
+## Quiz
+
+```{r quiz}
+quiz(
+  question("From what age does the WHO 2007 reference replace the 2006 standards?",
+    answer("2 years"), answer("5 years (60 months)", correct = TRUE), answer("10 years")),
+  question("Which cut-off defines obesity with WHO BMI-for-age from 5 years?",
+    answer("+1 SD"), answer("+2 SD", correct = TRUE), answer("+3 SD")),
+  question("Which CDC percentile defines obesity?",
+    answer("85th"), answer("95th", correct = TRUE), answer("97th")),
+  question("How does wgh_data() compute age from dates?",
+    answer("Months between dates divided by 12"),
+    answer("Days between dates divided by 365.25", correct = TRUE),
+    answer("Difference in calendar years"))
+)
+```
+
+## Where to go next
+
+* `vignette("getting-started", package = "WeGrowHealthR")` covers the same
+  ground in more depth.
+* `vignette("growth-distributions", package = "WeGrowHealthR")` shows
+  conditional growth references, which compare a child with children who
+  started at the same point.

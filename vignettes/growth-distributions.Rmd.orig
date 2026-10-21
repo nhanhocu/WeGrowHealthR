@@ -1,0 +1,362 @@
+---
+title: "Growth distributions: quantile models, growth inequality and conditional references"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Growth distributions: quantile models, inequality and conditional references}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 7, fig.height = 4.2, dpi = 72,
+                      fig.path = "figures/dist-", message = TRUE)
+options(width = 100, tibble.width = 100, tibble.print_max = 12)
+```
+
+> **About this vignette.** All data are simulated with `wgh_simulate()`. The
+> results show how the methods work and resemble the published patterns,
+> but they are not the published findings and are not research results.
+> The functions run in development mode, with 50 bootstrap replicates for the quantile models and 5-fold cross-validation for the references.
+
+Means hide what happens at the edges of a distribution. A child at the 5th
+centile of height and a child at the 95th may respond differently to the
+same BMI. This vignette shows three ways of modelling the whole
+distribution, each from a study of the research program:
+
+1. how BMI relates to height-for-age at different quantiles and ages, with
+   quantile regression and linear quantile mixed models (Ho 2026) [1],
+2. how the spread of height-for-age changes with BMI and age, a measure of
+   growth inequality (Ho 2026) [2], and
+3. conditional growth references, which say where a child is expected to
+   be at a later age given the child's own earlier growth (Ho 2026) [3].
+
+The vignette is precomputed.
+
+```{r}
+library(WeGrowHealthR)
+wgh_config("dev")
+v <- wgh_simulate(30000, seed = 2026)$visits
+fl <- wgh_sample_flow(v, "Ages 5 to 18" = ~ age >= 5 & age <= 18.5,
+                      "Plausible z-scores" = ~ abs(haz) < 6 & abs(baz) < 6,
+                      "At least 3 visits" = wgh_min_visits(3))
+a <- fl$data
+girls <- a[a$sex == "Female", ]
+boys <- a[a$sex == "Male", ]
+```
+
+## 1. Quantile regression of HAZ on BAZ
+
+The model lets the association of BAZ with HAZ change smoothly with age,
+through a natural spline of age interacting with BAZ:
+
+```{r}
+f <- haz ~ splines::ns(age, knots = c(8, 11, 14), Boundary.knots = c(5, 18.5)) * baz
+```
+
+Write the knots and boundary knots into the formula. If they were chosen
+from the data, every bootstrap replicate would get a slightly different
+basis and the replicates could not be combined.
+
+`wgh_rq()` fits the model at each quantile in `taus`, reads the BAZ slope at
+the `anchor_ages` by contrast (the change in predicted HAZ when BAZ rises by
+one unit at that age), and gets intervals from a bootstrap that resamples
+children (`B` replicates), so repeated visits are handled correctly.
+
+```{r}
+fit_g <- wgh_rq(girls, f, taus = c(0.05, 0.25, 0.5, 0.75, 0.95), anchor_ages = c(6, 9, 12, 15), B = 50)
+fit_g
+```
+
+The printout gives the BAZ slope at each age and quantile with its
+bootstrap standard error and interval. The same table is in `fit_g$slopes`.
+
+```{r rq-slopes, fig.alt = "BAZ slope on HAZ by quantile at four ages, girls", fig.height = 3.4}
+plot(fit_g, y_label = "Change in HAZ per unit BAZ")
+```
+
+Before puberty the slope is positive and largest at the upper quantiles:
+higher BMI goes with greater height, most of all among the tallest girls. By
+15 years the slope is close to zero in the middle of the distribution and
+negative at the 5th centile, the same convergence seen in
+`vignette("trajectories")`.
+
+`wgh_test_heterogeneity()` tests whether the slopes at one age are equal
+across quantiles, and `wgh_test_sex_difference()` whether boys and girls
+differ:
+
+```{r}
+fit_b <- wgh_rq(boys, f, taus = c(0.05, 0.25, 0.5, 0.75, 0.95), anchor_ages = c(6, 9, 12, 15), B = 50)
+wgh_test_heterogeneity(fit_g, age = 12)
+wgh_test_sex_difference(fit_b, fit_g, age = 12)$joint
+```
+
+`wgh_slopes()` reads slopes at any other ages from the same fit, for example
+`wgh_slopes(fit_g, ages = c(7, 13))`.
+
+### Accounting for repeated visits: LQMM
+
+Quantile regression treats visits as independent and handles clustering
+only through the bootstrap. A linear quantile mixed model adds a random
+intercept for each child. `wgh_lqmm()` has the same interface as `wgh_rq()`
+and retries with more iterations when the optimiser warns.
+
+```{r}
+set.seed(1)
+small <- girls[girls$id %in% sample(unique(girls$id), 600), ]
+lq <- wgh_lqmm(small, f, taus = c(0.1, 0.5, 0.9), anchor_ages = c(6, 9, 12, 15), B = 0)
+lq$slopes
+lq$convergence
+```
+
+The `convergence` table reports, for each quantile, whether the fit
+converged, which step of the retry ladder was needed and the messages of the
+failed attempts.
+
+## 2. Growth inequality: the spread of height-for-age
+
+The same quantile model describes the spread of the distribution. The
+distance between the 95th and the 5th centile of HAZ (`range90`) and the
+interquartile range (`iqr`) can be read at any age and BAZ.
+`wgh_dispersion()` does that, with bootstrap intervals, and also reports the
+change in spread per unit of BAZ.
+
+```{r}
+dsp <- wgh_dispersion(fit_g, ages = c(6, 9, 12, 15), exposure_values = c(-1, 0, 1, 2, 3))
+head(dsp$spread)
+dsp$change
+```
+
+A spread read at a BAZ where few children are measured is an extrapolation.
+`wgh_support()` counts the children near each age and BAZ and flags the
+supported cells:
+
+```{r}
+sup <- wgh_support(girls, "baz", ages = c(6, 9, 12, 15), exposure_values = c(-1, 0, 1, 2, 3))
+head(sup)
+```
+
+```{r spread, fig.alt = "Spread of HAZ (P95 minus P5) by BAZ at four ages, girls", fig.height = 3.6}
+sp <- merge(dsp$spread, sup[, c("age", "baz", "supported")], by = c("age", "baz"))
+library(ggplot2)
+ggplot(sp[sp$supported, ], aes(baz, range90, colour = factor(age))) +
+  geom_errorbar(aes(ymin = range90_lower, ymax = range90_upper), width = 0.1) +
+  geom_line() + geom_point() + scale_colour_wgh() + theme_wgh() +
+  labs(x = "BMI-for-age z-score", y = "HAZ P95 minus P5", colour = "Age")
+```
+
+In these simulated girls the spread widens by about 0.2 HAZ units for each
+unit of BAZ at every age (`dsp$change`): girls with higher BMI differ more
+from each other in height than girls with normal BMI, a form of growth
+inequality that a mean model cannot show.
+
+## 3. Conditional growth references
+
+A WHO chart compares a child with all children of the same age and sex. A
+conditional reference compares the child with children who had the same
+starting point. It answers a clinical question: given this child's height
+and BMI at 6 years, where should the child's height-for-age be at 10, 12 or
+14 years? A child who stays inside the WHO band can still fall well below
+the course expected from the child's own history, and that is what a
+conditional reference detects.
+
+### A cohort with long follow-up
+
+Conditional references need children measured both in a conditioning
+window and years later. The simulation settings below give a cohort followed
+for 14 school years with little dropout: `years` sets the calendar years,
+`dropout` the yearly probability of leaving, and `entry_first_prob` the
+share of children enrolled from their first eligible year.
+
+```{r}
+long <- wgh_simulate(12000, preset = "reference", seed = 11, years = 2012:2025,
+                     dropout = c(intercept = -4, age = 0), entry_first_prob = 0.9)$visits
+```
+
+### Building the panel
+
+`wgh_conditional_panel()` takes, for each child, the visit nearest `anchor`
+(6 years) within the conditioning `window` as the baseline, a second visit
+near `anchor2` for a slope, and the visit nearest each target age (within
+`tol` years) as the outcome. Children are not dropped for lacking the second
+visit.
+
+```{r}
+cp <- wgh_conditional_panel(long, window = c(5, 9), anchor = 6, anchor2 = 8, targets = c(10, 12, 14))
+table(cp$sex, cp$target_nominal)
+head(cp[, c("id", "sex", "baseline_age", "baseline_haz", "baseline_baz", "target_nominal", "target_age", "target")])
+```
+
+### Fitting the references
+
+`wgh_condref()` fits quantile regressions of the target HAZ on the baseline
+features, by sex and target age, over a grid of quantiles. The `formula`
+sets the baseline features (default baseline HAZ, BAZ and age). Three
+benchmarks are stored alongside: the unconditional reference (the target
+distribution ignoring the baseline), persistence (baseline plus the typical
+change) and the WHO band (standard normal quantiles).
+
+```{r}
+cr <- wgh_condref(cp)
+cr
+```
+
+`predict()` returns the predicted quantiles for any child, under the
+conditional model or a benchmark (`type`):
+
+```{r}
+child <- cp[cp$target_nominal == 14 & cp$baseline_haz < -1, ][1, ]
+round(predict(cr, child), 2)
+round(predict(cr, child, type = "who"), 2)
+```
+
+For this child, who started below -1 HAZ, the conditional range at 14 years
+is centred well below zero, near the child's own level, and is much narrower
+than the WHO range.
+
+### Showing one child: the fan chart
+
+`wgh_plot_fan()` draws the expected course. The fan opens at the baseline
+measurement (known, so it has no width) and widens to the predicted 25th to
+75th and 5th to 95th centile ranges at each target age. The grey band is the
+WHO -2 to +2 SD range, `show_unconditional = TRUE` adds the cohort's
+unconditional range, and `observed` overlays the child's later
+measurements.
+
+Here is a child whose height-for-age drifted downwards. We find such a child
+with `wgh_condref_centile()` (next section): flagged below the conditional
+3rd centile at 14 years, yet still inside the WHO band.
+
+```{r}
+sc <- wgh_condref_centile(cr, cp)
+full <- names(which(table(cp$id) == 3))
+drift <- sc[sc$target_nominal == 14 & sc$cond_flag == "below" & sc$target > -2 & sc$id %in% full, ][1, ]
+drift[, c("id", "sex", "baseline_age", "baseline_haz", "target", "cond_centile")]
+```
+
+```{r fan-drift, fig.alt = "Fan chart of a child whose height drifts below the expected range", fig.height = 4.4}
+later <- long[long$pid == drift$id & long$age > drift$baseline_age, c("age", "haz")]
+wgh_plot_fan(cr, drift, observed = later, show_unconditional = TRUE,
+             title = "A child drifting below the expected course")
+```
+
+Every measurement of this child stays inside the WHO band, so a standard
+growth chart raises no alarm. The conditional fan shows that the child
+started inside the expected course and left it, which is the signal a
+clinician would want to see. For contrast, a child growing as expected:
+
+```{r fan-typical, fig.alt = "Fan chart of a child growing along the expected course", fig.height = 4.4}
+typ <- sc[sc$target_nominal == 14 & abs(sc$cond_centile - 50) < 10 & sc$id %in% full, ][1, ]
+later_t <- long[long$pid == typ$id & long$age > typ$baseline_age, c("age", "haz")]
+wgh_plot_fan(cr, typ, observed = later_t, title = "A child growing along the expected course")
+```
+
+### Conditional centiles and flags
+
+`wgh_condref_centile()` places each observed target value in its predicted
+distribution. `cond_centile` is the conditional centile (0 to 100),
+`cond_z` its normal score, and `cond_flag` is `"below"` or `"above"` when the
+centile is outside 3 to 97 (`flag`).
+
+```{r}
+table(sc$target_nominal, sc$cond_flag)
+# children inside the WHO band but outside their own expected range
+mean(abs(sc$target) < 2 & sc$cond_flag != "within", na.rm = TRUE)
+```
+
+### Are the references any good?
+
+A reference is useful if its ranges are both honest and narrow.
+`wgh_condref_cv()` fits the references on part of the children and scores
+them on the others (`folds` child-level folds, or `folds = "site"` to leave
+one site out):
+
+* `crps` (continuous ranked probability score) and `wis` (weighted interval
+  score) measure the accuracy of the whole predicted distribution. Lower is
+  better.
+* `coverage_90` is the share of children inside the predicted 90% range. It
+  should be close to 0.90.
+* `width_90` is the width of that range. Narrower is more useful, as long
+  as coverage holds.
+
+```{r}
+cv <- wgh_condref_cv(cp, folds = 5)
+aggregate(cbind(crps, wis, coverage_90, width_90) ~ model, data = cv, FUN = mean)
+```
+
+All four references cover about 90% of children, so all are honest. The
+conditional reference has by far the lowest CRPS and WIS and a 90% range
+less than half as wide as the WHO range: it says much more about each child
+for the same honesty. Persistence is in between, because it uses the
+baseline but ignores BMI and regression to the mean.
+
+### A flexible benchmark and a child-by-child comparison
+
+Is the linear conditional reference too simple? A quantile random forest
+(`wgh_quantile_forest()`, built on `ranger`) makes no assumption about the
+shape of the relationship, so it is a demanding benchmark (Book 2 Chapter
+15). `forest = TRUE` adds it to the cross-validation.
+
+Comparing average scores across models ignores that the models predict the
+same children. `wgh_condref_compare()` scores every held-out prediction and
+compares two references child by child, with a bootstrap that resamples
+children (`wgh_paired_scores()`, Book 2 Chapter 16). A negative difference
+means the model scores better than the reference.
+
+```{r}
+cmp <- wgh_condref_compare(cp, models = c("conditional", "persistence", "forest"), reference = "who",
+                           folds = 5, B = 500)
+cmp[, c("model", "reference", "mean_new", "mean_old", "mean_diff", "lower", "upper", "relative_change_pct")]
+wgh_condref_compare(cp, models = "forest", reference = "conditional", folds = 5, B = 500)[,
+  c("model", "reference", "mean_diff", "lower", "upper", "relative_change_pct")]
+```
+
+The first table shows how much each reference improves on the WHO band for
+the same children. The second asks whether the forest improves on the
+linear conditional reference. When its interval lies above zero the forest
+is worse, and the simpler linear model, which can be written as an equation
+and explained, is preferred.
+
+`wgh_plot_condref_calibration()` checks every quantile, not only the 90%
+range, with out-of-fold predictions. Points on the diagonal mean that, for
+example, 10% of children fall below the predicted 10th centile.
+
+```{r calibration, fig.alt = "Observed against predicted centiles for three references", fig.height = 3.8}
+wgh_plot_condref_calibration(cp, folds = 5)
+```
+
+## 4. The three studies in one call each
+
+```{r}
+dist <- wgh_flow_distributional_height(v, engine = "rq")
+dist
+ineq <- wgh_flow_growth_inequality(v)
+ineq$tables$change_per_baz
+cond <- wgh_flow_conditional_references(long, window = c(5, 9), targets = c(10, 12, 14))
+cond$tables$cv_scores
+cond$tables$flags
+```
+
+```{r flow-coef, fig.alt = "BAZ coefficient functions by sex", fig.height = 3.4}
+plot(dist, "fig_coefficient_functions")
+```
+
+```{r flow-fan, fig.alt = "Fan chart of an example child from the flow", fig.height = 4.2}
+plot(cond, "fig_fan_low")
+```
+
+`engine = "lqmm"` (default) uses linear quantile mixed models as in the
+study, and `sensitivity = TRUE` adds a smooth quantile regression check with
+`qgam`. Both are slower.
+
+## Where to go next
+
+* `vignette("prediction")` explains individual conditional predictions with
+  SHAP values.
+* `vignette("phenotypes-states")` looks at movement between height bands
+  over time.
+
+## References
+
+```{r, echo = FALSE, results = "asis"}
+cat(paste0(wgh_references(c("distribution", "inequality", "condref"), format = "text"), collapse = "\n\n"))
+```

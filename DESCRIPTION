@@ -1,0 +1,80 @@
+Package: WeGrowHealthR
+Type: Package
+Title: Child Growth Data Analysis, Modelling and Reproducible Research Workflows
+Version: 1.0.1
+Authors@R: c(
+    person("Nhan Thi", "Ho", email = "nhanhocumc@gmail.com",
+           role = c("aut", "cre", "cph"), comment = "MD, PhD"))
+Description: Tools and one-call workflows for longitudinal child growth data,
+    written to accompany the books 'Child Growth Data Analysis and Modeling
+    with R' and its advanced companion. The package covers data cleaning,
+    World Health Organization and US Centers for Disease Control and
+    Prevention z-scores, percentiles and nutritional status, prevalence
+    and trend analysis, mixed-model trajectories, SITAR growth curves and
+    the pubertal spurt, quantile regression and linear quantile mixed models
+    for growth distributions, conditional growth references, functional
+    growth phenotypes, canalization and multistate models, prediction model
+    benchmarks with SHAP explanations, and a simulation engine that produces
+    teaching cohorts resembling a large school health cohort. Established
+    engines such as 'sitar', 'quantreg', 'lqmm', 'msm', 'fdapace' and
+    'mclust' do the fitting, and the package adds growth-specific data
+    handling, cluster bootstraps, safeguards and publication output. The
+    flows reproduce the analyses of a research program on the growth of
+    urban schoolchildren, starting with Ho et al. (2026)
+    <doi:10.1038/s41598-026-37210-w>.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 4.1.0)
+Imports:
+    cli,
+    dplyr (>= 1.1.0),
+    ggplot2 (>= 3.4.0),
+    grDevices,
+    rlang (>= 1.1.0),
+    stats,
+    tibble,
+    utils,
+    splines,
+    tools,
+    parallel
+Suggests:
+    anthro,
+    anthroplus,
+    boot,
+    codetools,
+    emmeans,
+    fdapace,
+    flextable,
+    furrr,
+    future,
+    gamlss,
+    gamlss.dist,
+    geepack,
+    kernelshap,
+    knitr,
+    lme4,
+    lmerTest,
+    learnr,
+    lqmm,
+    MASS,
+    mclust,
+    mgcv,
+    msm,
+    nlme,
+    nnet,
+    officer,
+    openxlsx,
+    patchwork,
+    qgam,
+    quantreg,
+    ranger,
+    rmarkdown,
+    sitar,
+    targets,
+    testthat (>= 3.0.0),
+    xgboost
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1

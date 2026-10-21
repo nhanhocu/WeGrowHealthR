@@ -1,0 +1,280 @@
+---
+title: "SITAR growth curves and the pubertal growth spurt"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{SITAR growth curves and the pubertal growth spurt}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 7, fig.height = 4.2, dpi = 72,
+                      fig.path = "figures/sitar-", message = TRUE)
+options(width = 100, tibble.width = 100, tibble.print_max = 12)
+```
+
+> **About this vignette.** All data are simulated with `wgh_simulate()`. The
+> results show how the methods work and resemble the published patterns,
+> but they are not the published findings and are not research results.
+> SITAR models use at most 1,000 children each (development mode), the APHV bootstrap uses 10 replicates and the quantile bootstraps 50.
+
+The pubertal growth spurt has a timing (age at peak height velocity, APHV),
+an intensity (peak height velocity, PHV) and a duration. This vignette shows
+how to estimate all three from school visits with SITAR models, and how to
+relate them to prepubertal BMI. It reproduces the analyses of three studies:
+the pubertal spurt by SITAR (Ho et al. 2026) [1], the distribution of
+pubertal growth velocity (Ho 2026) [2] and the duration of the spurt
+(Ho 2026) [3]. The vignette is precomputed because SITAR models take minutes
+to fit.
+
+```{r}
+library(WeGrowHealthR)
+wgh_config("dev")     # SITAR on up to 1,000 children per model, few bootstrap replicates
+v <- wgh_simulate(30000, seed = 2026)$visits
+```
+
+## 1. Is there enough data at each age?
+
+Mean curves are unreliable where few children are measured. `wgh_age_density()`
+counts children and visits in half-year bins and reports the age at which
+the number of children falls below 10% of its peak (`share`). The package
+trims velocity curves at that age.
+
+```{r}
+ad <- wgh_age_density(v[v$age >= 6, ])
+attr(ad, "sparse_from")
+```
+
+## 2. Fitting a SITAR model
+
+SITAR (SuperImposition by Translation And Rotation) describes every child's
+height curve as one mean curve shifted in size (`a`, cm), timing (`b`,
+years, negative means earlier) and intensity (`c`, on the log scale,
+positive means a faster, more intense spurt). `wgh_fit_sitar()` wraps
+`sitar::sitar()`:
+
+* `df` is the flexibility of the mean spline (4 or 5 is usual),
+* `fixed` and `random` choose the effects (`"a + b + c"`, or
+  `"a + b + c + d"` for the extended model),
+* `age_range` the ages used and `min_visits` the visits needed per child,
+* `max_children` limits the number of children (set by the run mode).
+
+It never stops on a failed fit. Instead it keeps the error, so competing
+models can be compared, and it retries once with one fewer degree of
+freedom.
+
+```{r}
+boys <- v[v$sex == "Male" & v$age >= 6 & v$age <= 18, ]
+fit_m <- wgh_fit_sitar(boys, df = 5, age_range = c(6, 18))
+fit_m
+```
+
+The printout shows the number of children and visits, the population APHV
+and PHV, and diagnostics: whether the fit converged, whether the velocity
+curve turns negative in the tails, and the residual SD.
+
+```{r sitar-both, fig.alt = "Mean height and velocity curves of boys from SITAR", fig.height = 3.8}
+plot(fit_m, type = "both", line_width = 1.2)
+```
+
+`plot()` takes `type = "velocity"`, `"height"` or `"both"`, `trim` and
+`show_data`, plus the shared display options.
+
+### Checking the model
+
+Two checks matter before using the estimates. `wgh_check_identifiable()`
+flags random effects that are almost perfectly correlated, a sign that the
+model cannot separate them. `wgh_sitar_select()` compares candidate
+specifications by BIC, a positive velocity in the tails and stable APHV and
+PHV, and picks one by a stated rule (the procedure used for girls in [1]).
+
+```{r}
+wgh_check_identifiable(fit_m)
+girls <- v[v$sex == "Female" & v$age >= 6 & v$age <= 16, ]
+sel <- wgh_sitar_select(girls)
+sel$table
+sel$selected
+sel$reason
+fit_f <- sel$fits[[sel$selected]]
+```
+
+Read `sel$reason` before using the selected model. Here, with a subsample
+of 1,000 girls in development mode, no candidate meets every criterion, so
+the function keeps the first model and says why each candidate failed. With
+the full cohort (`wgh_config("publication")`) more candidates may
+converge. When none is acceptable, show the mean curve only over the ages
+with enough data and report the reason with the results.
+
+## 3. APHV and PHV with honest intervals
+
+`wgh_aphv()` gives the population APHV and PHV from the mean curve.
+`wgh_sitar_ci()` adds intervals. The default `method = "bootstrap"`
+resamples children and refits the model `B` times, which carries all the
+uncertainty of the curve. `method = "legacy"` reproduces the interval of the
+original analysis code (the estimate plus or minus 1.96 times the SD of
+individual APHV over the square root of n). It is not a bootstrap: it treats
+the spread of individual timing as sampling error, so its width has no
+clear meaning, and it is kept only to match published numbers.
+
+```{r}
+ci_m <- wgh_sitar_ci(fit_m, B = 10)
+ci_m
+wgh_sitar_ci(fit_m, method = "legacy")
+```
+
+With 1,000 children the population curve is estimated precisely, so both
+intervals are narrow here. With `B = 10` the bootstrap interval is rough. Use
+`B = 200` or more for a paper (`wgh_config("publication")` does that).
+
+## 4. Individual timing and intensity
+
+`wgh_sitar_effects()` returns one row per child with the random effects and
+the child's own APHV and PHV. The individual APHV uses the exact SITAR
+formula, not an approximation. `early_timing` flags children whose timing is
+earlier than the population (`b < early_cut`), and `faster_tempo` children
+with a more intense spurt (`c > 0`).
+
+```{r}
+eff_m <- wgh_sitar_effects(fit_m)
+eff_f <- wgh_sitar_effects(fit_f)
+head(eff_m)
+summary(eff_m$aphv)
+summary(eff_f$aphv)
+```
+
+Girls reach their peak years before boys, the most consistent finding of
+growth studies, and individual APHV varies around the population value, more
+in girls than in boys.
+
+**Next step.** Join these effects to other data by `id`, for example to ask
+whether prepubertal BMI predicts earlier timing (section 7).
+
+## 5. Velocity curves of individual children
+
+`wgh_velocity_panel()` evaluates each child's velocity curve on a grid,
+either by age (`time = "age"`) or by years from the child's own APHV
+(`time = "aphv"`). `observed_only = TRUE` keeps only the part of each curve
+covered by the child's visits, so no child is extrapolated.
+
+```{r}
+pan <- wgh_velocity_panel(fit_m, time = "aphv", grid = seq(-4, 4, by = 0.05), observed_only = FALSE)
+head(pan)
+```
+
+## 6. Duration of the spurt
+
+`wgh_curve_features()` measures the width of each child's velocity peak.
+The default (`reference = "takeoff"`) measures the width at 25%, 50% and 75%
+of the spurt amplitude, that is, the rise from the take-off velocity to the
+peak. Older code measured the width at a fraction of PHV
+(`reference = "zero"`), but the velocity of most children never falls to
+half of PHV before the data start, so that width is left-censored for most
+of them. The package reports censoring so this cannot go unnoticed.
+
+```{r}
+cf <- wgh_curve_features(pan)
+summary(cf$width_p50)
+pan_f <- wgh_velocity_panel(fit_f, time = "aphv", grid = seq(-4, 4, by = 0.05), observed_only = FALSE)
+censored <- function(p) c(amplitude = mean(wgh_curve_features(p)$censored_left_p50),
+  fraction_of_phv = mean(wgh_curve_features(p, thresholds = 0.5, reference = "zero")$censored_left_p50))
+rbind(boys = censored(pan), girls = censored(pan_f))
+```
+
+`width_p50` is the width of the spurt in years at half its amplitude. The
+second table gives the share of children whose width cannot be measured
+because the velocity curve does not fall far enough before the data start.
+Girls start their spurt early, so with the legacy definition the width is
+censored for most of them, while the amplitude definition measures every
+child.
+
+## 7. Does prepubertal BMI change the spurt?
+
+The prepubertal exposure is the earliest BAZ from 5 years at or before 11
+years in boys and 9 years in girls (see `vignette("trajectories")`).
+
+```{r}
+base <- wgh_index_exposure(v, "baz", name = "pre")
+base <- base[!duplicated(base$id), c("id", "pre_value")]
+names(base)[2] <- "baz_pre"
+e <- merge(eff_m, base, by = "id")
+summary(lm(b ~ baz_pre, data = e))$coefficients
+```
+
+A negative slope means higher prepubertal BMI goes with earlier timing.
+
+The second study asked whether the association is the same across the
+distribution. `wgh_scalar_quantiles()` fits quantile regressions of a
+child-level outcome with a bootstrap over children, and reports the OLS
+estimate alongside:
+
+```{r}
+wgh_scalar_quantiles(e, b ~ baz_pre, "baz_pre", taus = c(0.1, 0.25, 0.5, 0.75, 0.9), B = 50)
+```
+
+`wgh_mediation()` asks how much of the association of BMI with PHV passes
+through earlier timing:
+
+```{r}
+wgh_mediation(e, "baz_pre", "b", "phv", B = 50)
+```
+
+The total effect is the change in PHV per unit of prepubertal BAZ. The
+natural indirect effect is the part that passes through timing `b`, and the
+natural direct effect the rest. A proportion mediated near or slightly above
+1 means that essentially all of the association works through earlier
+timing (a proportion above 1 occurs when the direct effect is slightly
+negative).
+
+## 8. The three studies in one call each
+
+`wgh_flow_pubertal_spurt()` runs the age-density check, the male model, the
+female model selection, identifiability checks, APHV and PHV with intervals,
+individual effects and the links between prepubertal anthropometry and
+timing. Its report is then passed as `spurt` to the velocity and duration
+flows, so the SITAR models are fitted only once.
+
+```{r}
+spurt <- wgh_flow_pubertal_spurt(v)
+spurt
+spurt$tables$aphv_phv_population
+spurt$tables$early_timing_logistic
+```
+
+```{r flow-velocity, fig.alt = "Mean velocity curves of boys and girls with APHV marked"}
+plot(spurt, "fig_velocity")
+```
+
+```{r flow-aphv-bmi, fig.alt = "Individual APHV by prepubertal BMI category", fig.height = 3.8}
+plot(spurt, "fig_aphv_by_bmi")
+```
+
+```{r}
+velocity <- wgh_flow_velocity_distribution(v, spurt = spurt)
+velocity$tables$scalar_quantiles
+duration <- wgh_flow_spurt_duration(v, spurt = spurt)
+duration$tables$censoring
+duration$tables$duration_ols
+```
+
+```{r flow-velocity-slopes, fig.alt = "Change in velocity per BAZ unit across velocity quantiles", fig.height = 3.8}
+plot(velocity, "fig_velocity_slopes")
+```
+
+```{r flow-duration, fig.alt = "Spurt duration by prepubertal BAZ", fig.height = 3.8}
+plot(duration, "fig_duration_by_bmi", alpha = 0.4)
+```
+
+## Where to go next
+
+* The individual SITAR effects are features for prediction
+  (`vignette("prediction")`) and growth phenotypes
+  (`vignette("phenotypes-states")`). Size `a` is estimated from the late
+  visits, so it must not be used to predict late height. The package never
+  joins it.
+* `wgh_fpca_curves()` decomposes the velocity curves into their main shapes.
+
+## References
+
+```{r, echo = FALSE, results = "asis"}
+cat(paste0(wgh_references(c("spurt", "velocity", "duration"), format = "text"), collapse = "\n\n"))
+```

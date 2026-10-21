@@ -1,0 +1,46 @@
+# Citation metadata for GitHub ("Cite this repository") and Zenodo.
+# Update version and date-released at each release. After the first Zenodo
+# archive, add the concept DOI under "identifiers".
+cff-version: 1.2.0
+message: "If you use WeGrowHealthR, please cite it as below, together with the studies whose methods you use (see wgh_references())."
+type: software
+title: "WeGrowHealthR: Child Growth Data Analysis, Modelling and Reproducible Research Workflows"
+version: 1.0.1
+date-released: 2026-10-21
+license: GPL-3.0-only
+authors:
+  - family-names: Ho
+    given-names: Nhan Thi
+    email: nhanhocumc@gmail.com
+keywords:
+  - child growth
+  - anthropometry
+  - growth references
+  - SITAR
+  - quantile regression
+  - reproducible research
+  - R
+abstract: >-
+  Tools and one-call workflows for longitudinal child growth data, written to
+  accompany the books Child Growth Data Analysis and Modeling with R and its
+  advanced companion. The package covers data cleaning, WHO and CDC z-scores
+  and nutritional status, prevalence and trends, mixed-model trajectories,
+  SITAR growth curves, quantile regression and linear quantile mixed models,
+  conditional growth references, functional phenotypes, multistate models,
+  prediction benchmarks with SHAP explanations, reproducible parallel
+  computing and a simulation engine for teaching cohorts with known truth.
+references:
+  - type: article
+    title: "Overweight and obesity epidemic, temporal trends and regional disparities in physical growth of Vietnamese children"
+    authors:
+      - family-names: Ho
+        given-names: Nhan Thi
+      - family-names: Bangsberg
+        given-names: David
+      - family-names: Hermiston
+        given-names: Michelle L
+    journal: "Scientific Reports"
+    volume: 16
+    start: 7515
+    year: 2026
+    doi: 10.1038/s41598-026-37210-w

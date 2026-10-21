@@ -1,0 +1,427 @@
+---
+title: "Reproducing the research program with flows"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Reproducing the research program with flows}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 7, fig.height = 4, dpi = 72,
+                      fig.path = "figures/flows-", message = TRUE)
+options(width = 100, tibble.width = 100, tibble.print_max = 8)
+```
+
+> **About this vignette.** All data are simulated with `wgh_simulate()`.
+> The flows run in development mode (`wgh_config("dev")`): SITAR models use
+> at most 1,000 children each, bootstraps use 10 replicates and
+> cross-validation 3 folds. The results show what each flow produces. They
+> resemble the published patterns but are not the published findings, and
+> they are not research results.
+
+WeGrowHealthR reproduces the analyses of a research program on the growth of
+urban schoolchildren. Each study has a **flow**: one function that runs the
+analysis from visits to tables and figures and returns a `wgh_report`.
+Called with your data, a flow runs the same analysis on them. Called without
+data, it simulates a cohort that resembles the published one.
+
+This vignette first explains how flows work, then runs every one of the 14
+flows on the same simulated cohort, showing for each the report, one of its
+tables and one of its figures, and what to look at. It ends with chaining,
+pipelines, your own data, corrected methods and citation.
+
+## The studies and their flows
+
+```{r, echo = FALSE}
+library(WeGrowHealthR)
+r <- wgh_references()
+needs <- c(wgh_flow_height_prediction = "pubertal spurt report",
+           wgh_flow_velocity_distribution = "pubertal spurt report",
+           wgh_flow_spurt_duration = "pubertal spurt report",
+           wgh_flow_growth_phenotypes = "pubertal spurt report",
+           wgh_flow_phenotype_outcomes = "growth phenotype report")
+tab <- data.frame(Ref = paste0("[", seq_len(nrow(r)), "]"), Study = r$short, Flow = paste0("`", r$flow, "()`"),
+                  Reuses = ifelse(is.na(needs[r$flow]), "", needs[r$flow]), check.names = FALSE)
+knitr::kable(tab)
+```
+
+The full references are listed at the end. `wgh_references()` returns them
+with their DOIs.
+
+## How a flow works
+
+Every flow takes the data as `x` and a run `mode`, and returns a report:
+
+* `rep$tables`: named tables, the tables of the study,
+* `rep$figures`: named ggplot figures, shown with `plot(rep, "name")`,
+* `rep$models`: the fitted models,
+* `rep$sample_flow`: the analytic sample, step by step,
+* `rep$model_status`: every model that was fitted, failed or skipped, with
+  the reason,
+* `rep$settings`: the settings used.
+
+`wgh_export(rep, "folder")` writes every table to one Excel workbook, every
+figure as TIFF and PDF at 600 dpi, and a reproducibility bundle.
+
+## The cohort
+
+All flows below use one simulated cohort followed for 14 school years, so
+that children are seen both before puberty and in late adolescence.
+
+```{r}
+wgh_config("dev")
+v <- wgh_simulate(8000, seed = 7, years = 2012:2025, missing_years = integer(),
+                  dropout = c(intercept = -4, age = 0), entry_first_prob = 0.9)$visits
+c(children = length(unique(v$pid)), visits = nrow(v))
+```
+
+## 1. Secular trends, prevalence and regional differences [1]
+
+`wgh_flow_secular_trends()` describes the cohort, compares median height by
+age across calendar years and sites, fits GEE calendar trends, and estimates
+nutritional status prevalence with simultaneous intervals and trend tests.
+`fit_lms = TRUE` (default) also fits cohort LMS centiles with `gamlss`.
+
+```{r}
+trends <- wgh_flow_secular_trends(v, fit_lms = FALSE)
+trends
+trends$tables$overweight_obesity_by_site
+```
+
+```{r f1, fig.alt = "Overweight or obesity by year and sex"}
+plot(trends, "fig_prevalence_trend")
+```
+
+**What to look at.** The sex difference in overweight and obesity, the
+differences between sites and the direction of the calendar trend.
+
+## 2. Stunting, thinness, obesity and the double burden [2]
+
+`wgh_flow_malnutrition_trends()` estimates four indicators by sex and year,
+tests trends, fits GEE logistic models of calendar trends within age groups
+and measures the double burden of malnutrition in children and in
+populations.
+
+```{r}
+maln <- wgh_flow_malnutrition_trends(v)
+maln
+head(maln$tables$gee_odds_ratios)
+```
+
+```{r f2, fig.alt = "Odds ratios per calendar year for four indicators", fig.height = 4.6}
+plot(maln, "fig_or_forest")
+```
+
+**What to look at.** Odds ratios below 1 mean an indicator becomes less
+common each year. Age groups with too few cases are skipped and listed in
+the model status.
+
+## 3. Prepubertal BMI and the height trajectory [3]
+
+`wgh_flow_index_trajectory()` assigns a BMI category at a prepubertal index
+age, compares HAZ between categories at milestone ages, fits mixed models of
+the HAZ trajectory and reports contrasts at stated ages.
+
+```{r}
+traj <- wgh_flow_index_trajectory(v)
+traj
+head(traj$tables$contrasts)
+```
+
+```{r f3, fig.alt = "HAZ trajectories by prepubertal BMI category", fig.height = 4.4}
+plot(traj, "fig_trajectories")
+```
+
+**What to look at.** The height advantage of children with obesity before
+puberty, and how it shrinks or reverses in adolescence.
+
+## 4. The pubertal growth spurt by SITAR [4]
+
+`wgh_flow_pubertal_spurt()` fits SITAR models for boys and girls, checks
+them, estimates the population APHV and PHV with intervals, extracts each
+child's timing and intensity and relates them to prepubertal BMI and height.
+Its report is reused by the next flows.
+
+```{r}
+spurt <- wgh_flow_pubertal_spurt(v)
+spurt
+spurt$tables$aphv_phv_population
+```
+
+```{r f4, fig.alt = "Mean height velocity of boys and girls"}
+plot(spurt, "fig_velocity")
+```
+
+**What to look at.** Girls reach their peak years before boys. The
+`early_timing_logistic` table shows how prepubertal BMI and height predict
+early timing.
+
+## 5. Predicting late-adolescent height [5]
+
+`wgh_flow_height_prediction()` builds a cohort of prepubertal features and
+late-adolescent height, compares nine models on the same folds and by site,
+attaches prediction intervals, checks calibration and agreement, explains
+the gradient boosting model with SHAP and shows a prediction for one child.
+
+```{r}
+pred <- wgh_flow_height_prediction(v, spurt = spurt)
+pred
+pred$tables$cv_performance[, c("sex", "model", "n", "RMSE", "R2")]
+```
+
+```{r f5, fig.alt = "Predicted late-adolescent height of one child on a growth chart", fig.height = 4.4}
+plot(pred, "fig_child_prediction")
+```
+
+**What to look at.** Whether complex models beat the linear mixed model
+(M5), the width and coverage of the prediction intervals, and that M6 is an
+upper bound because SITAR timing uses outcome-window visits (the flow warns
+about this).
+
+## 6. BMI and the height-for-age distribution [6]
+
+`wgh_flow_distributional_height()` fits quantile models of HAZ on BAZ with a
+spline of age, by sex, reads BAZ slopes at stated ages with a child-level
+bootstrap and tests whether slopes differ across quantiles and between the
+sexes. `engine = "lqmm"` (default) uses linear quantile mixed models as in
+the study, `"rq"` the faster pooled model used here.
+
+```{r}
+dist <- wgh_flow_distributional_height(v, engine = "rq")
+dist
+head(dist$tables$quantile_slopes)
+```
+
+```{r f6, fig.alt = "BAZ slopes on HAZ across quantiles by age and sex", fig.height = 3.6}
+plot(dist, "fig_coefficient_functions")
+```
+
+**What to look at.** Whether the BAZ slope differs between the lower and
+upper quantiles, and how it changes from childhood to adolescence.
+
+## 7. Prepubertal BMI and the distribution of pubertal velocity [7]
+
+`wgh_flow_velocity_distribution()` relates prepubertal BMI to the whole
+distribution of height velocity around puberty, and to each child's timing,
+intensity and peak velocity, with quantile models and a mediation analysis
+through timing.
+
+```{r}
+vel <- wgh_flow_velocity_distribution(v, spurt = spurt)
+vel
+vel$tables$mediation_timing
+```
+
+```{r f7, fig.alt = "Change in velocity per BAZ unit across velocity quantiles", fig.height = 3.8}
+plot(vel, "fig_velocity_slopes")
+```
+
+**What to look at.** Higher prepubertal BMI raises velocity before the
+usual peak age and lowers it later, because it shifts the spurt earlier. The
+mediation table shows how much of the BMI effect on peak velocity passes
+through timing.
+
+## 8. The duration of the pubertal spurt [8]
+
+`wgh_flow_spurt_duration()` measures each child's spurt width on the spurt
+amplitude, shows how often the older fraction-of-peak definition is
+censored, and relates duration to prepubertal BMI with and without
+adjustment for timing and intensity.
+
+```{r}
+dur <- wgh_flow_spurt_duration(v, spurt = spurt)
+dur
+dur$tables$censoring
+dur$tables$duration_ols
+```
+
+```{r f8, fig.alt = "Spurt duration by prepubertal BAZ", fig.height = 3.8}
+plot(dur, "fig_duration_by_bmi", alpha = 0.4)
+```
+
+**What to look at.** The censoring table, and whether the BMI association
+with duration remains after adjusting for timing and intensity.
+
+## 9. Peri-pubertal growth phenotypes [9]
+
+`wgh_flow_growth_phenotypes()` summarises trajectories with functional PCA,
+adds SITAR timing and intensity, clusters children with Gaussian mixtures,
+names the phenotypes, checks their stability and validity, and relates them
+to late height-for-age.
+
+```{r}
+pheno <- wgh_flow_growth_phenotypes(v, spurt = spurt)
+pheno
+pheno$tables$centroids
+pheno$tables$stability
+```
+
+```{r f9, fig.alt = "Mean HAZ trajectory of each phenotype in girls", fig.height = 4}
+plot(pheno, "fig_phenotypes_female")
+```
+
+**What to look at.** Interpretable phenotypes (for example tall, early and
+fast), their shares, and an adjusted Rand index well above zero.
+
+## 10. Conditional growth references [10]
+
+`wgh_flow_conditional_references()` predicts each child's later
+height-for-age distribution from earlier growth, validates the references
+against unconditional, persistence and WHO benchmarks by cross-validation
+and by site, checks calibration, flags children outside their own expected
+range and draws fan charts.
+
+```{r}
+cond <- wgh_flow_conditional_references(v, window = c(5, 9), targets = c(10, 12, 14))
+cond
+aggregate(cbind(crps, coverage_90, width_90) ~ model, data = cond$tables$cv_scores, FUN = mean)
+cond$tables$flags
+```
+
+```{r f10, fig.alt = "Fan chart of an example child with later measurements", fig.height = 4.2}
+plot(cond, "fig_fan_low")
+```
+
+**What to look at.** The conditional reference has the lowest CRPS with
+coverage near 90% and a much narrower range than the WHO band.
+
+## 11. Canalization, catch-up and catch-down [11]
+
+`wgh_flow_canalization()` puts visits into height-for-age bands, builds
+transition matrices, summarises persistence, catch-up and catch-down by age,
+fits a continuous-time multistate model and mixed models of catch-up and
+catch-down.
+
+```{r}
+canal <- wgh_flow_canalization(v)
+canal
+canal$tables$canalization
+```
+
+```{r f11, fig.alt = "Transition percentages between height bands by sex", fig.height = 3.8}
+plot(canal, "fig_transition_heatmap")
+```
+
+**What to look at.** High persistence on the diagonal, moves mostly to
+adjacent bands, and the warning that part of every move is measurement
+error. `wgh_false_moves()` estimates how large that part is:
+
+```{r}
+wgh_false_moves(v, error_sds = c(0.5, 1))
+```
+
+## 12. Growth inequality over age and BMI [12]
+
+`wgh_flow_growth_inequality()` reads the spread of the height-for-age
+distribution (the 5th to 95th centile range and the interquartile range) at
+each age and BAZ, with bootstrap intervals, and flags combinations with
+little data.
+
+```{r}
+ineq <- wgh_flow_growth_inequality(v)
+ineq
+ineq$tables$change_per_baz
+```
+
+```{r f12, fig.alt = "Spread of HAZ by BAZ at four ages", fig.height = 3.6}
+plot(ineq, "fig_range90")
+```
+
+**What to look at.** Whether the spread widens or narrows as BAZ rises, and
+at which ages.
+
+## 13. Growth phenotypes and later outcomes, growth side [13]
+
+`wgh_flow_phenotype_outcomes()` links the phenotypes of flow 9 to a later
+outcome with bootstrap intervals and a dose-response model on timing. By
+default the outcome is overweight or obesity at 15 years or older. Pass your
+own outcome table as `outcome_data`.
+
+```{r}
+outc <- wgh_flow_phenotype_outcomes(v, phenotypes = pheno)
+outc
+outc$tables$phenotype_outcome
+```
+
+```{r f13, fig.alt = "Odds ratios of late overweight or obesity by phenotype", fig.height = 3.8}
+plot(outc, "fig_forest")
+```
+
+**What to look at.** Which phenotypes carry higher odds of the later
+outcome, and the warnings for phenotypes with few events.
+
+## 14. Explainable individual growth prediction [14]
+
+`wgh_flow_explain_prediction()` explains the conditional reference models
+with exact SHAP values at the median and outer quantiles, compares them with
+permutation importance and checks that feature rankings are stable across
+folds.
+
+```{r}
+expl <- wgh_flow_explain_prediction(v, window = c(5, 9), targets = c(10, 12))
+expl
+expl$tables$rank_stability
+```
+
+```{r f14, fig.alt = "Mean absolute SHAP by quantile, sex and target age", fig.height = 4}
+plot(expl, "fig_quantile_resolved")
+```
+
+**What to look at.** Baseline height-for-age dominates every quantile, and
+the rankings are stable (mean Spearman correlation near 1).
+
+## Chaining and pipelines
+
+The SITAR models of the pubertal spurt study are reused by flows 5, 7, 8
+and 9, and the phenotypes by flow 13, as above. `wgh_use_pipeline()` writes
+a `targets` pipeline that chains all the flows in this order and caches each
+step:
+
+```{r, eval = FALSE}
+wgh_use_pipeline("my_project", data_file = "visits.rds", mode = "publication")
+targets::tar_make()
+```
+
+For long runs, start parallel workers first with `wgh_parallel()` (see
+`vignette("parallel-computing")`).
+
+## Using your own data
+
+```{r, eval = FALSE}
+gd <- wgh_data(mydata, id = "child_id", sex = "sex", dob = "birth_date", date = "visit_date",
+               height = "height_cm", weight = "weight_kg", site = "school")
+wgh_config("publication")
+rep <- wgh_flow_secular_trends(gd)
+wgh_export(rep, "secular_trends")
+```
+
+## Corrected methods and legacy options
+
+Reviewing the original analysis code found a few errors. The package uses
+the corrected method by default and keeps an option that reproduces the
+original output:
+
+| Default (corrected) | Legacy option | What changed |
+|---|---|---|
+| `wgh_sitar_ci(method = "bootstrap")` | `method = "legacy"` | APHV and PHV intervals come from a bootstrap over children |
+| `wgh_sitar_effects()` | `legacy_c_labels = TRUE` | Positive SITAR intensity `c` means a faster spurt |
+| Exact individual APHV | none | Exact SITAR formula instead of APHV plus `b` |
+| `wgh_curve_features(reference = "takeoff")` | `reference = "zero"` | Duration measured on the spurt amplitude |
+| `wgh_zscore(method = "who")` | `method = "lms"` or `"symmetric"` | WHO restricted tails for weight and BMI |
+| `wgh_benchmark(site_effect = "fixed")` | `site_effect = "random"` | Site as a fixed effect in the model ladder |
+| `wgh_leakage_check()` | none | Features from outcome-window visits are flagged |
+
+`wgh_compare_outputs()` compares a report's tables with frozen tables from
+the original code, column by column.
+
+## Citing
+
+Please cite the package (`citation("WeGrowHealthR")`) and the studies whose
+analyses you reproduce.
+
+## References
+
+```{r, echo = FALSE, results = "asis"}
+cat(paste0(wgh_references(format = "text"), collapse = "\n\n"))
+```

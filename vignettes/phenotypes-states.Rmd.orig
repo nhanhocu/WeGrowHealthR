@@ -1,0 +1,343 @@
+---
+title: "Growth phenotypes, canalization and multistate models"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Growth phenotypes, canalization and multistate models}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 7, fig.height = 4.2, dpi = 72,
+                      fig.path = "figures/pheno-", message = TRUE)
+options(width = 100, tibble.width = 100, tibble.print_max = 12)
+```
+
+> **About this vignette.** All data are simulated with `wgh_simulate()`. The
+> results show how the methods work and resemble the published patterns,
+> but they are not the published findings and are not research results.
+> The functions run in development mode: SITAR models use at most 1,000 children and the cluster stability 20 bootstrap refits.
+
+Children do not all grow along the same path. Some are tall early and stop
+early, others start small and catch up. This vignette shows two ways of
+describing that variety, each from a study of the research program:
+
+1. growth phenotypes, groups of children with similar peri-pubertal growth
+   found by functional clustering (Ho 2026) [1], and their links with later
+   outcomes on the growth side (Ho 2026) [2], and
+2. canalization, the tendency to stay in the same height band, with
+   catch-up and catch-down movements between bands and multistate models
+   (Ho 2026) [3].
+
+The vignette is precomputed.
+
+Phenotypes need children followed through puberty, so this part uses a
+simulated cohort followed for 14 school years with little dropout (see
+`vignette("simulated-data")` for the settings).
+
+```{r}
+library(WeGrowHealthR)
+wgh_config("dev")
+long <- wgh_simulate(8000, seed = 7, years = 2012:2025, missing_years = integer(),
+                     dropout = c(intercept = -4, age = 0), entry_first_prob = 0.9)$visits
+length(unique(long$pid))
+```
+
+## 1. Summarising trajectories with functional PCA
+
+Visits are sparse and irregular, so trajectories cannot be compared point by
+point. `wgh_fpca()` summarises each child's HAZ trajectory with functional
+principal component scores using PACE (`fdapace`), which borrows strength
+across children. `min_visits` and `min_span` set who is eligible (4 visits
+over 3 years in [1]), and `fve` the share of variance the components must
+explain.
+
+We use girls here, whose pubertal timing varies more.
+
+```{r}
+girls <- long[long$sex == "Female", ]
+fp <- wgh_fpca(girls, age_range = c(5, 18))
+fp$fve
+head(fp$scores)
+```
+
+`fve` is the cumulative share of variance explained by the components. The
+first component (`fpc1`) is usually overall level (tall or short
+throughout), and the second a change in level with age (catching up or
+falling behind).
+
+## 2. Adding SITAR timing and intensity
+
+Peri-pubertal growth also differs in timing and intensity, which SITAR
+measures (`vignette("growth-curves")`).
+
+```{r}
+fit <- wgh_fit_sitar(girls, df = 4, age_range = c(6, 16))
+eff <- wgh_sitar_effects(fit)
+feat <- merge(fp$scores, eff[, c("id", "a", "b", "c")], by = "id")
+head(feat)
+```
+
+## 3. Clustering
+
+`wgh_cluster()` fits Gaussian mixture models (`mclust`) with `G` clusters
+over a range, standardises the features (`scale = TRUE`) and chooses the
+number of clusters by BIC or ICL (`criterion`). It warns when the chosen
+number is at an edge of the range, because then the search should be
+widened. `wgh_name_phenotypes()` names each cluster from its centroid on
+size, timing and tempo, so the names are reproducible.
+
+SITAR size `a` is left out because `fpc1` already describes overall level.
+
+```{r}
+cl <- wgh_name_phenotypes(wgh_cluster(feat, vars = c("fpc1", "fpc2", "b", "c"), G = 1:8))
+cl
+cl$centroids
+```
+
+The centroids are in standard deviation units. A phenotype named "Tall,
+early, fast" has a high `fpc1`, a negative timing `b` and a positive
+intensity `c`. Clusters close to the mean on every feature are called
+"Average" and numbered.
+
+```{r phenotype-curves, fig.alt = "Mean HAZ trajectory of each growth phenotype", fig.height = 4}
+wgh_plot_phenotypes(cl, girls[girls$age >= 5, ], "haz", show_children = 15)
+```
+
+`show_children` draws a few children of each phenotype behind the mean
+curves, which shows how much the children within a phenotype differ.
+
+### Are the phenotypes stable and meaningful?
+
+`wgh_cluster_stability()` refits the clustering on bootstrap samples and
+reports the adjusted Rand index (ARI) with the original clustering. An ARI
+near 1 means the phenotypes are found again and again.
+`wgh_cluster_neighbours()` refits with one cluster fewer and one more and
+cross-tabulates the memberships, which shows which phenotypes merge or
+split.
+
+```{r}
+st <- wgh_cluster_stability(cl, B = 20)
+attr(st, "summary")
+wgh_cluster_neighbours(cl)
+```
+
+`wgh_validate_phenotypes()` checks the phenotypes against characteristics
+that were not used to build them, here prepubertal BMI category and site,
+with a multinomial model and a likelihood ratio test for each:
+
+```{r}
+pre <- wgh_index_exposure(girls, "baz", name = "pre",
+                          categories = function(b, a) wgh_bmi_category(b, a, thinness = FALSE))
+pre <- pre[!duplicated(pre$id), c("id", "pre_cat", "site")]
+wgh_validate_phenotypes(cl, pre, c("pre_cat", "site"))$tests
+```
+
+A small p-value for prepubertal BMI, as here, means the phenotypes differ in
+BMI before puberty, although BMI was not a clustering feature. Site should not
+differ, so a small p-value there would point to a data problem.
+
+## 4. Phenotypes and later outcomes
+
+`wgh_link_outcome()` models a later outcome as a function of phenotype
+membership with a bootstrap over children: a linear model for a continuous
+outcome, logistic for a binary one. `exposure = "b"` instead uses a
+continuous feature for a dose-response model.
+
+```{r}
+late <- girls[girls$age >= 15, ]
+late <- aggregate(cbind(haz, baz) ~ pid, data = late, FUN = median)
+names(late) <- c("id", "haz_late", "baz_late")
+late$ow_ob_late <- as.integer(late$baz_late > 1)
+wgh_link_outcome(cl, late, "haz_late", B = 50)
+wgh_link_outcome(cl, late, "ow_ob_late", B = 50)
+```
+
+The largest phenotype is the reference. For a continuous outcome
+`estimate` is the difference in mean late HAZ from the reference, and for a
+binary outcome the odds ratio is given with its bootstrap interval. A
+warning flags phenotypes with very few outcome events, whose estimates are
+unstable.
+
+The phenotypes were built from visits up to 18 years. Using them to predict
+height at 15 or 18 years would leak the outcome into the predictor, and
+`wgh_leakage_check()` warns about that:
+
+```{r}
+wgh_leakage_check(c(5, 18), c(12, 15, 18))$message
+```
+
+## 5. Height bands and canalization
+
+`wgh_states()` puts every visit in one of five HAZ bands, cut at the 10th,
+25th, 75th and 90th centiles of the standard normal distribution
+(`percentiles`). `wgh_transitions()` pairs consecutive visits 0.5 to 2.5
+years apart (`min_interval`, `max_interval`) and flags staying in the band,
+moving up or down, catch-up (moving up from the two lowest bands) and
+catch-down (moving down from the two highest bands).
+
+```{r}
+sim_v <- wgh_simulate(30000, seed = 2026)
+v <- sim_v$visits
+stt <- wgh_states(v[v$age >= 5, ])
+table(stt$band)
+tr <- wgh_transitions(stt)
+head(tr[, c("id", "age", "age_next", "from_band", "to_band", "persist", "catch_up", "catch_down")])
+```
+
+```{r}
+tm <- wgh_transition_matrix(tr, by = "sex")
+head(tm)
+wgh_canalization_summary(tr, by = "sex")
+```
+
+The transition matrix gives, for each starting band, the share of children
+in each band at the next visit (`row_pct`). Most children stay in their
+band, which is canalization. Children in the outer bands move towards the
+middle more often than children in the middle move out.
+
+### How much movement is measurement error?
+
+A child near a cut-off can change band because of a few millimetres of
+measurement error. `wgh_false_moves()` measures how often that happens. It
+redraws every measured height from the error-free height with a chosen
+error SD (`error_sds`, in cm), rounds it as a school scale would, and
+compares the measured transitions with the error-free ones. The simulation
+truth file holds the error-free height. With real data the recorded height
+is used instead, and the result is a lower bound.
+
+```{r}
+fm <- wgh_false_moves(sim_v, error_sds = c(0.5, 1, 1.5))
+fm
+attr(fm, "by_band")[attr(fm, "by_band")$error_sd_cm == 1, ]
+```
+
+`false_moves_pct` is the share of observed band changes in which the
+child's error-free band did not change. It rises quickly with measurement
+error. By starting band, children in the narrow bands next to the middle
+change band most often (`observed_moves_pct`), because a small error is
+enough to cross a cut-off, and with 1 cm of error about half of all observed
+changes are false in every band. Report this alongside any transition
+matrix (Book 2 Chapter 12).
+
+### Regression to the mean
+
+Part of that movement towards the middle is regression to the mean, not
+real catch-up. `wgh_rtm()` computes the conditional change score
+(z2 - r z1) / sqrt(1 - r^2), which is zero on average for every starting
+value if there is no true catch-up.
+
+```{r}
+rt <- wgh_rtm(tr, v)
+tapply(rt$z2 - rt$z1, rt$from_band, mean)
+tapply(rt$conditional_z, rt$from_band, mean)
+```
+
+The raw change is positive in the low bands and negative in the high bands.
+In the conditional change scores that gradient is gone, so the apparent
+catch-up of children who start low, and catch-down of children who start
+high, is explained by regression to the mean.
+
+### What predicts catch-up?
+
+`wgh_transition_glmm()` fits a logistic mixed model for catch-up or
+catch-down with a random intercept for each child. `subset_from` restricts
+to transitions that start in the bands where the movement is possible.
+
+```{r}
+pre_all <- wgh_index_exposure(stt, "baz", name = "pre",
+                              categories = function(b, a) wgh_bmi_category(b, a, thinness = FALSE))
+pre_all <- pre_all[!duplicated(pre_all$id), c("id", "pre_cat")]
+tr2 <- merge(tr, pre_all, by = "id")
+up <- wgh_transition_glmm(tr2, "catch_up", c("sex", "age", "pre_cat"), subset_from = 1:2)
+up$odds_ratios
+```
+
+## 6. Multistate models
+
+A multistate model treats movement between bands as a continuous-time
+process, which handles unequal intervals between visits. `wgh_msm_data()`
+prepares the data and `wgh_msm()` fits the model with `msm`. By default only
+moves to adjacent bands are allowed (`transitions = "adjacent"`).
+
+```{r}
+md <- wgh_msm_data(stt)
+ms <- wgh_msm(md, covariates = "sex")
+s <- wgh_msm_summary(ms, t = 1)
+round(s$pmatrix, 3)
+s$sojourn
+s$hazard_ratios
+wgh_msm_check(ms)
+```
+
+`pmatrix` holds the probabilities of being in each band one year later,
+`sojourn` the mean time spent in a band before moving, and `hazard_ratios`
+the effect of sex on each transition. With `constraint = "direction"`
+(default) the effect of a covariate is shared by all upward moves and by all
+downward moves, which keeps the model stable. `constraint = "none"` gives
+each transition its own effect. `wgh_msm_check()` flags implausibly
+high intensities, which make the standard errors unreliable.
+
+```{r msm-prevalence, fig.alt = "Observed and expected prevalence of each band over follow-up", fig.height = 4}
+pv <- wgh_msm_prevalence(ms)
+library(ggplot2)
+ggplot(pv, aes(time)) + geom_line(aes(y = expected), colour = "#0072B2") +
+  geom_point(aes(y = observed), colour = "#D55E00") + facet_wrap(~ paste("Band", state), scales = "free_y") +
+  theme_wgh() + labs(x = "Years since start of follow-up", y = "Prevalence (%)")
+```
+
+When observed and expected prevalence agree, the model describes the data
+well.
+
+A band seen at one visit can be wrong because of measurement error near a
+cut-off. `wgh_hmm()` treats the true band as hidden and allows each
+observation to be misclassified into an adjacent band, which separates real
+movement from measurement noise. It is slower, so here it is fitted to a
+random 2,000 children.
+
+```{r}
+set.seed(3)
+md_small <- md[md$id %in% sample(unique(md$id), 2000), ]
+hm <- wgh_hmm(md_small)
+round(hm$misclassification, 3)
+```
+
+## 7. The three studies in one call each
+
+```{r}
+spurt <- wgh_flow_pubertal_spurt(long)
+pheno <- wgh_flow_growth_phenotypes(long, spurt = spurt)
+pheno
+pheno$tables$stability
+outcomes <- wgh_flow_phenotype_outcomes(long, phenotypes = pheno)
+outcomes$tables$phenotype_outcome
+canal <- wgh_flow_canalization(v)
+canal
+```
+
+```{r flow-transitions, fig.alt = "Transition percentages between height bands by sex", fig.height = 3.8}
+plot(canal, "fig_transition_heatmap")
+```
+
+```{r flow-phenotypes, fig.alt = "Mean HAZ trajectory of each phenotype in girls", fig.height = 4}
+plot(pheno, "fig_phenotypes_female")
+```
+
+In the simulated girls, the tall, early and fast phenotype has higher odds
+of overweight or obesity in late adolescence than the reference phenotype,
+the kind of link examined on the growth side of [2]. With your own data, pass
+the outcome table as `outcome_data` (one row per child with `id` and the
+outcome) and the flow also estimates how much of the timing effect passes
+through late-adolescent BMI.
+
+## Where to go next
+
+* `vignette("growth-distributions")` gives each child a personalised expected
+  range, a continuous counterpart of the height bands.
+* `vignette("prediction")` predicts late-adolescent height.
+
+## References
+
+```{r, echo = FALSE, results = "asis"}
+cat(paste0(wgh_references(c("phenotypes", "phenotype_outcomes", "canalization"), format = "text"), collapse = "\n\n"))
+```

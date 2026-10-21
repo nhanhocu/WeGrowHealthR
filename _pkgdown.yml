@@ -1,0 +1,32 @@
+url: ~
+template:
+  bootstrap: 5
+reference:
+- title: Foundation
+  contents: [wgh_data, wgh_map, wgh_config, wgh_taus, wgh_parallel, wgh_sample_flow, wgh_min_visits, wgh_fmt_p, wgh_midline_decimal, theme_wgh, wgh_palette, wgh_plot_options, wgh_references, wgh_parallel_info]
+- title: Output and reports
+  contents: [wgh_report, wgh_export, wgh_compare_outputs, wgh_flextable, wgh_export_xlsx, wgh_save_figure, wgh_bundle_save, wgh_log_fit]
+- title: Data preparation
+  contents: [wgh_clean, wgh_decimal_age, wgh_age_bands, wgh_flag_biv, wgh_digit_preference, wgh_dedup_visits, wgh_visit_summary, wgh_merge_measures]
+- title: References, z-scores and classification
+  contents: [wgh_reference, wgh_zscore, wgh_lms_z, wgh_add_zscores, wgh_compare_references, wgh_classify, wgh_dbm, wgh_bmi_category, wgh_fit_lms, wgh_centiles]
+- title: Descriptive epidemiology and trends
+  contents: [wgh_table1, wgh_prevalence, wgh_multinom_ci, wgh_trend_test, wgh_median_ci, wgh_median_diff, wgh_compare_groups, wgh_gee_trend, starts_with("wgh_plot_")]
+- title: Trajectories
+  contents: [wgh_index_exposure, wgh_exposure_change, wgh_fit_lmm, wgh_contrasts, wgh_icc, wgh_sensitivity]
+- title: Growth curves and the pubertal spurt
+  contents: [wgh_fit_sitar, wgh_aphv, wgh_sitar_effects, wgh_age_density, wgh_check_identifiable, wgh_sitar_diagnostics, wgh_sitar_select, wgh_sitar_ci, wgh_velocity_panel, wgh_curve_features, wgh_fpca_curves]
+- title: Distributional models and conditional references
+  contents: [wgh_rq, wgh_slopes, wgh_test_heterogeneity, wgh_crossing, wgh_qgam_check, wgh_lqmm, wgh_dispersion, wgh_support, wgh_scalar_quantiles, wgh_gamlss_scale, wgh_conditional_panel, wgh_condref, predict.wgh_condref, wgh_condref_cv, wgh_condref_centile, wgh_condref_compare, wgh_quantile_forest]
+- title: Phenotypes, states and transitions
+  contents: [wgh_fpca, wgh_cluster, wgh_name_phenotypes, wgh_cluster_neighbours, wgh_validate_phenotypes, wgh_link_outcome, wgh_states, wgh_transitions, wgh_transition_matrix, wgh_rtm, wgh_transition_glmm, wgh_msm_data, wgh_msm, wgh_msm_check, wgh_hmm, wgh_false_moves]
+- title: Prediction, evaluation and explanation
+  contents: [wgh_prediction_cohort, wgh_features, wgh_benchmark, wgh_prediction_interval, wgh_compare_models, wgh_predict_child, wgh_benchmark_intervals, wgh_benchmark_shap, wgh_split, wgh_leakage_check, wgh_score, wgh_score_rows, wgh_paired_scores, wgh_calibration, wgh_conformal, wgh_shap, wgh_shap_summary, wgh_permutation_importance, wgh_rank_stability, wgh_shap_interaction]
+- title: Causal helpers
+  contents: [wgh_exposure_window, wgh_mediation]
+- title: Study flows and pipeline
+  contents: [starts_with("wgh_flow_"), wgh_use_pipeline]
+- title: Simulation and data
+  contents: [wgh_simulate, wgh_preset, wgh_preset_peaks, wgh_add_messiness, wgh_simulate_clinical_cases, wgh_truth_check, wgh_resemblance_report, wgh_tune_preset, wgh_download, growdat, growdat_raw, growdat2_mini, clinical_cases, who_lms, cdc_lms, wgh_targets]
+- title: Plot methods
+  contents: [starts_with("plot.")]

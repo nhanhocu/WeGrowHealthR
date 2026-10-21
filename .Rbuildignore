@@ -1,0 +1,17 @@
+^data-raw$
+^_pkgdown\.yml$
+^README\.Rmd$
+^\.github$
+^docs$
+^.*\.Rproj$
+^\.Rproj\.user$
+^RELEASE\.md$
+^Rplots\.pdf$
+^vignettes/.*\.orig$
+^vignettes/precompute\.R$
+^CITATION\.cff$
+^CONTRIBUTING\.md$
+^CODE_OF_CONDUCT\.md$
+^cran-comments\.md$
+^LICENSE\.md$
+^\.gitignore$

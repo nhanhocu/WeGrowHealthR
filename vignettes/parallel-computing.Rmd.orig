@@ -1,0 +1,192 @@
+---
+title: "Parallel computing"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Parallel computing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 7, fig.height = 4.2, dpi = 72,
+                      fig.path = "figures/par-", message = TRUE)
+options(width = 100, tibble.width = 100, tibble.print_max = 12)
+```
+
+> **About this vignette.** All data are simulated with `wgh_simulate()`.
+> The results illustrate the code and are not research findings. The
+> vignette was precomputed on a machine with
+> `r parallel::detectCores()` cores, so the speed-ups shown are modest. On a
+> machine with 8 or 16 cores they are much larger.
+
+The heaviest analyses of the research program are bootstraps over children,
+grids of quantiles and cross-validation folds. Each replicate, quantile or
+fold is independent of the others, so they can run at the same time on
+several cores. The analysis code of the studies on the BMI and height-for-age
+distribution [1], the pubertal velocity distribution [2] and spurt duration
+[3] did this with the `future` and `furrr` packages. WeGrowHealthR builds the
+same approach into its functions: you set up workers once, and every heavy
+step uses them.
+
+## What runs in parallel
+
+| Function | What is split across workers |
+|---|---|
+| `wgh_rq()` | Bootstrap replicates over children |
+| `wgh_lqmm()` | The quantile grid and the bootstrap replicates |
+| `wgh_sitar_ci()` | Bootstrap refits of the SITAR model |
+| `wgh_scalar_quantiles()` | Bootstrap replicates |
+| `wgh_mediation()` | Bootstrap replicates |
+| `wgh_link_outcome()` | Bootstrap replicates |
+| `wgh_cluster_stability()` | Bootstrap refits of the mixture model |
+| `wgh_benchmark()` | Cross-validation folds of every model |
+| `wgh_condref_cv()`, `wgh_condref_compare()` | Cross-validation folds |
+| Flows | Every one of the steps above inside them |
+
+Lighter steps, such as a bootstrap of a mean, stay sequential because
+sending the work to other processes would cost more than it saves.
+
+## Setting up workers
+
+`wgh_parallel()` starts the workers with `future::plan()`:
+
+* `workers` is the number of R processes. The default leaves one core free
+  for the rest of the computer.
+* `strategy = "multisession"` (default) starts separate R sessions and works
+  on every platform. `"multicore"` forks the current session, which starts
+  faster but is not available on Windows or inside RStudio.
+* `max_size` raises the limit on the data that can be sent to each worker
+  (2 GB by default, against 500 MB in `future`), because growth data and
+  fitted models are often large.
+
+All arguments are checked before anything changes, so a wrong call leaves
+your set-up as it was. `wgh_parallel_info()` shows the current state.
+
+```{r}
+library(WeGrowHealthR)
+wgh_parallel_info()
+old <- wgh_parallel(workers = 2)
+wgh_parallel_info()
+```
+
+`parallel_active = TRUE` means the package will use the workers. The
+function returns the previous plan invisibly, and `wgh_parallel(1)` returns
+to sequential processing and restores the memory limit.
+
+## Example: a cluster bootstrap of quantile regression
+
+```{r}
+wgh_config("analysis")
+v <- wgh_simulate(30000, seed = 2026)$visits
+girls <- v[v$sex == "Female" & v$age >= 5 & v$age <= 18.5, ]
+f <- haz ~ splines::ns(age, knots = c(8, 11, 14), Boundary.knots = c(5, 18.5)) * baz
+
+t_par <- system.time(
+  fit_par <- wgh_rq(girls, f, taus = c(0.05, 0.25, 0.5, 0.75, 0.95), anchor_ages = c(6, 9, 12, 15), B = 200)
+)
+wgh_parallel(1)
+t_seq <- system.time(
+  fit_seq <- wgh_rq(girls, f, taus = c(0.05, 0.25, 0.5, 0.75, 0.95), anchor_ages = c(6, 9, 12, 15), B = 200)
+)
+rbind(parallel = t_par, sequential = t_seq)[, "elapsed"]
+all.equal(fit_par$slopes, fit_seq$slopes)
+```
+
+The two runs give **identical** results. Every replicate draws its random
+numbers from its own stream (L'Ecuyer-CMRG), derived from the function's
+`seed` argument, so it does not matter which worker runs which replicate, or
+how many workers there are. Your own random number stream is not changed by
+the call either.
+
+## Example: a SITAR bootstrap and a linear quantile mixed model
+
+SITAR refits and linear quantile mixed models are slow, so they gain the
+most.
+
+```{r}
+wgh_config("dev")
+boys <- v[v$sex == "Male" & v$age >= 6 & v$age <= 18, ]
+fit <- wgh_fit_sitar(boys, df = 5, age_range = c(6, 18))
+wgh_parallel(2)
+t_par <- system.time(ci_par <- wgh_sitar_ci(fit, B = 8))
+wgh_parallel(1)
+t_seq <- system.time(ci_seq <- wgh_sitar_ci(fit, B = 8))
+rbind(parallel = t_par, sequential = t_seq)[, "elapsed"]
+all.equal(ci_par, ci_seq)
+```
+
+```{r}
+set.seed(1)
+small <- girls[girls$pid %in% sample(unique(girls$pid), 500), ]
+wgh_parallel(2)
+t_par <- system.time(lq_par <- wgh_lqmm(small, f, taus = c(0.1, 0.5, 0.9), anchor_ages = c(9, 12), B = 4))
+wgh_parallel(1)
+t_seq <- system.time(lq_seq <- wgh_lqmm(small, f, taus = c(0.1, 0.5, 0.9), anchor_ages = c(9, 12), B = 4))
+rbind(parallel = t_par, sequential = t_seq)[, "elapsed"]
+all.equal(lq_par$slopes, lq_seq$slopes)
+```
+
+## Example: cross-validation of prediction models
+
+```{r}
+pc <- wgh_prediction_cohort(wgh_simulate(8000, seed = 4)$visits)
+wgh_parallel(2)
+t_par <- system.time(bm_par <- wgh_benchmark(pc, models = c("M1", "M5", "M7", "M8"), folds = 5))
+wgh_parallel(1)
+t_seq <- system.time(bm_seq <- wgh_benchmark(pc, models = c("M1", "M5", "M7", "M8"), folds = 5))
+rbind(parallel = t_par, sequential = t_seq)[, "elapsed"]
+all.equal(bm_par$performance, bm_seq$performance)
+```
+
+For this small cohort (a few hundred children) the parallel benchmark is
+slower: sending the folds to other processes costs more than fitting them.
+The small quantile mixed model above gains almost nothing for the same
+reason. Parallel processing
+pays off when each task takes seconds or more, as for the quantile
+regression bootstrap and the SITAR refits, where the time fell by about 40% with
+two workers. The results are identical in every case.
+
+## Whole flows
+
+The flows call these functions, so a parallel plan speeds up a whole study.
+With your own data in publication mode:
+
+```{r, eval = FALSE}
+wgh_parallel(workers = 8)
+wgh_config("publication")
+rep <- wgh_flow_distributional_height(mydata)     # quantile grid and bootstrap on 8 workers
+spurt <- wgh_flow_pubertal_spurt(mydata)          # SITAR bootstrap intervals on 8 workers
+wgh_parallel(1)
+```
+
+## Good practice
+
+* **Memory.** Each worker holds its own copy of the data it needs. Before a
+  large run, check that the number of workers times the size of the data
+  fits in memory. The package sends each worker only the objects a task
+  uses, which avoids the "globals too large" error the original scripts met
+  when a helper function carried its whole environment to every worker.
+* **One level of parallelism.** Gradient boosting and random forests inside
+  the package use one thread each, so they do not compete with the workers.
+  If your BLAS library is multithreaded, limit it to one thread per worker
+  (for example with the `RhpcBLASctl` package).
+* **Installed package.** Workers load WeGrowHealthR from your library, so
+  install the package rather than loading a development copy. If it is not
+  installed, the package runs sequentially and says so.
+* **Reproducibility.** Report the `seed` arguments you used. The number of
+  workers does not need to be reported, because it does not change the
+  results.
+* **Clusters.** Any `future` plan works, including a plan over several
+  machines (`future::plan(future::cluster, workers = ...)`), because the
+  package only asks whether a parallel plan is active.
+
+```{r}
+wgh_parallel(1)
+wgh_parallel_info()
+```
+
+## References
+
+```{r, echo = FALSE, results = "asis"}
+cat(paste0(wgh_references(c("distribution", "velocity", "duration"), format = "text"), collapse = "\n\n"))
+```

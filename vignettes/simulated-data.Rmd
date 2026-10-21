@@ -1,0 +1,167 @@
+---
+title: "The simulated teaching cohorts"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{The simulated teaching cohorts}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 7, fig.height = 5, dpi = 80)
+```
+
+Every dataset in WeGrowHealthR comes from one generator, `wgh_simulate()`.
+Real growth records of children cannot be shared, so the package ships
+simulated cohorts instead. The `wgh_like` preset is set so that a cohort
+**resembles** the published results of the school health cohort studied in
+the research program (see `wgh_references()`): the same patterns, the same
+directions of effect and numbers of a similar size. It does not reproduce
+published values, and nothing computed from it is a finding.
+
+This vignette explains how the generator works, how to check the
+resemblance, how to change the simulated world, and how to use the truth
+file to test methods.
+
+## Simulating a cohort
+
+```{r}
+library(WeGrowHealthR)
+sim <- wgh_simulate(20000, seed = 2026)
+sim
+```
+
+The main arguments are:
+
+* `n_children`, the number of children generated before enrolment rules
+  (fewer appear in the visit data, because not every child attends),
+* `preset`, `"wgh_like"` (default) or `"reference"` (a cohort with simple,
+  textbook settings), or a settings list from `wgh_preset()`,
+* `seed`, so the same call always gives the same cohort,
+* `informative_visits`, whether attendance depends on the child's BMI as in
+  real school data (`FALSE` makes visits missing at random),
+* `style`, the column names: `"book1"` (`pid`, `yearvisit`, `baz`) or
+  `"book2"` (`pid`, `schoolyear`, `bmiz`),
+* `...`, single settings that override the preset, for example
+  `years = 2012:2025`.
+
+The result is a list:
+
+```{r}
+names(sim)
+head(sim$visits)
+```
+
+* `visits` holds the measurements, one row per visit, with WHO z-scores,
+* `roster` lists every child and school year, attended or not,
+* `truth_child` and `truth_visit` hold the true values behind the
+  measurements (next sections),
+* `pop_peaks` the population APHV and PHV implied by the settings,
+* `settings` the full settings used.
+
+### How the children grow
+
+Each child's height follows a Preece-Baines mean curve for the child's sex,
+joined below 6 years to a WHO-shaped early childhood curve. The child's own
+curve is the mean curve shifted in size, timing and intensity, as in a SITAR
+model. Children belong to growth phenotypes (for example early and intense,
+or late and gentle) that shift these parameters. Adiposity is a stable
+child trait with a slow drift. It raises BMI, makes puberty slightly earlier
+and is linked with height. BMI is converted to weight through the WHO
+reference. Measurement error is added to height and weight. Attendance
+depends on age, calendar year (with a year of school closures) and, when
+`informative_visits = TRUE`, on BMI.
+
+## How close is the resemblance?
+
+`wgh_targets` lists published patterns with acceptable bands, for example
+the prevalence of overweight and obesity by sex, the APHV of boys and girls
+and the spread of individual timing. `wgh_resemblance_report()` computes
+each pattern in a simulated cohort and checks it against its band.
+
+```{r}
+head(wgh_targets)
+rr <- wgh_resemblance_report(sim)
+rr
+```
+
+```{r, fig.alt = "Position of each simulated statistic within its acceptable band", fig.height = 6}
+plot(rr, base_size = 9)
+```
+
+Each row of the plot is one pattern. The green area is the acceptable band,
+the cross the published value and the dot the simulated value (blue inside
+the band, orange outside). `plot(rr, only_failed = TRUE)` shows only the
+patterns outside their band.
+
+Some patterns were used to set the preset (`tuned = TRUE`). Others were kept
+out as independent checks, for example the association between BMI and
+height in childhood and in late adolescence. Passing those checks shows the
+generator has the right structure, not only the right averages.
+
+## Building another world
+
+Because the true structure is known, you can change one setting and see how
+an analysis responds. `wgh_preset()` returns all settings, with units
+documented in the package source.
+
+```{r}
+s <- wgh_preset("wgh_like")
+s$beta_tempo_adiposity
+s$beta_tempo_adiposity <- c(Male = 0, Female = 0)     # adiposity no longer changes timing
+alt <- wgh_simulate(5000, preset = s, seed = 1)
+cor(alt$truth_child$u_adip, alt$truth_child$b_tempo)
+cor(sim$truth_child$u_adip, sim$truth_child$b_tempo)
+```
+
+In the altered world, adiposity and timing are unrelated, while in the
+default world children with more adiposity have earlier timing (negative
+`b`). Running the pubertal spurt analysis on both worlds shows whether a
+method can tell them apart.
+
+`wgh_tune_preset()` adjusts a few settings automatically so that a preset
+meets the prevalence and age-distribution targets, which is how the
+`wgh_like` preset was set.
+
+## The truth file: testing methods
+
+`truth_child` holds each child's true SITAR parameters, phenotype and
+adiposity, and `truth_visit` the true height and velocity at each visit.
+
+```{r}
+head(sim$truth_child)
+```
+
+`wgh_truth_check()` compares estimates with the truth, for example the
+individual APHV from a SITAR model with `aphv_true`:
+
+```{r, eval = FALSE}
+boys <- sim$visits[sim$visits$sex == "Male", ]
+fit <- wgh_fit_sitar(boys, df = 5, age_range = c(6, 18))
+eff <- wgh_sitar_effects(fit)
+eff$pid <- eff$id
+wgh_truth_check(eff, sim$truth_child, est_col = "aphv", truth_col = "aphv_true")
+```
+
+This is the safest way to learn what a method can and cannot recover.
+
+## Bundled datasets
+
+| Dataset | What it is |
+|---|---|
+| `growdat` | A cohort of about 3,300 children from 18 months to 18 years, book 1 column names |
+| `growdat_raw` | `growdat` as a messy export, for practising cleaning |
+| `growdat2_mini` | A smaller cohort with book 2 column names, with its truth file `growdat2_mini_truth` |
+| `clinical_cases` | A few dozen children with clinical patterns (`wgh_simulate_clinical_cases()`) |
+| `wgh_targets` | The published patterns used to check resemblance |
+| `who_lms`, `cdc_lms` | WHO and CDC 2000 LMS reference tables |
+
+The full-size cohort used in book 2 can be obtained with `wgh_download()`.
+It downloads a frozen copy when a URL is configured, verifying its checksum,
+and otherwise regenerates the same cohort locally. The result records where
+it came from in its `"provenance"` attribute.
+
+```{r}
+small <- wgh_download(url = NULL, n_children = 500)
+attr(small, "provenance")[c("source", "n_children", "seed", "preset", "package_version")]
+```

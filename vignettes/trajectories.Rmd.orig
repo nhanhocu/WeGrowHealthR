@@ -1,0 +1,161 @@
+---
+title: "Prepubertal BMI and the height trajectory"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Prepubertal BMI and the height trajectory}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 7, fig.height = 4.2, dpi = 72,
+                      fig.path = "figures/traj-", message = TRUE)
+options(width = 100, tibble.width = 100, tibble.print_max = 12)
+```
+
+> **About this vignette.** All data are simulated with `wgh_simulate()`. The
+> results show how the methods work and resemble the published patterns,
+> but they are not the published findings and are not research results.
+> The functions run in development mode (`wgh_config("dev")`).
+
+Children with overweight or obesity before puberty are often taller than
+their peers and then lose that advantage during adolescence. This vignette
+reproduces the longitudinal analysis of that pattern (Ho et al. 2026) [1]:
+assigning each child a BMI category at a prepubertal index age, comparing
+height-for-age between the categories at milestone ages, and modelling the
+whole trajectory with a mixed model. It ends with the flow that does it in
+one call. The vignette is precomputed.
+
+```{r}
+library(WeGrowHealthR)
+wgh_config("dev")
+v <- wgh_simulate(30000, seed = 2026)$visits
+```
+
+## 1. The analytic sample
+
+Trajectories need repeated visits. `wgh_sample_flow()` applies the
+restrictions in order and records how many children each step removes.
+
+```{r}
+fl <- wgh_sample_flow(v, "Ages 5 to 18" = ~ age >= 5 & age <= 18.5,
+                      "At least 2 visits" = wgh_min_visits(2))
+fl
+```
+
+The restricted data are in `fl$data`.
+
+## 2. Exposure at a prepubertal index age
+
+`wgh_index_exposure()` picks one visit per child in an index window and
+attaches its value to every visit of that child. The defaults follow the
+study: the earliest visit from 5 years and at or before 11 years in boys
+and 9 years in girls (`max_age`), so the exposure is measured before most
+children enter puberty. `categories` turns the value into groups, here the
+WHO BMI categories without a separate thinness group.
+
+```{r}
+ix <- wgh_index_exposure(fl$data, "baz", max_age = c(Male = 11, Female = 9),
+                         categories = function(b, a) wgh_bmi_category(b, a, thinness = FALSE))
+ix$index_cat <- droplevels(ix$index_cat)
+first <- ix[!duplicated(ix$id), ]
+table(first$sex, first$index_cat)
+```
+
+`index_value` holds the index BAZ, `index_age` the age at the index visit and
+`index_cat` the category. Each child keeps the same values at all visits.
+
+## 3. Comparing groups at milestone ages
+
+`wgh_compare_groups()` compares an outcome between groups in windows around
+stated ages (`ages`, with half-width `window`). It runs a Kruskal-Wallis test
+across all groups and Dunn pairwise tests with Holm adjustment.
+
+```{r}
+kw <- wgh_compare_groups(ix, "haz", "index_cat", ages = c(8, 10, 12, 14, 16), by = "sex")
+kw$overall
+head(kw$pairwise)
+```
+
+```{r trajectories, fig.alt = "HAZ by age for each prepubertal BMI category, with p-values at milestone ages", fig.height = 4.4}
+wgh_plot_trajectories(ix, "haz", "index_cat", milestones = c(8, 10, 12, 14, 16))
+```
+
+Before puberty, children with obesity have the highest height-for-age. The
+curves converge in adolescence, and in girls the order even reverses: by 16
+years girls who had obesity before puberty are the shortest group.
+`wgh_plot_trajectories()` takes the same display options as every plot, for
+example `show_ci = FALSE` or `legend = "right"`.
+
+## 4. A mixed model of the trajectory
+
+The group comparisons use cross-sections. A linear mixed model uses every
+visit of every child. `wgh_fit_lmm()` fits HAZ with a natural spline of age
+interacting with the index category, a fixed site effect, and a random
+intercept and slope for age within child (`random = "(1 + age_c | id)"`,
+with age centred at 10 years).
+
+```{r}
+girls <- ix[ix$sex == "Female", ]
+fit_g <- wgh_fit_lmm(girls, haz ~ splines::ns(age, df = 3) * index_cat + site)
+wgh_fit_stats(fit_g)
+```
+
+The marginal R2 is the variance explained by the fixed effects and the
+conditional R2 adds the child random effects. A large difference between
+them, and a high ICC, means most of the variation in HAZ is stable
+differences between children, as expected for height.
+
+`wgh_contrasts()` reads the model at stated ages and compares categories
+pairwise (with `emmeans`):
+
+```{r}
+ct <- wgh_contrasts(fit_g, "index_cat", ages = c(8, 12, 16))
+ct$contrasts
+```
+
+Each row is a difference in mean HAZ between two categories at one age,
+with a Holm-adjusted p-value. In girls, those with obesity before puberty
+are taller than those with normal BMI at 8 years, the advantage shrinks by
+12 years, and it turns into a deficit by 16 years. This is the pattern of
+earlier puberty and an earlier end of growth.
+
+## 5. Changes in BMI category
+
+`wgh_exposure_change()` compares each child's category at two ages, to see
+how stable the exposure is.
+
+```{r}
+ch <- wgh_exposure_change(fl$data, ages = c(7, 10))
+table(ch$sex, ch$change)
+```
+
+## 6. The whole study in one call
+
+```{r}
+rep <- wgh_flow_index_trajectory(v)
+rep
+rep$tables$contrasts
+```
+
+```{r flow-height, fig.alt = "Height by age for each prepubertal BMI category", fig.height = 4.4}
+plot(rep, "fig_height_trajectories", title = "Height trajectories by prepubertal BMI category")
+```
+
+The report also contains a sensitivity analysis restricted to children with
+at least four visits (`rep$tables$sensitivity_4plus_visits`), which checks
+that the result does not depend on children seen only twice.
+
+## Where to go next
+
+* Timing of the pubertal spurt explains why the advantage disappears. See
+  `vignette("growth-curves")`.
+* `wgh_mediation()` estimates how much of an effect passes through a
+  mediator, and `wgh_exposure_window()` defines exposures in a window before
+  an outcome without leakage.
+
+## References
+
+```{r, echo = FALSE, results = "asis"}
+cat(paste0(wgh_references("trajectory", format = "text"), collapse = "\n\n"))
+```

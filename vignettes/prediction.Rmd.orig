@@ -1,0 +1,326 @@
+---
+title: "Predicting late-adolescent height and explaining predictions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Predicting late-adolescent height and explaining predictions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 7, fig.height = 4.2, dpi = 72,
+                      fig.path = "figures/pred-", message = TRUE)
+options(width = 100, tibble.width = 100, tibble.print_max = 12)
+```
+
+> **About this vignette.** All data are simulated with `wgh_simulate()`. The
+> results show how the methods work and resemble the published patterns,
+> but they are not the published findings and are not research results.
+> The functions run in development mode: SITAR models use at most 1,000 children, the benchmark uses 5-fold cross-validation and the prediction cohort has a few hundred children, so model rankings are illustrative.
+
+Parents and clinicians often ask how tall a child will be. A prediction is
+useful only if it is accurate for new children, if it comes with an honest
+statement of uncertainty, and if one can see why the model predicts what it
+does. This vignette walks through all three, reproducing two studies of the
+research program:
+
+* predicting late-adolescent height from prepubertal growth (Ho 2026) [1],
+  and
+* explaining individual growth predictions across the growth distribution
+  (Ho 2026) [2].
+
+The steps are: build a cohort of features and outcomes, compare models on
+the same cross-validation folds, check calibration and agreement, attach
+prediction intervals, show a prediction for one child, explain it, and
+finally run the flows. The vignette is precomputed.
+
+Prediction needs children measured both before puberty and in late
+adolescence, so this vignette uses a simulated cohort followed for 14 school
+years with little dropout (see `vignette("simulated-data")` for the
+settings).
+
+```{r}
+library(WeGrowHealthR)
+wgh_config("dev")
+v <- wgh_simulate(8000, seed = 7, years = 2012:2025, missing_years = integer(),
+                  dropout = c(intercept = -4, age = 0), entry_first_prob = 0.9)$visits
+```
+
+## 1. What is predicted from what
+
+The question is: from what we know about a child before puberty, how tall
+will the child be in late adolescence? `wgh_prediction_cohort()` builds one
+row per child:
+
+* the **baseline** is the earliest visit at or before a prepubertal cutoff
+  (`cutoff`, 11 years in boys and 9 years in girls, in completed years),
+* the **features** come only from visits up to the cutoff: baseline height,
+  HAZ and BAZ, their categories, short- and long-term height velocity, the
+  yearly slopes of BAZ and HAZ, a BMI trajectory class and birth year,
+* the **outcome** `height_late` is the median height in a late-adolescent
+  window (`outcome_window`, 16 to 18 years in boys and 14 to 16 in girls).
+
+A check stops the function if any baseline falls inside the outcome window,
+so the outcome can never leak into the features.
+
+```{r}
+pc <- wgh_prediction_cohort(v)
+attr(pc, "attrition")
+table(pc$sex)
+head(pc[, c("id", "sex", "age_base", "height_base", "haz_base", "baz_base", "vel_short", "baz_slope", "height_late")])
+```
+
+The attrition table shows how many children have a prepubertal visit and an
+outcome visit, and the share retained at each site. A site that loses many
+more children than the others would make the cohort unrepresentative.
+
+`wgh_table1(pc, vars = ..., by = "sex")` describes the cohort.
+
+## 2. A fair comparison of models
+
+`wgh_benchmark()` fits a ladder of models, from the simplest to machine
+learning, and evaluates them all on the **same** child-level folds, so the
+comparison is fair:
+
+| Code | Model |
+|---|---|
+| M0 | Linear regression on baseline height only |
+| M1 | Stepwise linear regression with categories |
+| M2 | Stepwise linear regression with z-scores and velocities |
+| M3 | Mixed model with an age spline |
+| M4 | Generalised additive model |
+| M5 | Mixed model with velocity and BAZ slope (the primary model of [1]) |
+| M6 | M5 plus SITAR timing and intensity |
+| M7 | Gradient boosting (XGBoost) |
+| M8 | Random forest |
+
+`models` chooses the models, `folds` the number of folds (or
+`folds = "site"` for leave-one-site-out), and `site_effect` whether site
+is a fixed or a random effect in the linear models. Models are fitted
+separately for boys and girls. Missing feature values are imputed with
+medians computed from the training folds only.
+
+```{r}
+bm <- wgh_benchmark(pc, models = c("M0", "M1", "M2", "M5", "M7", "M8"), folds = 5)
+bm
+```
+
+The table (also in `bm$performance`) gives, for each sex and model, `RMSE`
+and `MAE`, the typical prediction errors in cm, `R2` the share of
+variance explained, and `calibration_slope` the slope of observed on
+predicted height (1 is ideal, below 1 means predictions are too extreme).
+All values are out of fold: each child is predicted by a model that never
+saw that child.
+
+```{r benchmark, fig.alt = "Cross-validated RMSE of each model by sex", fig.height = 3.6}
+plot(bm)
+```
+
+Baseline height alone (M0) already explains much of the variation, because
+height tracks through childhood. Adding velocity, BMI and their changes (M2
+and M5) reduces the error further. Gradient boosting and random forests do
+not clearly beat the linear models, a common finding when the relationships
+are close to linear, so the simpler, interpretable model is preferred.
+Prediction is harder in girls, whose baseline is earlier (up to 9 years) and
+whose pubertal timing varies more.
+
+`wgh_compare_models()` tests whether two models differ, with a paired
+bootstrap of their out-of-fold errors:
+
+```{r}
+wgh_compare_models(bm, "M5", "M8", B = 500)
+```
+
+## 3. Are the predictions right on average? Calibration and agreement
+
+A model can have a small RMSE and still be biased for tall or short
+children. `wgh_plot_calibration()` groups children by predicted height and
+plots the mean observed against the mean predicted height. Points on the
+diagonal mean the model is right on average across the range.
+
+```{r calibration, fig.alt = "Calibration of model M5", fig.height = 3.8}
+wgh_plot_calibration(bm, "M5")
+```
+
+The Bland-Altman plot shows the error of each child against the size of the
+measurement. The solid line is the mean error (bias) and the dashed lines
+the 95% limits of agreement: 95% of children are predicted within these
+limits.
+
+```{r bland-altman, fig.alt = "Bland-Altman plot of model M5", fig.height = 3.6}
+wgh_plot_bland_altman(bm, "M5", alpha = 0.2)
+```
+
+## 4. How sure is a prediction? Prediction intervals
+
+A single number hides the uncertainty. `wgh_prediction_interval()` gives a
+95% prediction interval for linear and mixed models, combining the
+uncertainty of the fitted mean with the residual variance. The interval is
+for an individual child, so it is much wider than a confidence interval for
+the mean.
+
+For the children of a benchmark, `wgh_benchmark_intervals()` applies it to
+the full-data fit of a model and checks how many observed heights fall
+inside their interval:
+
+```{r}
+iv <- wgh_benchmark_intervals(bm, "M5")
+head(iv)
+attr(iv, "summary")
+```
+
+A coverage close to 0.95 means the intervals are honest. The mean width,
+`r round(attr(iv, "summary")$mean_width[attr(iv, "summary")$sex == "Male"])` cm in
+boys and `r round(attr(iv, "summary")$mean_width[attr(iv, "summary")$sex == "Female"])`
+cm in girls, is the real uncertainty of predicting late-adolescent height
+from prepubertal growth. For a single fitted model,
+`wgh_prediction_interval(model, newdata)` does the same.
+
+## 5. Showing a prediction to a family or clinician
+
+`wgh_predict_child()` predicts for one child described by baseline features
+(features that are not supplied are filled with cohort medians), and
+`wgh_plot_child_prediction()` shows the result on a growth chart: the
+measured heights up to the cutoff, the predicted late-adolescent height
+with its interval, and WHO centiles for context. When later measurements are
+supplied, they show how the prediction turned out.
+
+```{r}
+several <- names(which(table(v$pid[v$age <= 9]) >= 3))
+girls <- pc[pc$sex == "Female", ]
+girl <- girls[girls$id %in% several, ][1, ]
+wgh_predict_child(bm, girl, "M5")
+```
+
+```{r child, fig.alt = "Predicted late-adolescent height of one girl on a growth chart", fig.height = 4.4}
+wgh_plot_child_prediction(bm, girl, visits = v[v$pid == girl$id, ])
+```
+
+The chart answers the family's question in a form they can read: where the
+child is now, where she is expected to be, and how wide the range of likely
+outcomes is. Placing the prediction among the WHO centiles shows whether the
+expected late-adolescent height is ordinary or unusual.
+
+For a new child who is not in the cohort, give the features directly:
+
+```{r}
+new_boy <- data.frame(sex = "Male", age_base = 9.5, height_base = 136, haz_base = 0.4,
+                      baz_base = 1.2, vel_short = 5.8, baz_slope = 0.1)
+wgh_predict_child(bm, new_boy, "M5")
+```
+
+## 6. Why this prediction? SHAP explanations
+
+SHAP values split a prediction into contributions of each feature, relative
+to the average prediction (the baseline). They add up exactly to the
+prediction. `wgh_shap()` computes them for any model: exactly for tree
+models (TreeSHAP) and linear models, and by kernel SHAP otherwise, with
+`bg_X` as the background data.
+
+Here we explain the gradient boosting model of boys (M7), which is the kind
+of model that most needs explaining. `wgh_benchmark_shap()` explains any
+model of a benchmark with the same feature preparation as in the benchmark.
+
+```{r}
+sh <- wgh_benchmark_shap(bm, "M7", "Male")
+wgh_shap_summary(sh, B = 100)
+```
+
+`mean_abs_shap` is the average size of each feature's contribution, with a
+bootstrap interval. Baseline HAZ dominates, followed by baseline BAZ, age
+and height.
+
+```{r shap-importance, fig.alt = "Mean absolute SHAP value of each feature", fig.height = 3.6}
+plot(sh, max_features = 10)
+```
+
+```{r shap-beeswarm, fig.alt = "SHAP values of every boy for each feature", fig.height = 4}
+plot(sh, type = "beeswarm", max_features = 10)
+```
+
+In the beeswarm plot each point is a child. Points to the right raise the
+prediction and the colour shows whether the feature value was high or low.
+For baseline HAZ, high values (orange) push the prediction up: children who
+are tall for their age before puberty end up taller.
+
+`wgh_plot_waterfall()` explains one prediction, step by step from the
+baseline:
+
+```{r waterfall, fig.alt = "Waterfall explanation of one boy's prediction", fig.height = 3.8}
+wgh_plot_waterfall(sh, row = 1, title = "Why this boy is predicted to be tall")
+```
+
+`wgh_permutation_importance()` is a model-agnostic check: it measures how
+much the error grows when one feature is shuffled. When it agrees with the
+SHAP ranking, the explanation is robust.
+
+## 7. Explaining predictions across the distribution
+
+The conditional growth references (`vignette("growth-distributions")`)
+predict several quantiles of later height-for-age for each child. The second
+study asked whether the same features drive the median, the lower and the
+upper predictions. For a linear quantile model with independent features,
+SHAP values are exact and simple: the coefficient times the centred feature
+value, with interaction terms shared equally between their features.
+`wgh_shap_interaction()` computes them.
+
+```{r}
+cp <- wgh_conditional_panel(v, window = c(5, 10), targets = 12)
+z <- cp[cp$sex == "Female" & complete.cases(cp[, c("baseline_haz", "baseline_baz", "baseline_age")]), ]
+q10 <- quantreg::rq(target ~ baseline_haz * baseline_baz + baseline_age, tau = 0.1, data = z)
+q90 <- quantreg::rq(target ~ baseline_haz * baseline_baz + baseline_age, tau = 0.9, data = z)
+s10 <- wgh_shap_interaction(coef(q10), z, z)
+s90 <- wgh_shap_interaction(coef(q90), z, z)
+rbind(q10 = colMeans(abs(s10$S)), q90 = colMeans(abs(s90$S)))
+```
+
+Baseline HAZ dominates both quantiles, but baseline age contributes more to
+the upper prediction than to the lower one. The features shape the two ends
+of a child's expected range differently, which a single mean model cannot
+show.
+
+## 8. Both studies in one call each
+
+`wgh_flow_height_prediction()` builds the cohort (joining SITAR timing and
+intensity from the pubertal spurt flow, never size), runs the full model
+ladder, leave-one-site-out validation, the M5 against M7 bootstrap,
+prediction intervals, calibration and Bland-Altman plots, SHAP for M7 and an
+example individual prediction. `wgh_flow_explain_prediction()` explains the
+conditional reference models across quantiles, with permutation importance
+and the stability of feature rankings across folds.
+
+```{r}
+spurt <- wgh_flow_pubertal_spurt(v)
+pred <- wgh_flow_height_prediction(v, spurt = spurt)
+pred
+pred$tables$cv_performance
+pred$tables$prediction_intervals_m5
+expl <- wgh_flow_explain_prediction(v)
+expl$tables$rank_stability
+```
+
+```{r flow-obs-pred, fig.alt = "Observed against predicted height for each model", fig.height = 4.6}
+plot(pred, "fig_obs_pred_all", alpha = 0.3)
+```
+
+```{r flow-quantile, fig.alt = "Mean absolute SHAP by quantile, sex and target age", fig.height = 4}
+plot(expl, "fig_quantile_resolved")
+```
+
+## Why this is useful
+
+* **For a child**: a predicted height with an honest range, shown on a
+  familiar chart, helps a clinician decide whether a child's growth needs
+  follow-up and helps families set realistic expectations.
+* **For research**: a fair benchmark shows whether complex models add
+  anything. Here they do not, which favours a transparent model that can be
+  published as an equation.
+* **For trust**: SHAP explanations show which features drive a prediction
+  and confirm that the model behaves sensibly, for example that faster
+  prepubertal growth predicts a taller adult.
+
+## References
+
+```{r, echo = FALSE, results = "asis"}
+cat(paste0(wgh_references(c("prediction", "explanation"), format = "text"), collapse = "\n\n"))
+```
