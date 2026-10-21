@@ -1,3 +1,5 @@
+citHeader("To cite the WeGrowHealthR package in publications, please use:")
+
 bibentry(
   bibtype = "Manual",
   title = "WeGrowHealthR: Child Growth Data Analysis, Modelling and Reproducible Research Workflows",
@@ -6,11 +8,16 @@ bibentry(
   note = paste("R package version", meta$Version),
   textVersion = paste0("Ho NT (2026). WeGrowHealthR: Child Growth Data Analysis, Modelling and Reproducible Research Workflows. R package version ", meta$Version, ".")
 )
-bibentry(
-  bibtype = "Article",
-  title = "Overweight and obesity epidemic, temporal trends and regional disparities in physical growth of Vietnamese children",
-  author = c(person("Nhan Thi", "Ho"), person("David", "Bangsberg"), person("Michelle L", "Hermiston"), person("others")),
-  journal = "Scientific Reports", year = "2026", volume = "16", pages = "7515",
-  doi = "10.1038/s41598-026-37210-w",
-  textVersion = "Ho NT, Bangsberg D, Hermiston ML, et al. Overweight and obesity epidemic, temporal trends and regional disparities in physical growth of Vietnamese children. Sci Rep. 2026;16:7515."
-)
+
+## When the software paper is published, uncomment and complete this entry,
+## and put it above the Manual entry so it is listed first.
+# bibentry(
+#   bibtype = "Article",
+#   title = "WeGrowHealthR: ...",
+#   author = person("Nhan Thi", "Ho"),
+#   journal = "...", year = "...", volume = "...", pages = "...",
+#   doi = "...",
+#   textVersion = "Ho NT. WeGrowHealthR: ... Journal. Year;Vol:Pages."
+# )
+
+citFooter("To cite the studies whose analyses a flow reproduces, use wgh_references().")
