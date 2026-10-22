@@ -39,6 +39,7 @@ that fall outside the curve are reported as censored, and curves whose
 peak is at the edge of the grid are flagged as degenerate.
 }
 \examples{
+\dontshow{if (rlang::is_installed("sitar")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
 fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
@@ -48,4 +49,5 @@ summary(cf$width_p50)
 # The legacy definition (fraction of peak velocity) is often censored
 mean(wgh_curve_features(pan, thresholds = 0.5, reference = "zero")$censored_left_p50)
 }
+\dontshow{\}) # examplesIf}
 }

@@ -38,10 +38,12 @@ observed (plus \code{extend} years), so curves are never read far outside the
 data, a problem in the developmental-time panel of the original code of the pubertal velocity distribution study (Ho 2026, medRxiv 2026.09.04.26362313).
 }
 \examples{
+\dontshow{if (rlang::is_installed("sitar")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
 fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 pan <- wgh_velocity_panel(fit, time = "aphv", grid = seq(-4, 4, by = 0.1), observed_only = FALSE)
 head(pan)
 }
+\dontshow{\}) # examplesIf}
 }

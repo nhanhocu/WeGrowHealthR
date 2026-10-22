@@ -36,9 +36,11 @@ Splits children into folds (or leaves one site out at a time), fits
 the benchmarks on the held-out part with \code{\link[=wgh_score]{wgh_score()}}.
 }
 \examples{
+\dontshow{if (rlang::is_installed(c("quantreg", "ranger"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 cp <- wgh_conditional_panel(growdat, targets = c(10, 12))
 cv <- wgh_condref_cv(cp, folds = 3)
 aggregate(cbind(crps, wis, coverage_90) ~ model, data = cv, FUN = mean)
 }
+\dontshow{\}) # examplesIf}
 }

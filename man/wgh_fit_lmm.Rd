@@ -35,9 +35,11 @@ setting that avoids the convergence failures common with large cohorts.
 Generalises \code{fit_trajectory_model()} from Book 1 Chapter 8.
 }
 \examples{
+\dontshow{if (rlang::is_installed("lme4")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 ix <- wgh_index_exposure(growdat, "baz", categories = function(b, a) wgh_bmi_category(b, a, FALSE))
 fit <- wgh_fit_lmm(ix[ix$age >= 5, ], haz ~ splines::ns(age, df = 3) * index_cat + sex)
 fit
 }
+\dontshow{\}) # examplesIf}
 }

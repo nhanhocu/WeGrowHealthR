@@ -24,7 +24,7 @@
 #'   only). Default: `TRUE` except in dev mode.
 #' @return A [wgh_report] whose `models` hold the SITAR fits and `tables`
 #'   include `individual_effects`.
-#' @examples
+#' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
 #' rep <- wgh_flow_pubertal_spurt(growdat2_mini, mode = "dev")
 #' rep
@@ -135,7 +135,7 @@ wgh_flow_pubertal_spurt <- function(x = NULL, mode = NULL, ci_B = NULL, select_f
 #' @param n_children Simulated cohort size when `x` is `NULL`. Late
 #'   adolescent outcomes need long follow-up, so a large cohort is used.
 #' @return A [wgh_report].
-#' @examples
+#' @examplesIf rlang::is_installed(c("kernelshap", "lme4", "ranger", "sitar", "xgboost"))
 #' \donttest{
 #' rep <- wgh_flow_height_prediction(mode = "dev", n_children = 8000)
 #' rep$tables$performance
@@ -215,7 +215,7 @@ wgh_flow_height_prediction <- function(x = NULL, mode = NULL, spurt = NULL, n_ch
 #' effect on PHV through timing.
 #' @inheritParams wgh_flow_height_prediction
 #' @return A [wgh_report].
-#' @examples
+#' @examplesIf rlang::is_installed(c("quantreg", "sitar"))
 #' \donttest{
 #' spurt <- wgh_flow_pubertal_spurt(growdat2_mini, mode = "dev")
 #' rep <- wgh_flow_velocity_distribution(growdat2_mini, mode = "dev", spurt = spurt)
@@ -277,7 +277,7 @@ wgh_flow_velocity_distribution <- function(x = NULL, mode = NULL, spurt = NULL) 
 #' @param seed Random seed for the subsample of curves used in the
 #'   functional PCA. The caller's random stream is restored.
 #' @return A [wgh_report].
-#' @examples
+#' @examplesIf rlang::is_installed(c("fdapace", "quantreg", "sitar"))
 #' \donttest{
 #' spurt <- wgh_flow_pubertal_spurt(growdat2_mini, mode = "dev")
 #' rep <- wgh_flow_spurt_duration(growdat2_mini, mode = "dev", spurt = spurt)
@@ -352,7 +352,7 @@ wgh_flow_spurt_duration <- function(x = NULL, mode = NULL, spurt = NULL, seed = 
 #'   SITAR size `a`, which duplicates `fpc1` (overall level), and higher
 #'   components, which mostly add noise.
 #' @return A [wgh_report].
-#' @examples
+#' @examplesIf rlang::is_installed(c("fdapace", "mclust", "sitar"))
 #' \donttest{
 #' spurt <- wgh_flow_pubertal_spurt(growdat2_mini, mode = "dev")
 #' rep <- wgh_flow_growth_phenotypes(growdat2_mini, mode = "dev", spurt = spurt, G = 2:5)

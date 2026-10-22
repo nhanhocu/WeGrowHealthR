@@ -13,7 +13,7 @@
 #'   keeps fitting fast).
 #' @param seed Random seed for the subsample.
 #' @return An object of class `wgh_lms` with one gamlss fit per group.
-#' @examples
+#' @examplesIf rlang::is_installed("gamlss")
 #' \donttest{
 #' lms <- wgh_fit_lms(growdat[growdat$age >= 2, ], "height")
 #' wgh_centiles(lms, ages = c(5, 10, 15))
@@ -77,7 +77,7 @@ wgh_centiles <- function(object, ages = seq(2, 18, by = 0.5), centiles = c(3, 10
 #' @param compare_who Add the WHO curves (grey) for comparison.
 #' @param ... Display options (see [wgh_plot_options()]).
 #' @return A ggplot object.
-#' @examples
+#' @examplesIf rlang::is_installed("gamlss")
 #' \donttest{
 #' lms <- wgh_fit_lms(growdat[growdat$age >= 2, ], "height")
 #' plot(lms)

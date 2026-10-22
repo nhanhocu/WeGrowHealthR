@@ -36,14 +36,23 @@ Expected on CRAN: the note `New submission`.
   contains a few non-ASCII characters on purpose (a sex code written in
   Vietnamese) that the cleaning functions are taught to recognise.
 * Examples that fit models for more than a few seconds are wrapped in
-  `\donttest{}`. Long tests are skipped on CRAN.
+  `\donttest{}`. Long tests are skipped on CRAN. No example in the regular
+  run takes more than 5 seconds.
+* Suggested packages are used conditionally everywhere: examples that need
+  one are guarded with `rlang::is_installed()` through `@examplesIf`, tests
+  use `skip_if_not_installed()`, and functions stop with a message naming the
+  missing package. `R CMD check` passes in a library that holds only the
+  required packages plus 'testthat', 'knitr' and 'rmarkdown'.
+* Functions that use random numbers take a `seed` argument that the user can
+  change, and restore the user's random number state on exit. For parallel
+  work each task gets its own L'Ecuyer-CMRG stream. The only assignments to
+  the global environment set and restore `.Random.seed` for this purpose, in
+  the same way as 'future.apply'.
 * `wgh_download()` downloads a frozen teaching dataset (1.3 MB) from the
   package's GitHub release and verifies its MD5 checksum. Without internet
   access it falls back to regenerating the same data locally with a
   warning, so it fails gracefully.
 * Nothing is written outside `tempdir()` unless the user gives a path.
-  Functions with a `seed` argument restore the user's random number state
-  when they finish.
 * `wgh_config()` and `wgh_parallel()` set package options when the user
   calls them, because choosing the run mode and the parallel set-up is their
   documented purpose. `wgh_parallel(1)` restores the previous

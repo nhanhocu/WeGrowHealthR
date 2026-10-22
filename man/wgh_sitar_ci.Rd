@@ -36,9 +36,11 @@ root of n, which treats the spread of individual timing as sampling error;
 \code{method = "legacy"} reproduces that interval for comparison.
 }
 \examples{
+\dontshow{if (rlang::is_installed("sitar")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
 fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 wgh_sitar_ci(fit, B = 5)
 }
+\dontshow{\}) # examplesIf}
 }

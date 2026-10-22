@@ -24,6 +24,7 @@ prediction) and each feature pushes the prediction up (orange) or down
 Waterfall explanation of one prediction
 }
 \examples{
+\dontshow{if (rlang::is_installed(c("kernelshap", "xgboost"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 fit <- lm(height ~ age + baz + sex, data = growdat)
 X <- growdat[1:50, c("age", "baz", "sex")]
@@ -31,4 +32,5 @@ sh <- wgh_shap(fit, X, bg_X = growdat[sample(nrow(growdat), 50), c("age", "baz",
 wgh_plot_waterfall(sh, row = 1)
 wgh_plot_waterfall(sh, row = 2, title = "Why this prediction?")
 }
+\dontshow{\}) # examplesIf}
 }

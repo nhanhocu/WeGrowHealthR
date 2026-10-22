@@ -24,10 +24,12 @@ feature (with intervals when \code{B > 0}).
 Global SHAP importance with bootstrap intervals
 }
 \examples{
+\dontshow{if (rlang::is_installed(c("kernelshap", "xgboost"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 fit <- lm(height ~ age + baz + sex, data = growdat)
 X <- growdat[1:200, c("age", "baz", "sex")]
 sh <- wgh_shap(fit, X, bg_X = growdat[sample(nrow(growdat), 50), c("age", "baz", "sex")])
 wgh_shap_summary(sh, B = 50)
 }
+\dontshow{\}) # examplesIf}
 }

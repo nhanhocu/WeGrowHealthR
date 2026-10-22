@@ -29,8 +29,10 @@ interquartile range by age and BAZ, the change in spread per BAZ unit,
 the support rule and an empirical check of spread within BAZ bands.
 }
 \examples{
+\dontshow{if (rlang::is_installed("quantreg")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 rep <- wgh_flow_growth_inequality(growdat, mode = "dev")
 rep
 }
+\dontshow{\}) # examplesIf}
 }

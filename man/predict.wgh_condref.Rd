@@ -31,6 +31,7 @@ A matrix with one row per case and one column per quantile
 Predict conditional quantiles for new children
 }
 \examples{
+\dontshow{if (rlang::is_installed(c("quantreg", "ranger"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 cp <- wgh_conditional_panel(growdat, targets = c(10, 12))
 cr <- wgh_condref(cp)
@@ -39,4 +40,5 @@ round(predict(cr, cp[cp$target_nominal == 10, ][1:3, ]), 2)
 # The same children under the WHO and unconditional references
 round(predict(cr, cp[cp$target_nominal == 10, ][1:3, ], type = "who"), 2)
 }
+\dontshow{\}) # examplesIf}
 }

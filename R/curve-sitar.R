@@ -29,7 +29,7 @@
 #'   reason, so a model comparison or flow never hangs. `Inf` for no limit.
 #' @return An object of class `wgh_sitar` with `model` (the sitar fit or
 #'   `NULL`), `warnings`, `label`, `data` and the fitting settings.
-#' @examples
+#' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
 #' boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
 #' fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
@@ -123,7 +123,7 @@ print.wgh_sitar <- function(x, ...) {
 #'   the fitting range).
 #' @return A list with `population` (tibble with `aphv`, `phv`) and
 #'   `individual` (tibble with `id`, `a`, `b`, `c`, `aphv`, `phv`).
-#' @examples
+#' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
 #' boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
 #' fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
@@ -164,7 +164,7 @@ wgh_aphv <- function(fit, age_range = NULL) {
 #' @param legacy_c_labels Reproduce the labelling of `c` in the original
 #'   analysis code of Ho et al. (2026, medRxiv 2026.07.26.26358986).
 #' @return A tibble with one row per child.
-#' @examples
+#' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
 #' boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
 #' fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
@@ -231,7 +231,7 @@ wgh_age_density <- function(x, by = "sex", bin = 0.5, share = 0.10) {
 #' @param fit A `wgh_sitar`, sitar or nlme model.
 #' @param max_abs_corr Threshold.
 #' @return A list with `ok`, `max_abs_corr`, the pair and a `reason`.
-#' @examples
+#' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
 #' boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
 #' fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
@@ -266,7 +266,7 @@ wgh_check_identifiable <- function(fit, max_abs_corr = 0.95) {
 #' @return A one-row tibble: label, convergence, AIC, BIC, residual SD,
 #'   RMSE, random-effect SDs, minimum velocity after `tail_start`, maximum
 #'   random-effect correlation and population APHV and PHV.
-#' @examples
+#' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
 #' boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
 #' fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
@@ -311,7 +311,7 @@ wgh_sitar_diagnostics <- function(fit, tail_start = NULL) {
 #' @return An object of class `wgh_sitar_selection` with `fits`, `table`
 #'   (diagnostics, the criteria and `why_not`, the reasons a candidate was
 #'   not acceptable), `selected` (name) and `reason`.
-#' @examples
+#' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
 #' boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
 #' sel <- wgh_sitar_select(boys, candidates = list(
@@ -391,7 +391,7 @@ print.wgh_sitar_selection <- function(x, ...) {
 #' @param level Confidence level.
 #' @return A tibble with estimates, limits and the number of successful
 #'   replicates.
-#' @examples
+#' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
 #' boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
 #' fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
@@ -443,7 +443,7 @@ wgh_sitar_ci <- function(fit, B = 50, method = c("bootstrap", "legacy"), seed = 
 #' @param show_data Show the observations behind the height curve.
 #' @param ... Display options (see [wgh_plot_options()]).
 #' @return A ggplot object (a patchwork for `"both"`).
-#' @examples
+#' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
 #' boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
 #' fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))

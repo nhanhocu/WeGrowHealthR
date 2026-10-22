@@ -71,7 +71,7 @@ wgh_conditional_panel <- function(x, window = c(5, 9), anchor = 6, anchor2 = 8, 
 #'   ([wgh_quantile_forest()], needs `ranger`), available in `predict()` as
 #'   `type = "forest"`.
 #' @return An object of class `wgh_condref`.
-#' @examples
+#' @examplesIf rlang::is_installed(c("quantreg", "ranger"))
 #' \donttest{
 #' cp <- wgh_conditional_panel(growdat, targets = c(12, 15))
 #' cr <- wgh_condref(cp)
@@ -117,7 +117,7 @@ print.wgh_condref <- function(x, ...) {
 #' @param ... Unused.
 #' @return A matrix with one row per case and one column per quantile
 #'   (rearranged to be monotone).
-#' @examples
+#' @examplesIf rlang::is_installed(c("quantreg", "ranger"))
 #' \donttest{
 #' cp <- wgh_conditional_panel(growdat, targets = c(10, 12))
 #' cr <- wgh_condref(cp)
@@ -177,7 +177,7 @@ predict.wgh_condref <- function(object, newdata, type = c("conditional", "uncond
 #' Use [wgh_condref_centile()] to turn an observed later value into a
 #' conditional centile, and [wgh_plot_condref_calibration()] to check that
 #' the predicted ranges have the coverage they claim.
-#' @examples
+#' @examplesIf rlang::is_installed(c("quantreg", "ranger"))
 #' \donttest{
 #' cp <- wgh_conditional_panel(growdat, targets = c(10, 12, 14))
 #' cr <- wgh_condref(cp)
@@ -252,7 +252,7 @@ wgh_plot_fan <- function(object, child, targets = NULL, observed = NULL, outcome
 #' @return `newdata` with `cond_centile` (0 to 100), `cond_z` (the normal
 #'   score of the centile) and `cond_flag` (`"below"`, `"within"`,
 #'   `"above"`).
-#' @examples
+#' @examplesIf rlang::is_installed(c("quantreg", "ranger"))
 #' \donttest{
 #' cp <- wgh_conditional_panel(growdat, targets = c(10, 12, 14))
 #' cr <- wgh_condref(cp)
@@ -299,7 +299,7 @@ wgh_condref_centile <- function(object, newdata, type = "conditional", flag = 3)
 #' @param ... Display options (see [wgh_plot_options()]).
 #' @return A ggplot object, or a tibble with `model`, `sex`, `tau` and
 #'   `observed_share`.
-#' @examples
+#' @examplesIf rlang::is_installed(c("quantreg", "ranger"))
 #' \donttest{
 #' cp <- wgh_conditional_panel(growdat, targets = c(10, 12, 14))
 #' wgh_plot_condref_calibration(cp, folds = 3)
@@ -354,7 +354,7 @@ wgh_plot_condref_calibration <- function(panel, folds = 5, types = c("conditiona
 #'   needs `ranger`).
 #' @return A tibble of scores by fold, model, sex and target age. Lower
 #'   CRPS and WIS are better, and `coverage_90` should be close to 0.90.
-#' @examples
+#' @examplesIf rlang::is_installed(c("quantreg", "ranger"))
 #' \donttest{
 #' cp <- wgh_conditional_panel(growdat, targets = c(10, 12))
 #' cv <- wgh_condref_cv(cp, folds = 3)
@@ -408,7 +408,7 @@ wgh_condref_cv <- function(panel, folds = 5, formula = ~ baseline_haz + baseline
 #'   interval, the relative change and a p-value. A negative difference means
 #'   the model scores better than the reference. The out-of-fold row-level
 #'   scores are attached as attribute `"rows"`.
-#' @examples
+#' @examplesIf rlang::is_installed(c("quantreg", "ranger"))
 #' \donttest{
 #' cp <- wgh_conditional_panel(growdat, targets = c(10, 12))
 #' wgh_condref_compare(cp, models = c("conditional", "persistence"), reference = "who",

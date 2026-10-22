@@ -25,6 +25,7 @@ equally. A rising line means it matters more for children in the upper
 part of the distribution.
 }
 \examples{
+\dontshow{if (rlang::is_installed("quantreg")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 d <- growdat[growdat$sex == "Female" & growdat$age >= 5, ]
 f <- haz ~ splines::ns(age, knots = c(8, 11, 14), Boundary.knots = c(5, 18.5)) * baz
@@ -32,4 +33,5 @@ fit <- wgh_rq(d, f, taus = c(0.1, 0.25, 0.5, 0.75, 0.9), anchor_ages = c(6, 9, 1
 plot(fit)
 plot(fit, ages = c(9, 12), show_ci = FALSE, y_label = "Change in HAZ per unit BAZ")
 }
+\dontshow{\}) # examplesIf}
 }

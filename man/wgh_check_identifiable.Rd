@@ -22,9 +22,11 @@ early maturers. The check works on both \code{sitar} and plain \code{nlme} objec
 (the original helper silently returned "cannot evaluate" for nlme).
 }
 \examples{
+\dontshow{if (rlang::is_installed("sitar")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
 fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 wgh_check_identifiable(fit)
 }
+\dontshow{\}) # examplesIf}
 }

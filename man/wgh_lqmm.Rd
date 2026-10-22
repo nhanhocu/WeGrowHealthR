@@ -52,6 +52,7 @@ bootstrap. Worker functions carry only what they need, which avoids the
 gigabyte-sized parallel exports documented in the BMI and height-for-age distribution study (Ho 2026, medRxiv 2026.09.08.26362487).
 }
 \examples{
+\dontshow{if (rlang::is_installed("lqmm")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 d <- growdat[growdat$sex == "Male" & growdat$age >= 5, ]
 d <- d[d$pid \%in\% names(which(table(d$pid) >= 3)), ]
@@ -59,4 +60,5 @@ f <- haz ~ splines::ns(age, df = 3) * baz
 fit <- wgh_lqmm(d, f, taus = c(0.25, 0.5, 0.75), anchor_ages = c(7, 10, 13), B = 0)
 fit$slopes
 }
+\dontshow{\}) # examplesIf}
 }

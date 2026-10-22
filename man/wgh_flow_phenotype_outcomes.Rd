@@ -41,10 +41,12 @@ default outcome is itself defined from BMI). Clustering of later
 multimorbidity is outside the scope of the package.
 }
 \examples{
+\dontshow{if (rlang::is_installed(c("fdapace", "mclust", "sitar"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 spurt <- wgh_flow_pubertal_spurt(growdat2_mini, mode = "dev")
 ph <- wgh_flow_growth_phenotypes(growdat2_mini, mode = "dev", spurt = spurt, G = 2:5)
 rep <- wgh_flow_phenotype_outcomes(growdat2_mini, mode = "dev", phenotypes = ph)
 rep
 }
+\dontshow{\}) # examplesIf}
 }

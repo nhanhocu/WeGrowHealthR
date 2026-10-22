@@ -26,6 +26,7 @@ intense spurt. (The original code of the SITAR pubertal spurt study (Ho et al. 2
 spurt; use \code{legacy_c_labels = TRUE} only to reproduce that output.)
 }
 \examples{
+\dontshow{if (rlang::is_installed("sitar")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
 fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
@@ -36,4 +37,5 @@ table(early = eff$early_timing, faster = eff$faster_tempo)
 # The legacy labelling reverses the meaning of c
 mean(wgh_sitar_effects(fit, legacy_c_labels = TRUE)$faster_tempo != eff$faster_tempo)
 }
+\dontshow{\}) # examplesIf}
 }

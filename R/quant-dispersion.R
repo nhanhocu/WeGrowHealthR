@@ -17,7 +17,7 @@
 #' @param level Interval level.
 #' @return A list with `spread` (P95-P5 and IQR by age and exposure with
 #'   intervals) and `change` (change in spread per unit exposure by age).
-#' @examples
+#' @examplesIf rlang::is_installed("quantreg")
 #' \donttest{
 #' d <- growdat[growdat$sex == "Female" & growdat$age >= 5, ]
 #' f <- haz ~ splines::ns(age, knots = c(8, 11, 14), Boundary.knots = c(5, 18.5)) * baz
@@ -109,7 +109,7 @@ wgh_support <- function(x, exposure = "baz", ages = c(6, 9, 12, 15), exposure_va
 #' @param seed Random seed.
 #' @return A tibble with the exposure coefficient by quantile and intervals,
 #'   and an OLS comparison row.
-#' @examples
+#' @examplesIf rlang::is_installed("quantreg")
 #' \donttest{
 #' tr <- growdat2_mini_truth
 #' base <- growdat2_mini[growdat2_mini$age < 9, ]

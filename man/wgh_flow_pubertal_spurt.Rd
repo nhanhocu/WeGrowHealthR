@@ -39,9 +39,11 @@ early-timing logistic model with its AUC. Pass the returned report as
 and growth phenotype flows, so the SITAR models are fitted only once.
 }
 \examples{
+\dontshow{if (rlang::is_installed("sitar")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 rep <- wgh_flow_pubertal_spurt(growdat2_mini, mode = "dev")
 rep
 rep$tables$population_aphv
 }
+\dontshow{\}) # examplesIf}
 }

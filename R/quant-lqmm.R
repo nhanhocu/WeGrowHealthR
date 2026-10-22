@@ -36,7 +36,7 @@
 #' @param iter Initial `LP_max_iter` (default from the run mode).
 #' @return An object of class `wgh_lqmm` (like `wgh_rq`, with `fits` and a
 #'   `convergence` table).
-#' @examples
+#' @examplesIf rlang::is_installed("lqmm")
 #' \donttest{
 #' d <- growdat[growdat$sex == "Male" & growdat$age >= 5, ]
 #' d <- d[d$pid %in% names(which(table(d$pid) >= 3)), ]

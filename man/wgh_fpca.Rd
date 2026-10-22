@@ -39,8 +39,10 @@ component scores (PACE, \code{fdapace}), which work with sparse and irregular
 visits. Children must meet a minimum number of visits and follow-up span.
 }
 \examples{
+\dontshow{if (rlang::is_installed("fdapace")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 fp <- wgh_fpca(growdat2_mini[growdat2_mini$sex == "Male", ], age_range = c(5, 18))
 head(fp$scores)
 }
+\dontshow{\}) # examplesIf}
 }

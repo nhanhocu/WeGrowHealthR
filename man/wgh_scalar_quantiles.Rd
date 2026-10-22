@@ -37,6 +37,7 @@ over children, as in the studies of pubertal velocity (Ho 2026, medRxiv
 2026.09.04.26362313) and spurt duration (Ho 2026, medRxiv 2026.09.09.26362696).
 }
 \examples{
+\dontshow{if (rlang::is_installed("quantreg")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 tr <- growdat2_mini_truth
 base <- growdat2_mini[growdat2_mini$age < 9, ]
@@ -45,4 +46,5 @@ d <- merge(data.frame(pid = tr$pid, sex = tr$sex, b = tr$b_tempo), base, by = "p
 # Is higher prepubertal BMI linked with earlier timing across the distribution?
 wgh_scalar_quantiles(d, b ~ bmiz + sex, exposure = "bmiz", taus = c(0.1, 0.5, 0.9), B = 20)
 }
+\dontshow{\}) # examplesIf}
 }

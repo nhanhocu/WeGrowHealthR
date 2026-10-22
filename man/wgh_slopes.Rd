@@ -25,10 +25,12 @@ main-effect coefficient, which in a spline-by-exposure model is the slope
 at the lower boundary knot only.
 }
 \examples{
+\dontshow{if (rlang::is_installed("quantreg")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 d <- growdat[growdat$sex == "Female" & growdat$age >= 5, ]
 f <- haz ~ splines::ns(age, knots = c(8, 11, 14), Boundary.knots = c(5, 18.5)) * baz
 fit <- wgh_rq(d, f, taus = c(0.1, 0.5, 0.9), anchor_ages = c(6, 9, 12, 15), B = 20)
 wgh_slopes(fit, ages = c(7, 13))
 }
+\dontshow{\}) # examplesIf}
 }

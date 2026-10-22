@@ -24,8 +24,10 @@ observed versus expected prevalence, and mixed models for catch-up and
 catch-down.
 }
 \examples{
+\dontshow{if (rlang::is_installed(c("lme4", "msm"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 rep <- wgh_flow_canalization(growdat2_mini, mode = "dev")
 rep
 }
+\dontshow{\}) # examplesIf}
 }

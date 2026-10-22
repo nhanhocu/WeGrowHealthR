@@ -15,7 +15,7 @@
 #'   components.
 #' @return A list of class `wgh_fpca` with `scores` (one row per child),
 #'   `fit`, `fve` and the mean function.
-#' @examples
+#' @examplesIf rlang::is_installed("fdapace")
 #' \donttest{
 #' fp <- wgh_fpca(growdat2_mini[growdat2_mini$sex == "Male", ], age_range = c(5, 18))
 #' head(fp$scores)

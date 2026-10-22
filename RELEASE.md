@@ -1,8 +1,28 @@
 # Release guide
 
-Not part of the built package (listed in `.Rbuildignore`). Version 1.0.1 has
-passed steps A to C on Linux. Steps D to F are done once the repository is
-public.
+Not part of the built package (listed in `.Rbuildignore`).
+
+## Order for the first CRAN submission (version 1.0.1)
+
+Done on Linux (22 October 2026): R CMD check --as-cran with all suggested
+packages and again with none of them, full and integration tests, README
+example in a fresh library, spelling of documentation and vignettes.
+
+1. Push the latest source. In Settings, Actions, General, choose "Allow all
+   actions and reusable workflows". Wait for R-CMD-check (5 systems) and
+   pkgdown to pass, then run the integration workflow by hand.
+2. Create the GitHub release v1.0.1 and attach the tarball, `growdat2.rds`
+   and `growdat2.md5`. Do this before submitting, so `wgh_download()` works
+   and the release link in the documentation resolves.
+3. On your computer: `urlchecker::url_check()` and fix any broken link.
+4. `devtools::check_win_devel()`, `devtools::check_win_release()`,
+   `devtools::check_mac_release()` and, after `rhub::rhub_setup()`,
+   `rhub::rhub_check()`. Wait for the e-mails.
+5. Fill in the pending rows of `cran-comments.md` with the real results.
+6. `devtools::submit_cran()`, then confirm the e-mail from CRAN.
+7. After acceptance: tag the accepted version, switch the README install
+   line to `install.packages("WeGrowHealthR")`, and start the R Journal
+   paper.
 
 ## A. Prepare the source
 

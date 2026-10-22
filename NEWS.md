@@ -36,6 +36,16 @@
   BMI distribution, observed velocity and height-for-age band transitions.
 * The bundled datasets and the precomputed vignettes were regenerated.
 
+## CRAN preparation
+
+* Examples that need a suggested modelling package (46 help pages) now run
+  only when that package is installed (`@examplesIf`), so the package checks
+  cleanly without suggested packages. Tests and vignettes were already
+  conditional. Checked in a library holding only the required packages.
+* `DESCRIPTION` spells out the SITAR and SHAP acronyms, cites the SITAR and
+  linear quantile mixed model papers with DOIs, and declares
+  `Language: en-GB`.
+
 ## Further corrections and tests
 
 * A `wgh_data` object now behaves like its data: `x$age`, `x$bmi <- ...`,

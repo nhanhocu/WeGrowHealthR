@@ -26,7 +26,7 @@
 #' @param seed Random seed for the subsample of children drawn when the run
 #'   mode limits the sample size. The caller's random stream is restored.
 #' @return A [wgh_report].
-#' @examples
+#' @examplesIf rlang::is_installed(c("lme4", "lqmm", "qgam", "quantreg"))
 #' \donttest{
 #' rep <- wgh_flow_distributional_height(growdat, mode = "dev", engine = "rq")
 #' rep
@@ -110,7 +110,7 @@ wgh_flow_distributional_height <- function(x = NULL, mode = NULL, engine = c("lq
 #' @inheritParams wgh_flow_secular_trends
 #' @param ages,baz_values Grid for the spread estimates.
 #' @return A [wgh_report].
-#' @examples
+#' @examplesIf rlang::is_installed("quantreg")
 #' \donttest{
 #' rep <- wgh_flow_growth_inequality(growdat, mode = "dev")
 #' rep
@@ -162,7 +162,7 @@ wgh_flow_growth_inequality <- function(x = NULL, mode = NULL, ages = c(6, 9, 12,
 #' @inheritParams wgh_flow_secular_trends
 #' @param window,targets Conditioning window and target ages.
 #' @return A [wgh_report].
-#' @examples
+#' @examplesIf rlang::is_installed(c("quantreg", "ranger"))
 #' \donttest{
 #' rep <- wgh_flow_conditional_references(growdat, mode = "dev", window = c(5, 9), targets = c(10, 12))
 #' rep
@@ -225,7 +225,7 @@ wgh_flow_conditional_references <- function(x = NULL, mode = NULL, window = c(5,
 #' catch-down.
 #' @inheritParams wgh_flow_secular_trends
 #' @return A [wgh_report].
-#' @examples
+#' @examplesIf rlang::is_installed(c("lme4", "msm"))
 #' \donttest{
 #' rep <- wgh_flow_canalization(growdat2_mini, mode = "dev")
 #' rep
@@ -292,7 +292,7 @@ wgh_flow_canalization <- function(x = NULL, mode = NULL) {
 #'   above +2).
 #' @param outcome Outcome column (default `"late_overweight_obesity"`).
 #' @return A [wgh_report].
-#' @examples
+#' @examplesIf rlang::is_installed(c("fdapace", "mclust", "sitar"))
 #' \donttest{
 #' spurt <- wgh_flow_pubertal_spurt(growdat2_mini, mode = "dev")
 #' ph <- wgh_flow_growth_phenotypes(growdat2_mini, mode = "dev", spurt = spurt, G = 2:5)
@@ -361,7 +361,7 @@ wgh_flow_phenotype_outcomes <- function(x = NULL, mode = NULL, phenotypes = NULL
 #' @inheritParams wgh_flow_conditional_references
 #' @param taus Quantiles explained.
 #' @return A [wgh_report].
-#' @examples
+#' @examplesIf rlang::is_installed("quantreg")
 #' \donttest{
 #' rep <- wgh_flow_explain_prediction(growdat, mode = "dev", window = c(5, 9), targets = c(10, 12))
 #' rep

@@ -61,6 +61,7 @@ the predicted ranges have the coverage they claim.
 }
 
 \examples{
+\dontshow{if (rlang::is_installed(c("quantreg", "ranger"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 cp <- wgh_conditional_panel(growdat, targets = c(10, 12, 14))
 cr <- wgh_condref(cp)
@@ -69,4 +70,5 @@ later <- growdat[growdat$pid == child$id & growdat$age > 9, c("age", "haz")]
 wgh_plot_fan(cr, child, observed = later)
 wgh_plot_fan(cr, child, observed = later, show_unconditional = TRUE, title = "Expected height path")
 }
+\dontshow{\}) # examplesIf}
 }

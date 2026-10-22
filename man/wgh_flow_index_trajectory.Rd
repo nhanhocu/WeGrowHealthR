@@ -33,9 +33,11 @@ between two index ages and repeats the main model in children with at
 least four visits.
 }
 \examples{
+\dontshow{if (rlang::is_installed(c("emmeans", "lme4"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 rep <- wgh_flow_index_trajectory(growdat, mode = "dev")
 rep
 plot(rep, 1)
 }
+\dontshow{\}) # examplesIf}
 }

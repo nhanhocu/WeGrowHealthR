@@ -4,28 +4,32 @@ Title: Child Growth Data Analysis, Modelling and Reproducible Workflows
 Version: 1.0.1
 Authors@R: c(
     person("Nhan Thi", "Ho", email = "nhanhocumc@gmail.com",
-           role = c("aut", "cre", "cph"), comment = "MD, PhD"))
+           role = c("aut", "cre", "cph"), comment = ("MD, PhD", ORCID = "0000-0002-7898-0956")))
 Description: Tools and one-call workflows for longitudinal child growth data,
     written to accompany the books 'Child Growth Data Analysis and Modeling
     with R' and its advanced companion. The package covers data cleaning,
     World Health Organization and US Centers for Disease Control and
     Prevention z-scores, percentiles and nutritional status, prevalence
-    and trend analysis, mixed-model trajectories, SITAR growth curves and
-    the pubertal spurt, quantile regression and linear quantile mixed models
-    for growth distributions, conditional growth references, functional
-    growth phenotypes, canalization and multistate models, prediction model
-    benchmarks with SHAP explanations, and a simulation engine that produces
-    teaching cohorts resembling a large school health cohort. Established
-    engines such as 'sitar', 'quantreg', 'lqmm', 'msm', 'fdapace' and
-    'mclust' do the fitting, and the package adds growth-specific data
-    handling, cluster bootstraps, safeguards and publication output. The
-    flows reproduce the analyses of a research program on the growth of
-    urban schoolchildren.
+    and trend analysis, mixed-model trajectories, SuperImposition by
+    Translation And Rotation (SITAR) growth curves and the pubertal spurt
+    (Cole, Donaldson and Ben-Shlomo (2010) <doi:10.1093/ije/dyq115>),
+    quantile regression and linear quantile mixed models for growth
+    distributions (Geraci (2014) <doi:10.18637/jss.v057.i13>), conditional
+    growth references, functional growth phenotypes, canalization and
+    multistate models, prediction model benchmarks with SHapley Additive
+    exPlanations (SHAP), and a simulation engine that produces teaching
+    cohorts with known truth. Established engines such as 'sitar',
+    'quantreg', 'lqmm', 'msm', 'fdapace' and 'mclust' do the fitting, and
+    the package adds growth-specific data handling, cluster bootstraps,
+    safeguards, reproducible parallel computing and publication output.
+    One-call workflows reproduce the analyses of a research program on the
+    growth of urban schoolchildren.
 URL: https://github.com/nhanhocu/WeGrowHealthR,
     https://nhanhocu.github.io/WeGrowHealthR/
 BugReports: https://github.com/nhanhocu/WeGrowHealthR/issues
 License: GPL-3
 Encoding: UTF-8
+Language: en-GB
 LazyData: true
 Depends: R (>= 4.1.0)
 Imports:

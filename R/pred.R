@@ -238,7 +238,7 @@ wgh_features <- function(x, max_age = 10, min_age = 5) {
 #' @return An object of class `wgh_benchmark` with `performance` (cross-
 #'   validated metrics by sex and model), `apparent` (in-sample metrics),
 #'   `predictions` (out-of-fold predictions) and `fits` (full-data fits).
-#' @examples
+#' @examplesIf rlang::is_installed(c("lme4", "ranger", "xgboost"))
 #' \donttest{
 #' pc <- wgh_prediction_cohort(wgh_simulate(8000, seed = 4)$visits)
 #' bm <- wgh_benchmark(pc, models = c("M0", "M1", "M5", "M8"), folds = 3)

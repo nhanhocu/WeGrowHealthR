@@ -26,6 +26,7 @@ the top-minus-bottom difference with a bootstrap interval.
 fitted models (girls minus boys) per quantile and jointly.
 }
 \examples{
+\dontshow{if (rlang::is_installed("quantreg")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 f <- haz ~ splines::ns(age, knots = c(8, 11, 14), Boundary.knots = c(5, 18.5)) * baz
 d <- growdat[growdat$age >= 5, ]
@@ -35,4 +36,5 @@ ff <- wgh_rq(d[d$sex == "Female", ], f, taus = c(0.1, 0.5, 0.9), anchor_ages = a
 wgh_test_heterogeneity(ff, age = 9)
 wgh_test_sex_difference(fm, ff, age = 9)$joint
 }
+\dontshow{\}) # examplesIf}
 }

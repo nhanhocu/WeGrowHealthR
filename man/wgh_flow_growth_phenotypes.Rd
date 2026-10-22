@@ -44,9 +44,11 @@ target age before using phenotypes as predictors (see
 \code{\link[=wgh_leakage_check]{wgh_leakage_check()}}).
 }
 \examples{
+\dontshow{if (rlang::is_installed(c("fdapace", "mclust", "sitar"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 spurt <- wgh_flow_pubertal_spurt(growdat2_mini, mode = "dev")
 rep <- wgh_flow_growth_phenotypes(growdat2_mini, mode = "dev", spurt = spurt, G = 2:5)
 rep
 }
+\dontshow{\}) # examplesIf}
 }

@@ -26,6 +26,7 @@ effect is visible: points to the right raise the prediction, and the
 colour shows whether the feature value was high or low.
 }
 \examples{
+\dontshow{if (rlang::is_installed(c("kernelshap", "xgboost"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 fit <- lm(height ~ age + baz + sex, data = growdat)
 X <- growdat[1:200, c("age", "baz", "sex")]
@@ -33,4 +34,5 @@ sh <- wgh_shap(fit, X, bg_X = growdat[sample(nrow(growdat), 50), c("age", "baz",
 plot(sh)
 plot(sh, type = "beeswarm", point_size = 1.2)
 }
+\dontshow{\}) # examplesIf}
 }

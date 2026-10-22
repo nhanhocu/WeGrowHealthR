@@ -371,7 +371,7 @@ wgh_compare_groups <- function(x, var, group, ages = NULL, window = 0.5, by = NU
 #'   events are skipped, because rare outcomes make GEE fail to converge.
 #' @param maxit Maximum GEE iterations.
 #' @return An object of class `wgh_gee` with the fits and a `slopes` table.
-#' @examples
+#' @examplesIf rlang::is_installed("geepack")
 #' \donttest{
 #' cl <- wgh_classify(growdat)
 #' cl$age_group <- wgh_age_bands(cl$age)

@@ -29,9 +29,11 @@ quantile regressions of duration on prepubertal BAZ adjusted for timing
 and intensity, a sex-interaction test and functional PCA of the curves.
 }
 \examples{
+\dontshow{if (rlang::is_installed(c("fdapace", "quantreg", "sitar"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 spurt <- wgh_flow_pubertal_spurt(growdat2_mini, mode = "dev")
 rep <- wgh_flow_spurt_duration(growdat2_mini, mode = "dev", spurt = spurt)
 rep
 }
+\dontshow{\}) # examplesIf}
 }

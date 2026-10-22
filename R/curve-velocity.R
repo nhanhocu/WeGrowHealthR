@@ -14,7 +14,7 @@
 #' @param extend Years allowed beyond the observed range.
 #' @return A tibble with `id`, `age`, `time` (age or offset), `height` and
 #'   `velocity`, and attribute `"aphv"`.
-#' @examples
+#' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
 #' boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
 #' fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
@@ -82,7 +82,7 @@ wgh_velocity_panel <- function(fit, ids = NULL, time = c("age", "aphv"), grid = 
 #' @return A tibble with one row per child: `phv`, `takeoff`, `peak_time`,
 #'   and for each threshold the left and right crossing, the width and
 #'   censoring flags, plus `degenerate`.
-#' @examples
+#' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
 #' boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
 #' fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))

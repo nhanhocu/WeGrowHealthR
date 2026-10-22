@@ -100,7 +100,7 @@ wgh_exposure_change <- function(x, var = "baz", ages = c(7, 10), tol = 1, catego
 #' @param center_age Centre age (years) for the random slope.
 #' @param REML Use REML.
 #' @return An object of class `wgh_lmm` holding the `lmerMod` fit.
-#' @examples
+#' @examplesIf rlang::is_installed("lme4")
 #' \donttest{
 #' ix <- wgh_index_exposure(growdat, "baz", categories = function(b, a) wgh_bmi_category(b, a, FALSE))
 #' fit <- wgh_fit_lmm(ix[ix$age >= 5, ], haz ~ splines::ns(age, df = 3) * index_cat + sex)

@@ -27,9 +27,11 @@ SITAR timing and intensity, and an exploratory mediation of the BAZ
 effect on PHV through timing.
 }
 \examples{
+\dontshow{if (rlang::is_installed(c("quantreg", "sitar"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 spurt <- wgh_flow_pubertal_spurt(growdat2_mini, mode = "dev")
 rep <- wgh_flow_velocity_distribution(growdat2_mini, mode = "dev", spurt = spurt)
 rep
 }
+\dontshow{\}) # examplesIf}
 }

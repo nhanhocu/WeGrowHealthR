@@ -53,10 +53,12 @@ each age group. The model behind the GEE trend tables of the malnutrition trends
 secular trends study (Ho et al. 2026, Sci Rep 16:7515).
 }
 \examples{
+\dontshow{if (rlang::is_installed("geepack")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 cl <- wgh_classify(growdat)
 cl$age_group <- wgh_age_bands(cl$age)
 tr <- wgh_gee_trend(cl[cl$age >= 5, ], "obesity", age_group = "age_group", by = "sex")
 tr$slopes
 }
+\dontshow{\}) # examplesIf}
 }

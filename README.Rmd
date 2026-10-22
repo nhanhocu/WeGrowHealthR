@@ -13,7 +13,7 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.path = "man/figures/R
 <!-- badges: end -->
 
 WeGrowHealthR gives you ready-made functions and one-call workflows for
-longitudinal child growth data, from raw school health records to
+longitudinal child growth data, from raw child anthropometric records to
 publication tables and figures. It accompanies the books *Child Growth Data
 Analysis and Modeling with R* (Book 1) and its advanced companion (Book 2),
 and it reproduces the main analyses of a child growth research program on

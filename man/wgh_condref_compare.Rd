@@ -57,9 +57,11 @@ better than another for the same children, with an honest interval, which
 a comparison of average scores cannot (Book 2 Chapter 16).
 }
 \examples{
+\dontshow{if (rlang::is_installed(c("quantreg", "ranger"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 cp <- wgh_conditional_panel(growdat, targets = c(10, 12))
 wgh_condref_compare(cp, models = c("conditional", "persistence"), reference = "who",
                     folds = 3, B = 200)
 }
+\dontshow{\}) # examplesIf}
 }

@@ -160,7 +160,7 @@ wgh_flow_malnutrition_trends <- function(x = NULL, mode = NULL) {
 #' @param index_age Latest index age by sex.
 #' @param milestones Ages for group comparisons and contrasts.
 #' @return A [wgh_report].
-#' @examples
+#' @examplesIf rlang::is_installed(c("emmeans", "lme4"))
 #' \donttest{
 #' rep <- wgh_flow_index_trajectory(growdat, mode = "dev")
 #' rep

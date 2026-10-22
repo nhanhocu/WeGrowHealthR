@@ -16,7 +16,7 @@
 #' @param feature_names Features to explain (default all columns of `X`).
 #' @return An object of class `wgh_shap` with the SHAP matrix `S`, the
 #'   explained data `X` and the `baseline`.
-#' @examples
+#' @examplesIf rlang::is_installed(c("kernelshap", "xgboost"))
 #' \donttest{
 #' fit <- lm(height ~ age + baz, data = growdat)
 #' X <- growdat[1:100, c("age", "baz")]
@@ -56,7 +56,7 @@ print.wgh_shap <- function(x, ...) {
 #' @param seed Random seed.
 #' @return A tibble with the mean absolute SHAP value and rank of each
 #'   feature (with intervals when `B > 0`).
-#' @examples
+#' @examplesIf rlang::is_installed(c("kernelshap", "xgboost"))
 #' \donttest{
 #' fit <- lm(height ~ age + baz + sex, data = growdat)
 #' X <- growdat[1:200, c("age", "baz", "sex")]
@@ -92,7 +92,7 @@ wgh_shap_boot <- function(shap, B = 500, seed = 2030) wgh_shap_summary(shap, B =
 #' @param max_features Number of features shown.
 #' @param ... Display options (see [wgh_plot_options()]).
 #' @return A ggplot object.
-#' @examples
+#' @examplesIf rlang::is_installed(c("kernelshap", "xgboost"))
 #' \donttest{
 #' fit <- lm(height ~ age + baz + sex, data = growdat)
 #' X <- growdat[1:200, c("age", "baz", "sex")]
@@ -136,7 +136,7 @@ plot.wgh_shap <- function(x, type = c("importance", "beeswarm"), max_features = 
 #' @return A ggplot object. Bars start at the baseline (the average
 #'   prediction) and each feature pushes the prediction up (orange) or down
 #'   (blue) until it reaches the prediction for this child.
-#' @examples
+#' @examplesIf rlang::is_installed(c("kernelshap", "xgboost"))
 #' \donttest{
 #' fit <- lm(height ~ age + baz + sex, data = growdat)
 #' X <- growdat[1:50, c("age", "baz", "sex")]

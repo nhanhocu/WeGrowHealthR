@@ -68,7 +68,7 @@
 #' @return An object of class `wgh_rq` with `coefs` (one column per
 #'   quantile), `boot` (array of bootstrap coefficient matrices), `slopes`
 #'   (estimates, bootstrap SE and percentile intervals) and the design.
-#' @examples
+#' @examplesIf rlang::is_installed("quantreg")
 #' \donttest{
 #' d <- growdat[growdat$sex == "Female" & growdat$age >= 5, ]
 #' f <- haz ~ splines::ns(age, knots = c(8, 11, 14), Boundary.knots = c(5, 18.5)) * baz
@@ -119,7 +119,7 @@ wgh_rq <- function(x, formula, taus = wgh_taus("headline"), exposure = "baz",
 #' @param fixed Values of other variables.
 #' @param level Interval level.
 #' @return A tibble with `age`, `tau`, `estimate`, `boot_se`, `lower`, `upper`.
-#' @examples
+#' @examplesIf rlang::is_installed("quantreg")
 #' \donttest{
 #' d <- growdat[growdat$sex == "Female" & growdat$age >= 5, ]
 #' f <- haz ~ splines::ns(age, knots = c(8, 11, 14), Boundary.knots = c(5, 18.5)) * baz
@@ -176,7 +176,7 @@ predict.wgh_rq <- function(object, newdata, rearrange = TRUE, ...) {
 #' @param ... Display options (see [wgh_plot_options()]); `show_ci = FALSE`
 #'   hides the bootstrap bands.
 #' @return A ggplot object.
-#' @examples
+#' @examplesIf rlang::is_installed("quantreg")
 #' \donttest{
 #' d <- growdat[growdat$sex == "Female" & growdat$age >= 5, ]
 #' f <- haz ~ splines::ns(age, knots = c(8, 11, 14), Boundary.knots = c(5, 18.5)) * baz
@@ -211,7 +211,7 @@ plot.wgh_rq <- function(x, ages = NULL, ...) {
 #'   (`object_m` boys, `object_f` girls).
 #' @param age One anchor age.
 #' @return Tibbles of test results.
-#' @examples
+#' @examplesIf rlang::is_installed("quantreg")
 #' \donttest{
 #' f <- haz ~ splines::ns(age, knots = c(8, 11, 14), Boundary.knots = c(5, 18.5)) * baz
 #' d <- growdat[growdat$age >= 5, ]
