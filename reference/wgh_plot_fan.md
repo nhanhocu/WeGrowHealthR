@@ -36,7 +36,7 @@ wgh_plot_fan(
   A one-row data frame with `sex` and the baseline features used in the
   model (by default `baseline_age`, `baseline_haz` and `baseline_baz`),
   for example one row of
-  [`wgh_conditional_panel()`](wgh_conditional_panel.md).
+  [`wgh_conditional_panel()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_conditional_panel.md).
 
 - targets:
 
@@ -66,7 +66,8 @@ wgh_plot_fan(
 
 - ...:
 
-  Display options (see [`wgh_plot_options()`](wgh_plot_options.md)).
+  Display options (see
+  [`wgh_plot_options()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_options.md)).
 
 ## Value
 
@@ -74,10 +75,11 @@ A ggplot object.
 
 ## Next steps
 
-Use [`wgh_condref_centile()`](wgh_condref_centile.md) to turn an
-observed later value into a conditional centile, and
-[`wgh_plot_condref_calibration()`](wgh_plot_condref_calibration.md) to
-check that the predicted ranges have the coverage they claim.
+Use
+[`wgh_condref_centile()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_condref_centile.md)
+to turn an observed later value into a conditional centile, and
+[`wgh_plot_condref_calibration()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_condref_calibration.md)
+to check that the predicted ranges have the coverage they claim.
 
 ## Examples
 

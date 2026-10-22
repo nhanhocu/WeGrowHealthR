@@ -1,12 +1,13 @@
 # Nudge preset settings toward the published patterns
 
 A light, guided calibration. It simulates a modest cohort, compares a
-few patterns with [wgh_targets](wgh_targets.md) and adjusts the settings
-that drive each pattern most directly: the BMI-for-age mean and spread
-(overweight and obesity), the under-5 adiposity shift, and attendance by
-age group. It repeats this a few times. It is meant for the package
-maintainer and for Book 2 Chapter 3 readers who want to build their own
-preset, not for formal estimation.
+few patterns with
+[wgh_targets](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_targets.md)
+and adjusts the settings that drive each pattern most directly: the
+BMI-for-age mean and spread (overweight and obesity), the under-5
+adiposity shift, and attendance by age group. It repeats this a few
+times. It is meant for the package maintainer and for Book 2 Chapter 3
+readers who want to build their own preset, not for formal estimation.
 
 ## Usage
 

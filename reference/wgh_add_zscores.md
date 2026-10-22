@@ -22,8 +22,10 @@ wgh_add_zscores(
 
 - x:
 
-  A [wgh_data](wgh_data.md) object or data frame with `age`, `sex` and
-  the needed measurements (`height`, `weight`, `bmi`).
+  A
+  [wgh_data](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_data.md)
+  object or data frame with `age`, `sex` and the needed measurements
+  (`height`, `weight`, `bmi`).
 
 - indicators:
 
@@ -35,8 +37,10 @@ wgh_add_zscores(
 
 - method:
 
-  See [`wgh_zscore()`](wgh_zscore.md). Use `"lms"` or `"symmetric"` only
-  to reproduce earlier results computed that way.
+  See
+  [`wgh_zscore()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_zscore.md).
+  Use `"lms"` or `"symmetric"` only to reproduce earlier results
+  computed that way.
 
 - flag_limit:
 
@@ -54,10 +58,12 @@ type as `x`.
 
 ## Next steps
 
-Classify nutritional status with [`wgh_classify()`](wgh_classify.md),
-summarise with [`wgh_prevalence()`](wgh_prevalence.md), or plot
-individual children with
-[`wgh_plot_growth_chart()`](wgh_plot_growth_chart.md).
+Classify nutritional status with
+[`wgh_classify()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_classify.md),
+summarise with
+[`wgh_prevalence()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_prevalence.md),
+or plot individual children with
+[`wgh_plot_growth_chart()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_growth_chart.md).
 
 ## Examples
 

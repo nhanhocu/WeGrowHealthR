@@ -33,7 +33,9 @@ wgh_report(
 
 - sample_flow:
 
-  A [`wgh_sample_flow()`](wgh_sample_flow.md) object or `NULL`.
+  A
+  [`wgh_sample_flow()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_sample_flow.md)
+  object or `NULL`.
 
 - settings:
 
@@ -57,9 +59,10 @@ An object of class `wgh_report`.
 ## Next steps
 
 Print the report to see what it holds, take tables with `x$tables$name`,
-show figures with [`plot.wgh_report()`](plot.wgh_report.md), check
-`x$model_status`, and write everything to disk with
-[`wgh_export()`](wgh_export.md).
+show figures with
+[`plot.wgh_report()`](https://nhanhocu.github.io/WeGrowHealthR/reference/plot.wgh_report.md),
+check `x$model_status`, and write everything to disk with
+[`wgh_export()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_export.md).
 
 ## Examples
 

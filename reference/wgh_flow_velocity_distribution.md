@@ -22,18 +22,20 @@ wgh_flow_velocity_distribution(x = NULL, mode = NULL, spurt = NULL)
 
 - mode:
 
-  Run mode (see [`wgh_config()`](wgh_config.md)); `NULL` keeps the
-  current mode.
+  Run mode (see
+  [`wgh_config()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_config.md));
+  `NULL` keeps the current mode.
 
 - spurt:
 
   Optional report from
-  [`wgh_flow_pubertal_spurt()`](wgh_flow_pubertal_spurt.md) on the same
-  data (it is computed when `NULL`).
+  [`wgh_flow_pubertal_spurt()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_pubertal_spurt.md)
+  on the same data (it is computed when `NULL`).
 
 ## Value
 
-A [wgh_report](wgh_report.md).
+A
+[wgh_report](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_report.md).
 
 ## Examples
 

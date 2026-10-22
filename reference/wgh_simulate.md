@@ -33,7 +33,8 @@ wgh_simulate(
 
 - preset:
 
-  A preset name or a settings list from [`wgh_preset()`](wgh_preset.md).
+  A preset name or a settings list from
+  [`wgh_preset()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_preset.md).
 
 - seed:
 
@@ -80,7 +81,8 @@ An object of class `wgh_sim`: a list with `visits`, `roster`,
 
 ## Details
 
-Two presets are provided (see [`wgh_preset()`](wgh_preset.md)):
+Two presets are provided (see
+[`wgh_preset()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_preset.md)):
 
 - `"wgh_like"` (default) resembles the published school health cohort:
   ages 18 months to 18 years, three sites of unequal size, early puberty
@@ -96,10 +98,10 @@ Two presets are provided (see [`wgh_preset()`](wgh_preset.md)):
 
 ## See also
 
-[`wgh_preset()`](wgh_preset.md),
-[`wgh_add_messiness()`](wgh_add_messiness.md),
-[`wgh_truth_check()`](wgh_truth_check.md),
-[`wgh_resemblance_report()`](wgh_resemblance_report.md)
+[`wgh_preset()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_preset.md),
+[`wgh_add_messiness()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_add_messiness.md),
+[`wgh_truth_check()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_truth_check.md),
+[`wgh_resemblance_report()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_resemblance_report.md)
 
 ## Examples
 

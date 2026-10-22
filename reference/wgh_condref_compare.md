@@ -2,10 +2,12 @@
 
 Fits the references on part of the children and predicts the others
 (child-level cross-validation, as in
-[`wgh_condref_cv()`](wgh_condref_cv.md)), scores every held-out
-prediction with [`wgh_score_rows()`](wgh_score_rows.md), and compares
-each reference with a chosen reference by paired differences with a
-child-level bootstrap ([`wgh_paired_scores()`](wgh_paired_scores.md)).
+[`wgh_condref_cv()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_condref_cv.md)),
+scores every held-out prediction with
+[`wgh_score_rows()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_score_rows.md),
+and compares each reference with a chosen reference by paired
+differences with a child-level bootstrap
+([`wgh_paired_scores()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_paired_scores.md)).
 This answers whether one reference is better than another for the same
 children, with an honest interval, which a comparison of average scores
 cannot (Book 2 Chapter 16).
@@ -31,7 +33,8 @@ wgh_condref_compare(
 
 - panel:
 
-  Output of [`wgh_conditional_panel()`](wgh_conditional_panel.md).
+  Output of
+  [`wgh_conditional_panel()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_conditional_panel.md).
 
 - models:
 
@@ -58,7 +61,8 @@ wgh_condref_compare(
 
 - formula, taus:
 
-  Passed to [`wgh_condref()`](wgh_condref.md).
+  Passed to
+  [`wgh_condref()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_condref.md).
 
 - B:
 

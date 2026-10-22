@@ -1,7 +1,7 @@
 # Flow: explainable individual growth prediction (Ho 2026, manuscript under review)
 
 Explains the conditional reference models of
-[`wgh_flow_conditional_references()`](wgh_flow_conditional_references.md)
+[`wgh_flow_conditional_references()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_conditional_references.md)
 (Ho 2026, medRxiv 2026.09.23.26363771): exact SHAP attributions for the
 median and outer quantiles by sex and target age (analytic for these
 linear quantile models, identical to exact kernel SHAP with an
@@ -31,8 +31,9 @@ wgh_flow_explain_prediction(
 
 - mode:
 
-  Run mode (see [`wgh_config()`](wgh_config.md)); `NULL` keeps the
-  current mode.
+  Run mode (see
+  [`wgh_config()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_config.md));
+  `NULL` keeps the current mode.
 
 - window, targets:
 
@@ -44,7 +45,8 @@ wgh_flow_explain_prediction(
 
 ## Value
 
-A [wgh_report](wgh_report.md).
+A
+[wgh_report](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_report.md).
 
 ## Examples
 

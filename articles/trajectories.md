@@ -1,10 +1,10 @@
 # Prepubertal BMI and the height trajectory
 
 > **About this vignette.** All data are simulated with
-> [`wgh_simulate()`](../reference/wgh_simulate.md). The results show how
-> the methods work and resemble the published patterns, but they are not
-> the published findings and are not research results. The functions run
-> in development mode (`wgh_config("dev")`).
+> [`wgh_simulate()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_simulate.md).
+> The results show how the methods work and resemble the published
+> patterns, but they are not the published findings and are not research
+> results. The functions run in development mode (`wgh_config("dev")`).
 
 Children with overweight or obesity before puberty are often taller than
 their peers and then lose that advantage during adolescence. This
@@ -25,8 +25,9 @@ v <- wgh_simulate(30000, seed = 2026)$visits
 ## 1. The analytic sample
 
 Trajectories need repeated visits.
-[`wgh_sample_flow()`](../reference/wgh_sample_flow.md) applies the
-restrictions in order and records how many children each step removes.
+[`wgh_sample_flow()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_sample_flow.md)
+applies the restrictions in order and records how many children each
+step removes.
 
 ``` r
 
@@ -53,13 +54,13 @@ The restricted data are in `fl$data`.
 
 ## 2. Exposure at a prepubertal index age
 
-[`wgh_index_exposure()`](../reference/wgh_index_exposure.md) picks one
-visit per child in an index window and attaches its value to every visit
-of that child. The defaults follow the study: the earliest visit from 5
-years and at or before 11 years in boys and 9 years in girls
-(`max_age`), so the exposure is measured before most children enter
-puberty. `categories` turns the value into groups, here the WHO BMI
-categories without a separate thinness group.
+[`wgh_index_exposure()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_index_exposure.md)
+picks one visit per child in an index window and attaches its value to
+every visit of that child. The defaults follow the study: the earliest
+visit from 5 years and at or before 11 years in boys and 9 years in
+girls (`max_age`), so the exposure is measured before most children
+enter puberty. `categories` turns the value into groups, here the WHO
+BMI categories without a separate thinness group.
 
 ``` r
 
@@ -80,10 +81,10 @@ all visits.
 
 ## 3. Comparing groups at milestone ages
 
-[`wgh_compare_groups()`](../reference/wgh_compare_groups.md) compares an
-outcome between groups in windows around stated ages (`ages`, with
-half-width `window`). It runs a Kruskal-Wallis test across all groups
-and Dunn pairwise tests with Holm adjustment.
+[`wgh_compare_groups()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_compare_groups.md)
+compares an outcome between groups in windows around stated ages
+(`ages`, with half-width `window`). It runs a Kruskal-Wallis test across
+all groups and Dunn pairwise tests with Holm adjustment.
 
 ``` r
 
@@ -126,18 +127,19 @@ Before puberty, children with obesity have the highest height-for-age.
 The curves converge in adolescence, and in girls the order even
 reverses: by 16 years girls who had obesity before puberty are the
 shortest group.
-[`wgh_plot_trajectories()`](../reference/wgh_plot_trajectories.md) takes
-the same display options as every plot, for example `show_ci = FALSE` or
-`legend = "right"`.
+[`wgh_plot_trajectories()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_trajectories.md)
+takes the same display options as every plot, for example
+`show_ci = FALSE` or `legend = "right"`.
 
 ## 4. A mixed model of the trajectory
 
 The group comparisons use cross-sections. A linear mixed model uses
 every visit of every child.
-[`wgh_fit_lmm()`](../reference/wgh_fit_lmm.md) fits HAZ with a natural
-spline of age interacting with the index category, a fixed site effect,
-and a random intercept and slope for age within child
-(`random = "(1 + age_c | id)"`, with age centred at 10 years).
+[`wgh_fit_lmm()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_fit_lmm.md)
+fits HAZ with a natural spline of age interacting with the index
+category, a fixed site effect, and a random intercept and slope for age
+within child (`random = "(1 + age_c | id)"`, with age centred at 10
+years).
 
 ``` r
 
@@ -155,8 +157,9 @@ conditional R2 adds the child random effects. A large difference between
 them, and a high ICC, means most of the variation in HAZ is stable
 differences between children, as expected for height.
 
-[`wgh_contrasts()`](../reference/wgh_contrasts.md) reads the model at
-stated ages and compares categories pairwise (with `emmeans`):
+[`wgh_contrasts()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_contrasts.md)
+reads the model at stated ages and compares categories pairwise (with
+`emmeans`):
 
 ``` r
 
@@ -184,8 +187,9 @@ the pattern of earlier puberty and an earlier end of growth.
 
 ## 5. Changes in BMI category
 
-[`wgh_exposure_change()`](../reference/wgh_exposure_change.md) compares
-each child’s category at two ages, to see how stable the exposure is.
+[`wgh_exposure_change()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_exposure_change.md)
+compares each child’s category at two ages, to see how stable the
+exposure is.
 
 ``` r
 
@@ -251,11 +255,12 @@ checks that the result does not depend on children seen only twice.
 ## Where to go next
 
 - Timing of the pubertal spurt explains why the advantage disappears.
-  See [`vignette("growth-curves")`](../articles/growth-curves.md).
-- [`wgh_mediation()`](../reference/wgh_mediation.md) estimates how much
-  of an effect passes through a mediator, and
-  [`wgh_exposure_window()`](../reference/wgh_exposure_window.md) defines
-  exposures in a window before an outcome without leakage.
+  See
+  [`vignette("growth-curves")`](https://nhanhocu.github.io/WeGrowHealthR/articles/growth-curves.md).
+- [`wgh_mediation()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_mediation.md)
+  estimates how much of an effect passes through a mediator, and
+  [`wgh_exposure_window()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_exposure_window.md)
+  defines exposures in a window before an outcome without leakage.
 
 ## References
 

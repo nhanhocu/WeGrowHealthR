@@ -17,7 +17,8 @@ plot(x, ages = NULL, ...)
 
 - x:
 
-  A `wgh_rq` object from [`wgh_rq()`](wgh_rq.md).
+  A `wgh_rq` object from
+  [`wgh_rq()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_rq.md).
 
 - ages:
 
@@ -25,7 +26,8 @@ plot(x, ages = NULL, ...)
 
 - ...:
 
-  Display options (see [`wgh_plot_options()`](wgh_plot_options.md));
+  Display options (see
+  [`wgh_plot_options()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_options.md));
   `show_ci = FALSE` hides the bootstrap bands.
 
 ## Value

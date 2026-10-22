@@ -21,8 +21,8 @@ wgh_predict_child(benchmark, child, model = "M5")
 - child:
 
   A one-row data frame with the features of
-  [`wgh_prediction_cohort()`](wgh_prediction_cohort.md) (missing ones
-  are imputed with cohort medians).
+  [`wgh_prediction_cohort()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_prediction_cohort.md)
+  (missing ones are imputed with cohort medians).
 
 - model:
 

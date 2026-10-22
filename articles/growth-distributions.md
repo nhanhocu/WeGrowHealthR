@@ -1,11 +1,12 @@
 # Growth distributions: quantile models, growth inequality and conditional references
 
 > **About this vignette.** All data are simulated with
-> [`wgh_simulate()`](../reference/wgh_simulate.md). The results show how
-> the methods work and resemble the published patterns, but they are not
-> the published findings and are not research results. The functions run
-> in development mode, with 50 bootstrap replicates for the quantile
-> models and 5-fold cross-validation for the references.
+> [`wgh_simulate()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_simulate.md).
+> The results show how the methods work and resemble the published
+> patterns, but they are not the published findings and are not research
+> results. The functions run in development mode, with 50 bootstrap
+> replicates for the quantile models and 5-fold cross-validation for the
+> references.
 
 Means hide what happens at the edges of a distribution. A child at the
 5th centile of height and a child at the 95th may respond differently to
@@ -51,11 +52,12 @@ Write the knots and boundary knots into the formula. If they were chosen
 from the data, every bootstrap replicate would get a slightly different
 basis and the replicates could not be combined.
 
-[`wgh_rq()`](../reference/wgh_rq.md) fits the model at each quantile in
-`taus`, reads the BAZ slope at the `anchor_ages` by contrast (the change
-in predicted HAZ when BAZ rises by one unit at that age), and gets
-intervals from a bootstrap that resamples children (`B` replicates), so
-repeated visits are handled correctly.
+[`wgh_rq()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_rq.md)
+fits the model at each quantile in `taus`, reads the BAZ slope at the
+`anchor_ages` by contrast (the change in predicted HAZ when BAZ rises by
+one unit at that age), and gets intervals from a bootstrap that
+resamples children (`B` replicates), so repeated visits are handled
+correctly.
 
 ``` r
 
@@ -104,11 +106,12 @@ Before puberty the slope is positive and largest at the upper quantiles:
 higher BMI goes with greater height, most of all among the tallest
 girls. By 15 years the slope is close to zero in the middle of the
 distribution and negative at the 5th centile, the same convergence seen
-in [`vignette("trajectories")`](../articles/trajectories.md).
+in
+[`vignette("trajectories")`](https://nhanhocu.github.io/WeGrowHealthR/articles/trajectories.md).
 
-[`wgh_test_heterogeneity()`](../reference/wgh_test_heterogeneity.md)
+[`wgh_test_heterogeneity()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_test_heterogeneity.md)
 tests whether the slopes at one age are equal across quantiles, and
-[`wgh_test_sex_difference()`](../reference/wgh_test_heterogeneity.md)
+[`wgh_test_sex_difference()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_test_heterogeneity.md)
 whether boys and girls differ:
 
 ``` r
@@ -126,17 +129,19 @@ wgh_test_sex_difference(fit_b, fit_g, age = 12)$joint
 #> 1    12   25.0     5 0.000139
 ```
 
-[`wgh_slopes()`](../reference/wgh_slopes.md) reads slopes at any other
-ages from the same fit, for example
+[`wgh_slopes()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_slopes.md)
+reads slopes at any other ages from the same fit, for example
 `wgh_slopes(fit_g, ages = c(7, 13))`.
 
 ### Accounting for repeated visits: LQMM
 
 Quantile regression treats visits as independent and handles clustering
 only through the bootstrap. A linear quantile mixed model adds a random
-intercept for each child. [`wgh_lqmm()`](../reference/wgh_lqmm.md) has
-the same interface as [`wgh_rq()`](../reference/wgh_rq.md) and retries
-with more iterations when the optimiser warns.
+intercept for each child.
+[`wgh_lqmm()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_lqmm.md)
+has the same interface as
+[`wgh_rq()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_rq.md)
+and retries with more iterations when the optimiser warns.
 
 ``` r
 
@@ -177,9 +182,9 @@ the failed attempts.
 The same quantile model describes the spread of the distribution. The
 distance between the 95th and the 5th centile of HAZ (`range90`) and the
 interquartile range (`iqr`) can be read at any age and BAZ.
-[`wgh_dispersion()`](../reference/wgh_dispersion.md) does that, with
-bootstrap intervals, and also reports the change in spread per unit of
-BAZ.
+[`wgh_dispersion()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_dispersion.md)
+does that, with bootstrap intervals, and also reports the change in
+spread per unit of BAZ.
 
 ``` r
 
@@ -205,8 +210,9 @@ dsp$change
 ```
 
 A spread read at a BAZ where few children are measured is an
-extrapolation. [`wgh_support()`](../reference/wgh_support.md) counts the
-children near each age and BAZ and flags the supported cells:
+extrapolation.
+[`wgh_support()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_support.md)
+counts the children near each age and BAZ and flags the supported cells:
 
 ``` r
 
@@ -268,7 +274,7 @@ long <- wgh_simulate(12000, preset = "reference", seed = 11, years = 2012:2025,
 
 ### Building the panel
 
-[`wgh_conditional_panel()`](../reference/wgh_conditional_panel.md)
+[`wgh_conditional_panel()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_conditional_panel.md)
 takes, for each child, the visit nearest `anchor` (6 years) within the
 conditioning `window` as the baseline, a second visit near `anchor2` for
 a slope, and the visit nearest each target age (within `tol` years) as
@@ -296,13 +302,13 @@ head(cp[, c("id", "sex", "baseline_age", "baseline_haz", "baseline_baz", "target
 
 ### Fitting the references
 
-[`wgh_condref()`](../reference/wgh_condref.md) fits quantile regressions
-of the target HAZ on the baseline features, by sex and target age, over
-a grid of quantiles. The `formula` sets the baseline features (default
-baseline HAZ, BAZ and age). Three benchmarks are stored alongside: the
-unconditional reference (the target distribution ignoring the baseline),
-persistence (baseline plus the typical change) and the WHO band
-(standard normal quantiles).
+[`wgh_condref()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_condref.md)
+fits quantile regressions of the target HAZ on the baseline features, by
+sex and target age, over a grid of quantiles. The `formula` sets the
+baseline features (default baseline HAZ, BAZ and age). Three benchmarks
+are stored alongside: the unconditional reference (the target
+distribution ignoring the baseline), persistence (baseline plus the
+typical change) and the WHO band (standard normal quantiles).
 
 ``` r
 
@@ -341,18 +347,19 @@ much narrower than the WHO range.
 
 ### Showing one child: the fan chart
 
-[`wgh_plot_fan()`](../reference/wgh_plot_fan.md) draws the expected
-course. The fan opens at the baseline measurement (known, so it has no
-width) and widens to the predicted 25th to 75th and 5th to 95th centile
-ranges at each target age. The grey band is the WHO -2 to +2 SD range,
-`show_unconditional = TRUE` adds the cohort’s unconditional range, and
-`observed` overlays the child’s later measurements.
+[`wgh_plot_fan()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_fan.md)
+draws the expected course. The fan opens at the baseline measurement
+(known, so it has no width) and widens to the predicted 25th to 75th and
+5th to 95th centile ranges at each target age. The grey band is the WHO
+-2 to +2 SD range, `show_unconditional = TRUE` adds the cohort’s
+unconditional range, and `observed` overlays the child’s later
+measurements.
 
 Here is a child whose height-for-age drifted downwards. We find such a
 child with
-[`wgh_condref_centile()`](../reference/wgh_condref_centile.md) (next
-section): flagged below the conditional 3rd centile at 14 years, yet
-still inside the WHO band.
+[`wgh_condref_centile()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_condref_centile.md)
+(next section): flagged below the conditional 3rd centile at 14 years,
+yet still inside the WHO band.
 
 ``` r
 
@@ -393,11 +400,11 @@ course](figures/dist-fan-typical-1.png)
 
 ### Conditional centiles and flags
 
-[`wgh_condref_centile()`](../reference/wgh_condref_centile.md) places
-each observed target value in its predicted distribution. `cond_centile`
-is the conditional centile (0 to 100), `cond_z` its normal score, and
-`cond_flag` is `"below"` or `"above"` when the centile is outside 3 to
-97 (`flag`).
+[`wgh_condref_centile()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_condref_centile.md)
+places each observed target value in its predicted distribution.
+`cond_centile` is the conditional centile (0 to 100), `cond_z` its
+normal score, and `cond_flag` is `"below"` or `"above"` when the centile
+is outside 3 to 97 (`flag`).
 
 ``` r
 
@@ -415,9 +422,10 @@ mean(abs(sc$target) < 2 & sc$cond_flag != "within", na.rm = TRUE)
 ### Are the references any good?
 
 A reference is useful if its ranges are both honest and narrow.
-[`wgh_condref_cv()`](../reference/wgh_condref_cv.md) fits the references
-on part of the children and scores them on the others (`folds`
-child-level folds, or `folds = "site"` to leave one site out):
+[`wgh_condref_cv()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_condref_cv.md)
+fits the references on part of the children and scores them on the
+others (`folds` child-level folds, or `folds = "site"` to leave one site
+out):
 
 - `crps` (continuous ranked probability score) and `wis` (weighted
   interval score) measure the accuracy of the whole predicted
@@ -447,19 +455,19 @@ the baseline but ignores BMI and regression to the mean.
 ### A flexible benchmark and a child-by-child comparison
 
 Is the linear conditional reference too simple? A quantile random forest
-([`wgh_quantile_forest()`](../reference/wgh_quantile_forest.md), built
-on `ranger`) makes no assumption about the shape of the relationship, so
-it is a demanding benchmark (Book 2 Chapter 15). `forest = TRUE` adds it
-to the cross-validation.
+([`wgh_quantile_forest()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_quantile_forest.md),
+built on `ranger`) makes no assumption about the shape of the
+relationship, so it is a demanding benchmark (Book 2 Chapter 15).
+`forest = TRUE` adds it to the cross-validation.
 
 Comparing average scores across models ignores that the models predict
 the same children.
-[`wgh_condref_compare()`](../reference/wgh_condref_compare.md) scores
-every held-out prediction and compares two references child by child,
-with a bootstrap that resamples children
-([`wgh_paired_scores()`](../reference/wgh_paired_scores.md), Book 2
-Chapter 16). A negative difference means the model scores better than
-the reference.
+[`wgh_condref_compare()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_condref_compare.md)
+scores every held-out prediction and compares two references child by
+child, with a bootstrap that resamples children
+([`wgh_paired_scores()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_paired_scores.md),
+Book 2 Chapter 16). A negative difference means the model scores better
+than the reference.
 
 ``` r
 
@@ -486,7 +494,7 @@ the linear conditional reference. When its interval lies above zero the
 forest is worse, and the simpler linear model, which can be written as
 an equation and explained, is preferred.
 
-[`wgh_plot_condref_calibration()`](../reference/wgh_plot_condref_calibration.md)
+[`wgh_plot_condref_calibration()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_condref_calibration.md)
 checks every quantile, not only the 90% range, with out-of-fold
 predictions. Points on the diagonal mean that, for example, 10% of
 children fall below the predicted 10th centile.
@@ -611,9 +619,9 @@ with `qgam`. Both are slower.
 
 ## Where to go next
 
-- [`vignette("prediction")`](../articles/prediction.md) explains
-  individual conditional predictions with SHAP values.
-- [`vignette("phenotypes-states")`](../articles/phenotypes-states.md)
+- [`vignette("prediction")`](https://nhanhocu.github.io/WeGrowHealthR/articles/prediction.md)
+  explains individual conditional predictions with SHAP values.
+- [`vignette("phenotypes-states")`](https://nhanhocu.github.io/WeGrowHealthR/articles/phenotypes-states.md)
   looks at movement between height bands over time.
 
 ## References

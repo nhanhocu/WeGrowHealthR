@@ -55,10 +55,11 @@ were.
 
 ## Next steps
 
-Check the set-up with [`wgh_parallel_info()`](wgh_parallel_info.md), run
-any bootstrap or flow as usual, and return to sequential processing with
-`wgh_parallel(1)`. See
-[`vignette("parallel-computing")`](../articles/parallel-computing.md).
+Check the set-up with
+[`wgh_parallel_info()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_parallel_info.md),
+run any bootstrap or flow as usual, and return to sequential processing
+with `wgh_parallel(1)`. See
+[`vignette("parallel-computing")`](https://nhanhocu.github.io/WeGrowHealthR/articles/parallel-computing.md).
 
 ## Examples
 

@@ -23,7 +23,8 @@ wgh_benchmark(
 
 - cohort:
 
-  Output of [`wgh_prediction_cohort()`](wgh_prediction_cohort.md).
+  Output of
+  [`wgh_prediction_cohort()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_prediction_cohort.md).
 
 - models:
 

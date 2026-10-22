@@ -4,12 +4,12 @@ Analyses in the research program repeatedly lost a disproportionate
 share of one site during feature engineering, for example in the height
 prediction cohort, the first design of the conditional reference panel
 and the canalization sample (see
-[`wgh_references()`](wgh_references.md)). `wgh_sample_flow()` applies a
-sequence of named restriction steps and records, after each one, the
-number of children and visits, the share retained by site and the
-balance between included and excluded children. It warns when a site's
-retention falls far below the others. It generalises `sample_check()`
-from Book 2 Chapter 2.
+[`wgh_references()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_references.md)).
+`wgh_sample_flow()` applies a sequence of named restriction steps and
+records, after each one, the number of children and visits, the share
+retained by site and the balance between included and excluded children.
+It warns when a site's retention falls far below the others. It
+generalises `sample_check()` from Book 2 Chapter 2.
 
 ## Usage
 
@@ -21,8 +21,10 @@ wgh_sample_flow(x, ..., site_ratio = 0.7, balance_vars = NULL)
 
 - x:
 
-  A [wgh_data](wgh_data.md) object or a data frame with `id` (or `pid`)
-  and optionally `site` columns.
+  A
+  [wgh_data](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_data.md)
+  object or a data frame with `id` (or `pid`) and optionally `site`
+  columns.
 
 - ...:
 
@@ -49,7 +51,7 @@ the same container type as `x`), `$steps` (attrition table), `$by_site`
 Each step is either a one-sided formula evaluated on visit rows (rows
 where it is `FALSE` are dropped) or a function that takes the current
 data and returns the restricted data, such as
-[`wgh_min_visits()`](wgh_min_visits.md).
+[`wgh_min_visits()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_min_visits.md).
 
 ## Examples
 

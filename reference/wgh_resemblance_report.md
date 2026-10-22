@@ -1,10 +1,12 @@
 # Compare a simulated cohort with the published patterns
 
 Computes, for a `wgh_sim` object or its visit data, each pattern listed
-in [wgh_targets](wgh_targets.md) that can be computed without fitting
-models, and reports whether it falls in the acceptable band. Patterns
-that need a fitted model (for example SITAR APHV) are computed from the
-truth file when a `wgh_sim` object is supplied.
+in
+[wgh_targets](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_targets.md)
+that can be computed without fitting models, and reports whether it
+falls in the acceptable band. Patterns that need a fitted model (for
+example SITAR APHV) are computed from the truth file when a `wgh_sim`
+object is supplied.
 
 ## Usage
 
@@ -16,12 +18,14 @@ wgh_resemblance_report(sim, targets = WeGrowHealthR::wgh_targets)
 
 - sim:
 
-  A `wgh_sim` object from [`wgh_simulate()`](wgh_simulate.md) or a
-  visits data frame.
+  A `wgh_sim` object from
+  [`wgh_simulate()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_simulate.md)
+  or a visits data frame.
 
 - targets:
 
-  The targets table, by default [wgh_targets](wgh_targets.md).
+  The targets table, by default
+  [wgh_targets](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_targets.md).
 
 ## Value
 

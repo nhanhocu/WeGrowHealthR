@@ -12,7 +12,8 @@ wgh_preset_peaks(preset = "wgh_like")
 
 - preset:
 
-  A preset name or settings list from [`wgh_preset()`](wgh_preset.md).
+  A preset name or settings list from
+  [`wgh_preset()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_preset.md).
 
 ## Value
 

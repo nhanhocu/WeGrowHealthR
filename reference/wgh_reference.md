@@ -28,8 +28,8 @@ wgh_reference(indicator = c("hfa", "wfa", "bfa"), age, sex, reference = "who")
 
 ## Value
 
-A data frame with columns `L`, `M`, `S` (`NA` outside the reference's
-age range).
+A data frame with columns `L`, `M`, `S` (`NA` for negative ages and
+outside the reference's age range).
 
 ## Details
 
@@ -46,9 +46,11 @@ age range).
 
 ## Next steps
 
-Use [`wgh_lms_value()`](wgh_lms_z.md) to turn the parameters into
-centile curves, or [`wgh_zscore()`](wgh_zscore.md) to score
-measurements.
+Use
+[`wgh_lms_value()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_lms_z.md)
+to turn the parameters into centile curves, or
+[`wgh_zscore()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_zscore.md)
+to score measurements.
 
 ## Examples
 

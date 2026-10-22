@@ -16,7 +16,7 @@ plot(x, only_failed = FALSE, ...)
 - x:
 
   A `wgh_resemblance` object from
-  [`wgh_resemblance_report()`](wgh_resemblance_report.md).
+  [`wgh_resemblance_report()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_resemblance_report.md).
 
 - only_failed:
 
@@ -24,7 +24,8 @@ plot(x, only_failed = FALSE, ...)
 
 - ...:
 
-  Display options (see [`wgh_plot_options()`](wgh_plot_options.md)).
+  Display options (see
+  [`wgh_plot_options()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_options.md)).
 
 ## Value
 

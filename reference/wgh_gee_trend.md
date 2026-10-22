@@ -42,7 +42,8 @@ wgh_trend_slopes(object)
 - age_group:
 
   Optional factor column; slopes are reported within each level. Use
-  [`wgh_age_bands()`](wgh_age_bands.md) to create one.
+  [`wgh_age_bands()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_age_bands.md)
+  to create one.
 
 - covariates:
 

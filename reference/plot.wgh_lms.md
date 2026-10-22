@@ -14,7 +14,8 @@ plot(x, ages = NULL, compare_who = FALSE, ...)
 
 - x:
 
-  A `wgh_lms` object from [`wgh_fit_lms()`](wgh_fit_lms.md).
+  A `wgh_lms` object from
+  [`wgh_fit_lms()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_fit_lms.md).
 
 - ages:
 
@@ -26,7 +27,8 @@ plot(x, ages = NULL, compare_who = FALSE, ...)
 
 - ...:
 
-  Display options (see [`wgh_plot_options()`](wgh_plot_options.md)).
+  Display options (see
+  [`wgh_plot_options()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_options.md)).
 
 ## Value
 

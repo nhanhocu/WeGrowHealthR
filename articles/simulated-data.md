@@ -1,14 +1,15 @@
 # The simulated teaching cohorts
 
 Every dataset in WeGrowHealthR comes from one generator,
-[`wgh_simulate()`](../reference/wgh_simulate.md). Real growth records of
-children cannot be shared, so the package ships simulated cohorts
-instead. The `wgh_like` preset is set so that a cohort **resembles** the
-published results of the school health cohort studied in the research
-program (see [`wgh_references()`](../reference/wgh_references.md)): the
-same patterns, the same directions of effect and numbers of a similar
-size. It does not reproduce published values, and nothing computed from
-it is a finding.
+[`wgh_simulate()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_simulate.md).
+Real growth records of children cannot be shared, so the package ships
+simulated cohorts instead. The `wgh_like` preset is set so that a cohort
+**resembles** the published results of the school health cohort studied
+in the research program (see
+[`wgh_references()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_references.md)):
+the same patterns, the same directions of effect and numbers of a
+similar size. It does not reproduce published values, and nothing
+computed from it is a finding.
 
 This vignette explains how the generator works, how to check the
 resemblance, how to change the simulated world, and how to use the truth
@@ -33,7 +34,7 @@ The main arguments are:
   (fewer appear in the visit data, because not every child attends),
 - `preset`, `"wgh_like"` (default) or `"reference"` (a cohort with
   simple, textbook settings), or a settings list from
-  [`wgh_preset()`](../reference/wgh_preset.md),
+  [`wgh_preset()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_preset.md),
 - `seed`, so the same call always gives the same cohort,
 - `informative_visits`, whether attendance depends on the child’s BMI as
   in real school data (`FALSE` makes visits missing at random),
@@ -88,7 +89,7 @@ on BMI.
 `wgh_targets` lists published patterns with acceptable bands, for
 example the prevalence of overweight and obesity by sex, the APHV of
 boys and girls and the spread of individual timing.
-[`wgh_resemblance_report()`](../reference/wgh_resemblance_report.md)
+[`wgh_resemblance_report()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_resemblance_report.md)
 computes each pattern in a simulated cohort and checks it against its
 band.
 
@@ -166,7 +167,8 @@ averages.
 ## Building another world
 
 Because the true structure is known, you can change one setting and see
-how an analysis responds. [`wgh_preset()`](../reference/wgh_preset.md)
+how an analysis responds.
+[`wgh_preset()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_preset.md)
 returns all settings, with units documented in the package source.
 
 ``` r
@@ -188,9 +190,10 @@ default world children with more adiposity have earlier timing (negative
 `b`). Running the pubertal spurt analysis on both worlds shows whether a
 method can tell them apart.
 
-[`wgh_tune_preset()`](../reference/wgh_tune_preset.md) adjusts a few
-settings automatically so that a preset meets the prevalence and
-age-distribution targets, which is how the `wgh_like` preset was set.
+[`wgh_tune_preset()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_tune_preset.md)
+adjusts a few settings automatically so that a preset meets the
+prevalence and age-distribution targets, which is how the `wgh_like`
+preset was set.
 
 ## The truth file: testing methods
 
@@ -213,9 +216,9 @@ head(sim$truth_child)
 #> #   aphv_true <dbl>, phv_true <dbl>
 ```
 
-[`wgh_truth_check()`](../reference/wgh_truth_check.md) compares
-estimates with the truth, for example the individual APHV from a SITAR
-model with `aphv_true`:
+[`wgh_truth_check()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_truth_check.md)
+compares estimates with the truth, for example the individual APHV from
+a SITAR model with `aphv_true`:
 
 ``` r
 
@@ -235,15 +238,15 @@ This is the safest way to learn what a method can and cannot recover.
 | `growdat` | A cohort of about 3,300 children from 18 months to 18 years, book 1 column names |
 | `growdat_raw` | `growdat` as a messy export, for practising cleaning |
 | `growdat2_mini` | A smaller cohort with book 2 column names, with its truth file `growdat2_mini_truth` |
-| `clinical_cases` | A few dozen children with clinical patterns ([`wgh_simulate_clinical_cases()`](../reference/wgh_simulate_clinical_cases.md)) |
+| `clinical_cases` | A few dozen children with clinical patterns ([`wgh_simulate_clinical_cases()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_simulate_clinical_cases.md)) |
 | `wgh_targets` | The published patterns used to check resemblance |
 | `who_lms`, `cdc_lms` | WHO and CDC 2000 LMS reference tables |
 
 The full-size cohort used in book 2 can be obtained with
-[`wgh_download()`](../reference/wgh_download.md). It downloads a frozen
-copy when a URL is configured, verifying its checksum, and otherwise
-regenerates the same cohort locally. The result records where it came
-from in its `"provenance"` attribute.
+[`wgh_download()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_download.md).
+It downloads a frozen copy when a URL is configured, verifying its
+checksum, and otherwise regenerates the same cohort locally. The result
+records where it came from in its `"provenance"` attribute.
 
 ``` r
 

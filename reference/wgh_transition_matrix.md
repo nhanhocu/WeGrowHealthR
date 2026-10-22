@@ -18,7 +18,8 @@ wgh_canalization_summary(
 
 - transitions:
 
-  Output of [`wgh_transitions()`](wgh_transitions.md).
+  Output of
+  [`wgh_transitions()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_transitions.md).
 
 - by:
 

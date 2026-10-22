@@ -13,7 +13,8 @@ plot(x, metric = "RMSE", ...)
 
 - x:
 
-  A `wgh_benchmark` object from [`wgh_benchmark()`](wgh_benchmark.md).
+  A `wgh_benchmark` object from
+  [`wgh_benchmark()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_benchmark.md).
 
 - metric:
 
@@ -22,7 +23,8 @@ plot(x, metric = "RMSE", ...)
 
 - ...:
 
-  Display options (see [`wgh_plot_options()`](wgh_plot_options.md)).
+  Display options (see
+  [`wgh_plot_options()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_options.md)).
 
 ## Value
 

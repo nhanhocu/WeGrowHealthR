@@ -2,12 +2,12 @@
 
 Builds the prediction cohort from prepubertal visits, joins SITAR timing
 and intensity from
-[`wgh_flow_pubertal_spurt()`](wgh_flow_pubertal_spurt.md) (never size),
-and benchmarks the M0 to M8 model ladder on identical cross-validation
-folds, with leave-one-site-out validation, a bootstrap comparison of the
-primary mixed model with XGBoost, prediction intervals, calibration and
-Bland-Altman plots, SHAP for XGBoost and an example individual
-prediction.
+[`wgh_flow_pubertal_spurt()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_pubertal_spurt.md)
+(never size), and benchmarks the M0 to M8 model ladder on identical
+cross-validation folds, with leave-one-site-out validation, a bootstrap
+comparison of the primary mixed model with XGBoost, prediction
+intervals, calibration and Bland-Altman plots, SHAP for XGBoost and an
+example individual prediction.
 
 ## Usage
 
@@ -29,14 +29,15 @@ wgh_flow_height_prediction(
 
 - mode:
 
-  Run mode (see [`wgh_config()`](wgh_config.md)); `NULL` keeps the
-  current mode.
+  Run mode (see
+  [`wgh_config()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_config.md));
+  `NULL` keeps the current mode.
 
 - spurt:
 
   Optional report from
-  [`wgh_flow_pubertal_spurt()`](wgh_flow_pubertal_spurt.md) on the same
-  data (it is computed when `NULL`).
+  [`wgh_flow_pubertal_spurt()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_pubertal_spurt.md)
+  on the same data (it is computed when `NULL`).
 
 - n_children:
 
@@ -45,7 +46,8 @@ wgh_flow_height_prediction(
 
 ## Value
 
-A [wgh_report](wgh_report.md).
+A
+[wgh_report](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_report.md).
 
 ## Examples
 

@@ -1,11 +1,11 @@
 # Growth phenotypes, canalization and multistate models
 
 > **About this vignette.** All data are simulated with
-> [`wgh_simulate()`](../reference/wgh_simulate.md). The results show how
-> the methods work and resemble the published patterns, but they are not
-> the published findings and are not research results. The functions run
-> in development mode: SITAR models use at most 1,000 children and the
-> cluster stability 20 bootstrap refits.
+> [`wgh_simulate()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_simulate.md).
+> The results show how the methods work and resemble the published
+> patterns, but they are not the published findings and are not research
+> results. The functions run in development mode: SITAR models use at
+> most 1,000 children and the cluster stability 20 bootstrap refits.
 
 Children do not all grow along the same path. Some are tall early and
 stop early, others start small and catch up. This vignette shows two
@@ -23,8 +23,8 @@ The vignette is precomputed.
 
 Phenotypes need children followed through puberty, so this part uses a
 simulated cohort followed for 14 school years with little dropout (see
-[`vignette("simulated-data")`](../articles/simulated-data.md) for the
-settings).
+[`vignette("simulated-data")`](https://nhanhocu.github.io/WeGrowHealthR/articles/simulated-data.md)
+for the settings).
 
 ``` r
 
@@ -40,11 +40,13 @@ length(unique(long$pid))
 ## 1. Summarising trajectories with functional PCA
 
 Visits are sparse and irregular, so trajectories cannot be compared
-point by point. [`wgh_fpca()`](../reference/wgh_fpca.md) summarises each
-child’s HAZ trajectory with functional principal component scores using
-PACE (`fdapace`), which borrows strength across children. `min_visits`
-and `min_span` set who is eligible (4 visits over 3 years in \[1\]), and
-`fve` the share of variance the components must explain.
+point by point.
+[`wgh_fpca()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_fpca.md)
+summarises each child’s HAZ trajectory with functional principal
+component scores using PACE (`fdapace`), which borrows strength across
+children. `min_visits` and `min_span` set who is eligible (4 visits over
+3 years in \[1\]), and `fve` the share of variance the components must
+explain.
 
 We use girls here, whose pubertal timing varies more.
 
@@ -74,7 +76,8 @@ falling behind).
 ## 2. Adding SITAR timing and intensity
 
 Peri-pubertal growth also differs in timing and intensity, which SITAR
-measures ([`vignette("growth-curves")`](../articles/growth-curves.md)).
+measures
+([`vignette("growth-curves")`](https://nhanhocu.github.io/WeGrowHealthR/articles/growth-curves.md)).
 
 ``` r
 
@@ -94,14 +97,14 @@ head(feat)
 
 ## 3. Clustering
 
-[`wgh_cluster()`](../reference/wgh_cluster.md) fits Gaussian mixture
-models (`mclust`) with `G` clusters over a range, standardises the
-features (`scale = TRUE`) and chooses the number of clusters by BIC or
-ICL (`criterion`). It warns when the chosen number is at an edge of the
-range, because then the search should be widened.
-[`wgh_name_phenotypes()`](../reference/wgh_name_phenotypes.md) names
-each cluster from its centroid on size, timing and tempo, so the names
-are reproducible.
+[`wgh_cluster()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_cluster.md)
+fits Gaussian mixture models (`mclust`) with `G` clusters over a range,
+standardises the features (`scale = TRUE`) and chooses the number of
+clusters by BIC or ICL (`criterion`). It warns when the chosen number is
+at an edge of the range, because then the search should be widened.
+[`wgh_name_phenotypes()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_name_phenotypes.md)
+names each cluster from its centroid on size, timing and tempo, so the
+names are reproducible.
 
 SITAR size `a` is left out because `fpc1` already describes overall
 level.
@@ -143,11 +146,11 @@ curves, which shows how much the children within a phenotype differ.
 
 ### Are the phenotypes stable and meaningful?
 
-[`wgh_cluster_stability()`](../reference/wgh_cluster_neighbours.md)
+[`wgh_cluster_stability()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_cluster_neighbours.md)
 refits the clustering on bootstrap samples and reports the adjusted Rand
 index (ARI) with the original clustering. An ARI near 1 means the
 phenotypes are found again and again.
-[`wgh_cluster_neighbours()`](../reference/wgh_cluster_neighbours.md)
+[`wgh_cluster_neighbours()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_cluster_neighbours.md)
 refits with one cluster fewer and one more and cross-tabulates the
 memberships, which shows which phenotypes merge or split.
 
@@ -177,7 +180,7 @@ wgh_cluster_neighbours(cl)
 #>        5  28   7   3  11   0  15
 ```
 
-[`wgh_validate_phenotypes()`](../reference/wgh_validate_phenotypes.md)
+[`wgh_validate_phenotypes()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_validate_phenotypes.md)
 checks the phenotypes against characteristics that were not used to
 build them, here prepubertal BMI category and site, with a multinomial
 model and a likelihood ratio test for each:
@@ -202,11 +205,11 @@ problem.
 
 ## 4. Phenotypes and later outcomes
 
-[`wgh_link_outcome()`](../reference/wgh_link_outcome.md) models a later
-outcome as a function of phenotype membership with a bootstrap over
-children: a linear model for a continuous outcome, logistic for a binary
-one. `exposure = "b"` instead uses a continuous feature for a
-dose-response model.
+[`wgh_link_outcome()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_link_outcome.md)
+models a later outcome as a function of phenotype membership with a
+bootstrap over children: a linear model for a continuous outcome,
+logistic for a binary one. `exposure = "b"` instead uses a continuous
+feature for a dose-response model.
 
 ``` r
 
@@ -242,8 +245,8 @@ estimates are unstable.
 The phenotypes were built from visits up to 18 years. Using them to
 predict height at 15 or 18 years would leak the outcome into the
 predictor, and
-[`wgh_leakage_check()`](../reference/wgh_leakage_check.md) warns about
-that:
+[`wgh_leakage_check()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_leakage_check.md)
+warns about that:
 
 ``` r
 
@@ -253,13 +256,14 @@ wgh_leakage_check(c(5, 18), c(12, 15, 18))$message
 
 ## 5. Height bands and canalization
 
-[`wgh_states()`](../reference/wgh_states.md) puts every visit in one of
-five HAZ bands, cut at the 10th, 25th, 75th and 90th centiles of the
-standard normal distribution (`percentiles`).
-[`wgh_transitions()`](../reference/wgh_transitions.md) pairs consecutive
-visits 0.5 to 2.5 years apart (`min_interval`, `max_interval`) and flags
-staying in the band, moving up or down, catch-up (moving up from the two
-lowest bands) and catch-down (moving down from the two highest bands).
+[`wgh_states()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_states.md)
+puts every visit in one of five HAZ bands, cut at the 10th, 25th, 75th
+and 90th centiles of the standard normal distribution (`percentiles`).
+[`wgh_transitions()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_transitions.md)
+pairs consecutive visits 0.5 to 2.5 years apart (`min_interval`,
+`max_interval`) and flags staying in the band, moving up or down,
+catch-up (moving up from the two lowest bands) and catch-down (moving
+down from the two highest bands).
 
 ``` r
 
@@ -317,13 +321,13 @@ towards the middle more often than children in the middle move out.
 
 A child near a cut-off can change band because of a few millimetres of
 measurement error.
-[`wgh_false_moves()`](../reference/wgh_false_moves.md) measures how
-often that happens. It redraws every measured height from the error-free
-height with a chosen error SD (`error_sds`, in cm), rounds it as a
-school scale would, and compares the measured transitions with the
-error-free ones. The simulation truth file holds the error-free height.
-With real data the recorded height is used instead, and the result is a
-lower bound.
+[`wgh_false_moves()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_false_moves.md)
+measures how often that happens. It redraws every measured height from
+the error-free height with a chosen error SD (`error_sds`, in cm),
+rounds it as a school scale would, and compares the measured transitions
+with the error-free ones. The simulation truth file holds the error-free
+height. With real data the recorded height is used instead, and the
+result is a lower bound.
 
 ``` r
 
@@ -357,9 +361,11 @@ alongside any transition matrix (Book 2 Chapter 12).
 ### Regression to the mean
 
 Part of that movement towards the middle is regression to the mean, not
-real catch-up. [`wgh_rtm()`](../reference/wgh_rtm.md) computes the
-conditional change score (z2 - r z1) / sqrt(1 - r^2), which is zero on
-average for every starting value if there is no true catch-up.
+real catch-up.
+[`wgh_rtm()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_rtm.md)
+computes the conditional change score (z2 - r z1) / sqrt(1 - r^2), which
+is zero on average for every starting value if there is no true
+catch-up.
 
 ``` r
 
@@ -379,10 +385,10 @@ who start high, is explained by regression to the mean.
 
 ### What predicts catch-up?
 
-[`wgh_transition_glmm()`](../reference/wgh_transition_glmm.md) fits a
-logistic mixed model for catch-up or catch-down with a random intercept
-for each child. `subset_from` restricts to transitions that start in the
-bands where the movement is possible.
+[`wgh_transition_glmm()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_transition_glmm.md)
+fits a logistic mixed model for catch-up or catch-down with a random
+intercept for each child. `subset_from` restricts to transitions that
+start in the bands where the movement is possible.
 
 ``` r
 
@@ -406,10 +412,11 @@ up$odds_ratios
 
 A multistate model treats movement between bands as a continuous-time
 process, which handles unequal intervals between visits.
-[`wgh_msm_data()`](../reference/wgh_msm_data.md) prepares the data and
-[`wgh_msm()`](../reference/wgh_msm.md) fits the model with `msm`. By
-default only moves to adjacent bands are allowed
-(`transitions = "adjacent"`).
+[`wgh_msm_data()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_msm_data.md)
+prepares the data and
+[`wgh_msm()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_msm.md)
+fits the model with `msm`. By default only moves to adjacent bands are
+allowed (`transitions = "adjacent"`).
 
 ``` r
 
@@ -464,8 +471,9 @@ wgh_msm_check(ms)
 `constraint = "direction"` (default) the effect of a covariate is shared
 by all upward moves and by all downward moves, which keeps the model
 stable. `constraint = "none"` gives each transition its own effect.
-[`wgh_msm_check()`](../reference/wgh_msm_check.md) flags implausibly
-high intensities, which make the standard errors unreliable.
+[`wgh_msm_check()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_msm_check.md)
+flags implausibly high intensities, which make the standard errors
+unreliable.
 
 ``` r
 
@@ -483,10 +491,12 @@ When observed and expected prevalence agree, the model describes the
 data well.
 
 A band seen at one visit can be wrong because of measurement error near
-a cut-off. [`wgh_hmm()`](../reference/wgh_hmm.md) treats the true band
-as hidden and allows each observation to be misclassified into an
-adjacent band, which separates real movement from measurement noise. It
-is slower, so here it is fitted to a random 2,000 children.
+a cut-off.
+[`wgh_hmm()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_hmm.md)
+treats the true band as hidden and allows each observation to be
+misclassified into an adjacent band, which separates real movement from
+measurement noise. It is slower, so here it is fitted to a random 2,000
+children.
 
 ``` r
 
@@ -576,11 +586,11 @@ the timing effect passes through late-adolescent BMI.
 
 ## Where to go next
 
-- [`vignette("growth-distributions")`](../articles/growth-distributions.md)
+- [`vignette("growth-distributions")`](https://nhanhocu.github.io/WeGrowHealthR/articles/growth-distributions.md)
   gives each child a personalised expected range, a continuous
   counterpart of the height bands.
-- [`vignette("prediction")`](../articles/prediction.md) predicts
-  late-adolescent height.
+- [`vignette("prediction")`](https://nhanhocu.github.io/WeGrowHealthR/articles/prediction.md)
+  predicts late-adolescent height.
 
 ## References
 

@@ -25,7 +25,8 @@ wgh_msm(
 
 - data:
 
-  Output of [`wgh_msm_data()`](wgh_msm_data.md).
+  Output of
+  [`wgh_msm_data()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_msm_data.md).
 
 - covariates:
 

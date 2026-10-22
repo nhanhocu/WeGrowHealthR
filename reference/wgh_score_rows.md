@@ -1,8 +1,10 @@
 # Proper scores for each prediction
 
-The row-level version of [`wgh_score()`](wgh_score.md): one score per
-observation, so two predictors can be compared observation by
-observation with [`wgh_paired_scores()`](wgh_paired_scores.md).
+The row-level version of
+[`wgh_score()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_score.md):
+one score per observation, so two predictors can be compared observation
+by observation with
+[`wgh_paired_scores()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_paired_scores.md).
 
 ## Usage
 
@@ -28,10 +30,10 @@ wgh_score_rows(obs, qmat, taus)
 
 A tibble with one row per observation: `pinball` (mean over the quantile
 grid), `crps` (the trapezoid approximation described in
-[`wgh_score()`](wgh_score.md)), `wis` (weighted interval score from the
-50%, 80% and 90% intervals and the median, when those quantiles are in
-the grid), `abs_error` of the median, and `covered_90` and `width_90` of
-the 90% interval.
+[`wgh_score()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_score.md)),
+`wis` (weighted interval score from the 50%, 80% and 90% intervals and
+the median, when those quantiles are in the grid), `abs_error` of the
+median, and `covered_90` and `width_90` of the 90% interval.
 
 ## Examples
 

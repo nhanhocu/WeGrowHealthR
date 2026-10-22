@@ -1,11 +1,12 @@
 # SITAR growth curves and the pubertal growth spurt
 
 > **About this vignette.** All data are simulated with
-> [`wgh_simulate()`](../reference/wgh_simulate.md). The results show how
-> the methods work and resemble the published patterns, but they are not
-> the published findings and are not research results. SITAR models use
-> at most 1,000 children each (development mode), the APHV bootstrap
-> uses 10 replicates and the quantile bootstraps 50.
+> [`wgh_simulate()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_simulate.md).
+> The results show how the methods work and resemble the published
+> patterns, but they are not the published findings and are not research
+> results. SITAR models use at most 1,000 children each (development
+> mode), the APHV bootstrap uses 10 replicates and the quantile
+> bootstraps 50.
 
 The pubertal growth spurt has a timing (age at peak height velocity,
 APHV), an intensity (peak height velocity, PHV) and a duration. This
@@ -27,10 +28,10 @@ v <- wgh_simulate(30000, seed = 2026)$visits
 ## 1. Is there enough data at each age?
 
 Mean curves are unreliable where few children are measured.
-[`wgh_age_density()`](../reference/wgh_age_density.md) counts children
-and visits in half-year bins and reports the age at which the number of
-children falls below 10% of its peak (`share`). The package trims
-velocity curves at that age.
+[`wgh_age_density()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_age_density.md)
+counts children and visits in half-year bins and reports the age at
+which the number of children falls below 10% of its peak (`share`). The
+package trims velocity curves at that age.
 
 ``` r
 
@@ -46,8 +47,8 @@ SITAR (SuperImposition by Translation And Rotation) describes every
 child’s height curve as one mean curve shifted in size (`a`, cm), timing
 (`b`, years, negative means earlier) and intensity (`c`, on the log
 scale, positive means a faster, more intense spurt).
-[`wgh_fit_sitar()`](../reference/wgh_fit_sitar.md) wraps
-[`sitar::sitar()`](https://rdrr.io/pkg/sitar/man/sitar.html):
+[`wgh_fit_sitar()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_fit_sitar.md)
+wraps [`sitar::sitar()`](https://rdrr.io/pkg/sitar/man/sitar.html):
 
 - `df` is the flexibility of the mean spline (4 or 5 is usual),
 - `fixed` and `random` choose the effects (`"a + b + c"`, or
@@ -94,13 +95,13 @@ plus the shared display options.
 ### Checking the model
 
 Two checks matter before using the estimates.
-[`wgh_check_identifiable()`](../reference/wgh_check_identifiable.md)
+[`wgh_check_identifiable()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_check_identifiable.md)
 flags random effects that are almost perfectly correlated, a sign that
 the model cannot separate them.
-[`wgh_sitar_select()`](../reference/wgh_sitar_select.md) compares
-candidate specifications by BIC, a positive velocity in the tails and
-stable APHV and PHV, and picks one by a stated rule (the procedure used
-for girls in \[1\]).
+[`wgh_sitar_select()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_sitar_select.md)
+compares candidate specifications by BIC, a positive velocity in the
+tails and stable APHV and PHV, and picks one by a stated rule (the
+procedure used for girls in \[1\]).
 
 ``` r
 
@@ -148,16 +149,16 @@ results.
 
 ## 3. APHV and PHV with honest intervals
 
-[`wgh_aphv()`](../reference/wgh_aphv.md) gives the population APHV and
-PHV from the mean curve.
-[`wgh_sitar_ci()`](../reference/wgh_sitar_ci.md) adds intervals. The
-default `method = "bootstrap"` resamples children and refits the model
-`B` times, which carries all the uncertainty of the curve.
-`method = "legacy"` reproduces the interval of the original analysis
-code (the estimate plus or minus 1.96 times the SD of individual APHV
-over the square root of n). It is not a bootstrap: it treats the spread
-of individual timing as sampling error, so its width has no clear
-meaning, and it is kept only to match published numbers.
+[`wgh_aphv()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_aphv.md)
+gives the population APHV and PHV from the mean curve.
+[`wgh_sitar_ci()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_sitar_ci.md)
+adds intervals. The default `method = "bootstrap"` resamples children
+and refits the model `B` times, which carries all the uncertainty of the
+curve. `method = "legacy"` reproduces the interval of the original
+analysis code (the estimate plus or minus 1.96 times the SD of
+individual APHV over the square root of n). It is not a bootstrap: it
+treats the spread of individual timing as sampling error, so its width
+has no clear meaning, and it is kept only to match published numbers.
 
 ``` r
 
@@ -181,12 +182,12 @@ does that).
 
 ## 4. Individual timing and intensity
 
-[`wgh_sitar_effects()`](../reference/wgh_sitar_effects.md) returns one
-row per child with the random effects and the child’s own APHV and PHV.
-The individual APHV uses the exact SITAR formula, not an approximation.
-`early_timing` flags children whose timing is earlier than the
-population (`b < early_cut`), and `faster_tempo` children with a more
-intense spurt (`c > 0`).
+[`wgh_sitar_effects()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_sitar_effects.md)
+returns one row per child with the random effects and the child’s own
+APHV and PHV. The individual APHV uses the exact SITAR formula, not an
+approximation. `early_timing` flags children whose timing is earlier
+than the population (`b < early_cut`), and `faster_tempo` children with
+a more intense spurt (`c > 0`).
 
 ``` r
 
@@ -219,11 +220,11 @@ ask whether prepubertal BMI predicts earlier timing (section 7).
 
 ## 5. Velocity curves of individual children
 
-[`wgh_velocity_panel()`](../reference/wgh_velocity_panel.md) evaluates
-each child’s velocity curve on a grid, either by age (`time = "age"`) or
-by years from the child’s own APHV (`time = "aphv"`).
-`observed_only = TRUE` keeps only the part of each curve covered by the
-child’s visits, so no child is extrapolated.
+[`wgh_velocity_panel()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_velocity_panel.md)
+evaluates each child’s velocity curve on a grid, either by age
+(`time = "age"`) or by years from the child’s own APHV
+(`time = "aphv"`). `observed_only = TRUE` keeps only the part of each
+curve covered by the child’s visits, so no child is extrapolated.
 
 ``` r
 
@@ -242,8 +243,8 @@ head(pan)
 
 ## 6. Duration of the spurt
 
-[`wgh_curve_features()`](../reference/wgh_curve_features.md) measures
-the width of each child’s velocity peak. The default
+[`wgh_curve_features()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_curve_features.md)
+measures the width of each child’s velocity peak. The default
 (`reference = "takeoff"`) measures the width at 25%, 50% and 75% of the
 spurt amplitude, that is, the rise from the take-off velocity to the
 peak. Older code measured the width at a fraction of PHV
@@ -277,7 +278,7 @@ measures every child.
 
 The prepubertal exposure is the earliest BAZ from 5 years at or before
 11 years in boys and 9 years in girls (see
-[`vignette("trajectories")`](../articles/trajectories.md)).
+[`vignette("trajectories")`](https://nhanhocu.github.io/WeGrowHealthR/articles/trajectories.md)).
 
 ``` r
 
@@ -295,8 +296,8 @@ A negative slope means higher prepubertal BMI goes with earlier timing.
 
 The second study asked whether the association is the same across the
 distribution.
-[`wgh_scalar_quantiles()`](../reference/wgh_scalar_quantiles.md) fits
-quantile regressions of a child-level outcome with a bootstrap over
+[`wgh_scalar_quantiles()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_scalar_quantiles.md)
+fits quantile regressions of a child-level outcome with a bootstrap over
 children, and reports the OLS estimate alongside:
 
 ``` r
@@ -313,8 +314,9 @@ wgh_scalar_quantiles(e, b ~ baz_pre, "baz_pre", taus = c(0.1, 0.25, 0.5, 0.75, 0
 #> 6 OLS (mean) NA     -0.101  -0.117  -0.0839
 ```
 
-[`wgh_mediation()`](../reference/wgh_mediation.md) asks how much of the
-association of BMI with PHV passes through earlier timing:
+[`wgh_mediation()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_mediation.md)
+asks how much of the association of BMI with PHV passes through earlier
+timing:
 
 ``` r
 
@@ -337,7 +339,7 @@ effect is slightly negative).
 
 ## 8. The three studies in one call each
 
-[`wgh_flow_pubertal_spurt()`](../reference/wgh_flow_pubertal_spurt.md)
+[`wgh_flow_pubertal_spurt()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_pubertal_spurt.md)
 runs the age-density check, the male model, the female model selection,
 identifiability checks, APHV and PHV with intervals, individual effects
 and the links between prepubertal anthropometry and timing. Its report
@@ -446,13 +448,13 @@ plot(duration, "fig_duration_by_bmi", alpha = 0.4)
 ## Where to go next
 
 - The individual SITAR effects are features for prediction
-  ([`vignette("prediction")`](../articles/prediction.md)) and growth
-  phenotypes
-  ([`vignette("phenotypes-states")`](../articles/phenotypes-states.md)).
+  ([`vignette("prediction")`](https://nhanhocu.github.io/WeGrowHealthR/articles/prediction.md))
+  and growth phenotypes
+  ([`vignette("phenotypes-states")`](https://nhanhocu.github.io/WeGrowHealthR/articles/phenotypes-states.md)).
   Size `a` is estimated from the late visits, so it must not be used to
   predict late height. The package never joins it.
-- [`wgh_fpca_curves()`](../reference/wgh_fpca_curves.md) decomposes the
-  velocity curves into their main shapes.
+- [`wgh_fpca_curves()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_fpca_curves.md)
+  decomposes the velocity curves into their main shapes.
 
 ## References
 

@@ -35,7 +35,8 @@ wgh_rq(
 
 - taus:
 
-  Quantiles (rounded with [`wgh_taus()`](wgh_taus.md)).
+  Quantiles (rounded with
+  [`wgh_taus()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_taus.md)).
 
 - exposure:
 

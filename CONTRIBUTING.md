@@ -4,12 +4,12 @@ Thank you for helping to improve the package.
 
 ## Reporting a problem
 
-Open an issue on the repository with the bug report template. A good
-report has a short description, the full error message, a minimal
-example that runs on bundled or simulated data (for example
-`wgh_simulate(2000, seed = 1)`), and the output of
+Open an issue at <https://github.com/nhanhocu/WeGrowHealthR/issues> with
+the bug report template. A good report has a short description, the full
+error message, a minimal example that runs on bundled or simulated data
+(for example `wgh_simulate(2000, seed = 1)`), and the output of
 [`sessionInfo()`](https://rdrr.io/r/utils/sessionInfo.html) and
-[`wgh_parallel_info()`](reference/wgh_parallel_info.md).
+[`wgh_parallel_info()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_parallel_info.md).
 
 Never post real individual-level child data in an issue, even a few
 rows. Reproduce the problem on simulated data instead, or describe the
@@ -46,5 +46,5 @@ the normal way.
 ## Code of conduct
 
 Please note that this project is released with a [Contributor Code of
-Conduct](CODE_OF_CONDUCT.md). By taking part you agree to abide by its
-terms.
+Conduct](https://nhanhocu.github.io/WeGrowHealthR/CODE_OF_CONDUCT.md).
+By taking part you agree to abide by its terms.

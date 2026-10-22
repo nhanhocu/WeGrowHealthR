@@ -19,7 +19,8 @@ wgh_plot_status_bars(
 
 - x:
 
-  Classified data (see [`wgh_classify()`](wgh_classify.md)).
+  Classified data (see
+  [`wgh_classify()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_classify.md)).
 
 - status:
 
@@ -39,7 +40,8 @@ wgh_plot_status_bars(
 
 - ...:
 
-  Display options (see [`wgh_plot_options()`](wgh_plot_options.md)).
+  Display options (see
+  [`wgh_plot_options()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_options.md)).
 
 ## Value
 

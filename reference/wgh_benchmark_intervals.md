@@ -1,10 +1,12 @@
 # Prediction intervals for every child of a benchmark cohort
 
-Applies [`wgh_prediction_interval()`](wgh_prediction_interval.md) to the
-full-data fit of a linear or mixed model of a benchmark, for every child
-of the cohort, and reports whether each observed height falls inside its
-interval. The coverage is in sample, so it is slightly optimistic.
-Cross-validated accuracy is in the benchmark's `performance` table.
+Applies
+[`wgh_prediction_interval()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_prediction_interval.md)
+to the full-data fit of a linear or mixed model of a benchmark, for
+every child of the cohort, and reports whether each observed height
+falls inside its interval. The coverage is in sample, so it is slightly
+optimistic. Cross-validated accuracy is in the benchmark's `performance`
+table.
 
 ## Usage
 

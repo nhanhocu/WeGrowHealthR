@@ -1,6 +1,9 @@
 # Spread of the growth distribution by age and exposure
 
-From a fitted [`wgh_rq()`](wgh_rq.md) (or [`wgh_lqmm()`](wgh_lqmm.md))
+From a fitted
+[`wgh_rq()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_rq.md)
+(or
+[`wgh_lqmm()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_lqmm.md))
 model containing the 5th, 25th, 75th and 95th percentiles, computes the
 P95 minus P5 range and the interquartile range on a grid of ages and
 exposure values, the change in spread per unit of exposure, and

@@ -35,8 +35,8 @@ wgh_sitar_select(
 - candidates:
 
   Named list of argument lists for
-  [`wgh_fit_sitar()`](wgh_fit_sitar.md), ordered from simplest to most
-  complex.
+  [`wgh_fit_sitar()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_fit_sitar.md),
+  ordered from simplest to most complex.
 
 - velocity_tol:
 

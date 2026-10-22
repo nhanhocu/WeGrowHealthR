@@ -2,10 +2,12 @@
 
 The full growdat2 cohort used in Book 2 is generated once with
 `wgh_simulate(30000, preset = "wgh_like", seed = 2026, style = "book2")`,
-frozen and deposited in a public archive, so every reader gets identical
-numbers whatever their R version. Until the deposit exists, or when
-offline, the function regenerates the same cohort locally (which gives
-identical data on the same R version).
+frozen and attached to the GitHub release of the package
+(<https://github.com/nhanhocu/WeGrowHealthR/releases>), so every reader
+gets identical numbers whatever their R version. The file is downloaded
+and its checksum verified by default. When offline, or when
+`url = NULL`, the function regenerates the same cohort locally (which
+gives identical data on the same R version).
 
 ## Usage
 
@@ -65,9 +67,9 @@ survives any failure.
 ## Next steps
 
 Check the cohort with
-[`wgh_resemblance_report()`](wgh_resemblance_report.md) or run any flow
-on it, for example
-[`wgh_flow_secular_trends()`](wgh_flow_secular_trends.md).
+[`wgh_resemblance_report()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_resemblance_report.md)
+or run any flow on it, for example
+[`wgh_flow_secular_trends()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_secular_trends.md).
 
 ## Examples
 
@@ -97,9 +99,14 @@ attr(small, "provenance")
 #> [1] "4.6.1"
 #> 
 #> $time
-#> [1] "2026-10-21 07:16:36 UTC"
+#> [1] "2026-10-22 02:40:19 UTC"
 #> 
 # \donttest{
 growdat2 <- wgh_download()
+#> Warning: downloaded length 0 != reported length 9
+#> Warning: cannot open URL 'https://github.com/nhanhocu/WeGrowHealthR/releases/download/v1.0.1/growdat2.rds': HTTP status was '404 Not Found'
+#> Warning: Download failed (cannot open URL
+#> 'https://github.com/nhanhocu/WeGrowHealthR/releases/download/v1.0.1/growdat2.rds'),
+#> regenerating the cohort locally.
 # }
 ```

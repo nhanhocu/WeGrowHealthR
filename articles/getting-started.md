@@ -40,11 +40,11 @@ measurement, and `age` is the decimal age in years.
 
 ## 1. Describe your data once with `wgh_data()`
 
-[`wgh_data()`](../reference/wgh_data.md) is the data contract. You tell
-it which of your columns holds each role (child identifier, sex, age or
-dates, height, weight, site, year) and it returns a `wgh_data` object
-with standard column names that every function in the package
-understands. You do this once per data set.
+[`wgh_data()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_data.md)
+is the data contract. You tell it which of your columns holds each role
+(child identifier, sex, age or dates, height, weight, site, year) and it
+returns a `wgh_data` object with standard column names that every
+function in the package understands. You do this once per data set.
 
 ### Ages from dates
 
@@ -134,8 +134,8 @@ wgh_map(gd2)
 #> 7 year   yearvisit
 ```
 
-[`wgh_map()`](../reference/wgh_map.md) shows which original column holds
-each role.
+[`wgh_map()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_map.md)
+shows which original column holds each role.
 
 **Next steps.** Pass `gd` (or `gd$data`) to any function. Most functions
 also accept a plain data frame that already uses the book column names
@@ -167,11 +167,11 @@ attr(clean, "cleaning_log")
 #> 11 Rows flagged as implausible                                         104
 ```
 
-[`wgh_clean()`](../reference/wgh_clean.md) repairs only errors whose
-type is unambiguous and logs every change. Everything else is flagged in
-the `implausible` column rather than altered, so you decide what to do
-with it. The options `repair_units`, `drop_duplicates` and `z_limit`
-switch individual steps on or off.
+[`wgh_clean()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_clean.md)
+repairs only errors whose type is unambiguous and logs every change.
+Everything else is flagged in the `implausible` column rather than
+altered, so you decide what to do with it. The options `repair_units`,
+`drop_duplicates` and `z_limit` switch individual steps on or off.
 
 **Next steps.** Inspect the flagged rows with
 `clean[clean$implausible, ]`, then use the cleaned data in the steps
@@ -179,12 +179,12 @@ below.
 
 ## 3. Z-scores and percentiles
 
-[`wgh_add_zscores()`](../reference/wgh_add_zscores.md) adds
-height-for-age (`haz`), weight-for-age (`waz`) and BMI-for-age (`baz`)
-z-scores. With `reference = "who"` (default) it uses the WHO 2006 Child
-Growth Standards below 60 months and the WHO 2007 Growth Reference from
-60 months, with the WHO restricted tails for weight and BMI. The values
-agree with the `anthro` and `anthroplus` packages. With
+[`wgh_add_zscores()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_add_zscores.md)
+adds height-for-age (`haz`), weight-for-age (`waz`) and BMI-for-age
+(`baz`) z-scores. With `reference = "who"` (default) it uses the WHO
+2006 Child Growth Standards below 60 months and the WHO 2007 Growth
+Reference from 60 months, with the WHO restricted tails for weight and
+BMI. The values agree with the `anthro` and `anthroplus` packages. With
 `reference = "cdc"` it uses the CDC 2000 growth charts (2 to 20 years).
 `percentiles = TRUE` adds the matching percentiles.
 
@@ -218,9 +218,10 @@ The two references differ, most for BMI, because they were built from
 different populations and periods. Weight-for-age is not defined by WHO
 after 10 years or by CDC before 2 years, so those cells are missing.
 
-For single values, [`wgh_zscore()`](../reference/wgh_zscore.md) takes
-the measurement, age, sex and indicator.
-[`wgh_compare_references()`](../reference/wgh_compare_references.md)
+For single values,
+[`wgh_zscore()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_zscore.md)
+takes the measurement, age, sex and indicator.
+[`wgh_compare_references()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_compare_references.md)
 shows several versions side by side, which helps when you need to
 explain why two software packages disagree:
 
@@ -248,12 +249,12 @@ example a national growth reference.
 
 ## 4. Nutritional status with `wgh_classify()`
 
-[`wgh_classify()`](../reference/wgh_classify.md) adds z-scores and
-status categories. The WHO system (default) uses BMI-for-age cut-offs of
--3 and -2 SD for severe thinness and thinness, +1 and +2 SD for
-overweight and obesity from 5 years (+2 and +3 SD below 5 years), and
-HAZ below -2 (and -3) for stunting (and severe stunting). The CDC system
-uses the 5th, 85th and 95th BMI percentiles.
+[`wgh_classify()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_classify.md)
+adds z-scores and status categories. The WHO system (default) uses
+BMI-for-age cut-offs of -3 and -2 SD for severe thinness and thinness,
++1 and +2 SD for overweight and obesity from 5 years (+2 and +3 SD below
+5 years), and HAZ below -2 (and -3) for stunting (and severe stunting).
+The CDC system uses the 5th, 85th and 95th BMI percentiles.
 
 ``` r
 
@@ -282,11 +283,12 @@ FALSE), ready for prevalence estimation.
 
 ## 5. Prevalence and trends
 
-[`wgh_prevalence()`](../reference/wgh_prevalence.md) estimates the
-prevalence of an indicator, or the share of each category of a status
-variable, with confidence intervals. `by` sets the groups. For a
-categorical status, `method = "sison_glaz"` gives simultaneous intervals
-for all categories together, as in Ho et al. (2026, Sci Rep 16:7515).
+[`wgh_prevalence()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_prevalence.md)
+estimates the prevalence of an indicator, or the share of each category
+of a status variable, with confidence intervals. `by` sets the groups.
+For a categorical status, `method = "sison_glaz"` gives simultaneous
+intervals for all categories together, as in Ho et al. (2026, Sci Rep
+16:7515).
 
 ``` r
 
@@ -335,9 +337,9 @@ wgh_trend_test(older, "overweight_obesity", "yearvisit", by = "sex")
 A small p-value says the prevalence changes steadily across years.
 Repeated visits of the same child are not independent, so for formal
 inference on trends use the GEE models in
-[`wgh_gee_trend()`](../reference/wgh_gee_trend.md), which the trend
-flows apply (see
-[`vignette("trends-malnutrition")`](../articles/trends-malnutrition.md)).
+[`wgh_gee_trend()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_gee_trend.md),
+which the trend flows apply (see
+[`vignette("trends-malnutrition")`](https://nhanhocu.github.io/WeGrowHealthR/articles/trends-malnutrition.md)).
 
 ``` r
 
@@ -349,8 +351,8 @@ sex](getting-started_files/figure-html/unnamed-chunk-12-1.png)
 
 ## 6. Growth charts
 
-[`wgh_plot_growth_chart()`](../reference/wgh_plot_growth_chart.md) draws
-a child’s measurements over reference curves. Two choices matter:
+[`wgh_plot_growth_chart()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_growth_chart.md)
+draws a child’s measurements over reference curves. Two choices matter:
 
 - `lines = "percentile"` (default) draws percentile curves, set with
   `centiles` (default 3, 15, 50, 85 and 97). `lines = "sd"` draws
@@ -402,14 +404,15 @@ chart](getting-started_files/figure-html/unnamed-chunk-16-1.png)
 **Next steps.** To judge whether a child’s growth follows the expected
 course given the child’s own history, rather than the population, use
 the conditional references in
-[`vignette("growth-distributions")`](../articles/growth-distributions.md).
+[`vignette("growth-distributions")`](https://nhanhocu.github.io/WeGrowHealthR/articles/growth-distributions.md).
 
 ## 7. Tuning any plot
 
 Every plot function and
 [`plot()`](https://rdrr.io/r/graphics/plot.default.html) method in the
 package accepts the same display options through `...`. They are
-documented in [`?wgh_plot_options`](../reference/wgh_plot_options.md):
+documented in
+[`?wgh_plot_options`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_options.md):
 titles and axis labels, `base_size`, `legend` position, a `palette`,
 `point_size`, `line_width`, `alpha`, `show_ci`, facets and axis limits.
 
@@ -435,16 +438,17 @@ do.call(wgh_plot_prevalence, c(list(pv), opts))
 
 Plots are ggplot objects, so you can also add any ggplot2 layer, scale
 or theme, and save them with
-[`wgh_save_figure()`](../reference/wgh_save_figure.md) (TIFF and PDF at
-600 dpi by default, the format most journals ask for).
+[`wgh_save_figure()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_save_figure.md)
+(TIFF and PDF at 600 dpi by default, the format most journals ask for).
 
 ## 8. Tracking the analytic sample
 
 Analyses usually restrict the data step by step.
-[`wgh_sample_flow()`](../reference/wgh_sample_flow.md) records how many
-children and visits remain after each step and, when there is a `site`
-column, the share retained at each site. A step that removes one site
-much more than the others is flagged, because it can bias comparisons.
+[`wgh_sample_flow()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_sample_flow.md)
+records how many children and visits remain after each step and, when
+there is a `site` column, the share retained at each site. A step that
+removes one site much more than the others is flagged, because it can
+bias comparisons.
 
 ``` r
 
@@ -527,27 +531,29 @@ wgh_export(rep, "malnutrition_results")       # Excel workbook, TIFF and PDF fig
 
 ## Where to go next
 
-- [`vignette("trends-malnutrition")`](../articles/trends-malnutrition.md):
+- [`vignette("trends-malnutrition")`](https://nhanhocu.github.io/WeGrowHealthR/articles/trends-malnutrition.md):
   secular trends, prevalence, the double burden of malnutrition and GEE
   trend models.
-- [`vignette("trajectories")`](../articles/trajectories.md): how a
-  prepubertal exposure relates to later height trajectories with mixed
-  models.
-- [`vignette("growth-curves")`](../articles/growth-curves.md): SITAR
-  growth curves, the pubertal spurt, its timing, intensity and duration.
-- [`vignette("growth-distributions")`](../articles/growth-distributions.md):
+- [`vignette("trajectories")`](https://nhanhocu.github.io/WeGrowHealthR/articles/trajectories.md):
+  how a prepubertal exposure relates to later height trajectories with
+  mixed models.
+- [`vignette("growth-curves")`](https://nhanhocu.github.io/WeGrowHealthR/articles/growth-curves.md):
+  SITAR growth curves, the pubertal spurt, its timing, intensity and
+  duration.
+- [`vignette("growth-distributions")`](https://nhanhocu.github.io/WeGrowHealthR/articles/growth-distributions.md):
   quantile regression, growth inequality and conditional growth
   references.
-- [`vignette("phenotypes-states")`](../articles/phenotypes-states.md):
+- [`vignette("phenotypes-states")`](https://nhanhocu.github.io/WeGrowHealthR/articles/phenotypes-states.md):
   growth phenotypes, canalization and multistate models.
-- [`vignette("prediction")`](../articles/prediction.md): predicting
-  late-adolescent height and explaining predictions.
-- [`vignette("simulated-data")`](../articles/simulated-data.md) and
-  [`vignette("reproducing-the-program")`](../articles/reproducing-the-program.md),
+- [`vignette("prediction")`](https://nhanhocu.github.io/WeGrowHealthR/articles/prediction.md):
+  predicting late-adolescent height and explaining predictions.
+- [`vignette("simulated-data")`](https://nhanhocu.github.io/WeGrowHealthR/articles/simulated-data.md)
+  and
+  [`vignette("reproducing-the-program")`](https://nhanhocu.github.io/WeGrowHealthR/articles/reproducing-the-program.md),
   which runs all 14 study flows.
-- [`vignette("parallel-computing")`](../articles/parallel-computing.md):
+- [`vignette("parallel-computing")`](https://nhanhocu.github.io/WeGrowHealthR/articles/parallel-computing.md):
   running bootstraps, quantile grids and cross-validation on several
   cores with identical results.
 
-[`wgh_references()`](../reference/wgh_references.md) lists the studies
-whose analyses the package reproduces.
+[`wgh_references()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_references.md)
+lists the studies whose analyses the package reproduces.

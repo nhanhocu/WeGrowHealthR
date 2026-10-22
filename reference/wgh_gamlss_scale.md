@@ -3,7 +3,8 @@
 Fits a GAMLSS model in which both the mean and the standard deviation of
 the outcome depend on age and the exposure, and reports the change in
 log SD per unit exposure at stated ages. A positive value agrees with a
-widening P95-P5 range in [`wgh_dispersion()`](wgh_dispersion.md).
+widening P95-P5 range in
+[`wgh_dispersion()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_dispersion.md).
 
 ## Usage
 

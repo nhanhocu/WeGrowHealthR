@@ -13,12 +13,13 @@ wgh_log_fit(...)
 - ...:
 
   Named fits or tables of diagnostics (for example the `convergence`
-  element of [`wgh_lqmm()`](wgh_lqmm.md)).
+  element of
+  [`wgh_lqmm()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_lqmm.md)).
 
 ## Value
 
 A named list of tibbles ready for
-[`wgh_export_xlsx()`](wgh_export_xlsx.md).
+[`wgh_export_xlsx()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_export_xlsx.md).
 
 ## Examples
 

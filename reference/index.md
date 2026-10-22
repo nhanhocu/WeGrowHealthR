@@ -2,402 +2,436 @@
 
 ## Foundation
 
-- [`wgh_data()`](wgh_data.md) : Create a validated growth data object
-- [`wgh_map()`](wgh_map.md) : Show or extract the column mapping of a
-  wgh_data object
-- [`wgh_config()`](wgh_config.md) [`wgh_mode()`](wgh_config.md)
-  [`wgh_opt()`](wgh_config.md) : Run modes: development, analysis and
-  publication settings in one place
-- [`wgh_taus()`](wgh_taus.md) : Quantile grids that are safe to match
-- [`wgh_parallel()`](wgh_parallel.md) : Set up parallel workers with
-  reproducible random streams
-- [`wgh_sample_flow()`](wgh_sample_flow.md) : Track attrition and site
-  representativeness through restriction steps
-- [`wgh_min_visits()`](wgh_min_visits.md) : Keep children with at least
-  a given number of visits
-- [`wgh_fmt_p()`](wgh_fmt_p.md) [`wgh_fmt_est()`](wgh_fmt_p.md)
-  [`wgh_fmt_ci()`](wgh_fmt_p.md) : Consistent number formatting for
-  tables
-- [`wgh_midline_decimal()`](wgh_midline_decimal.md) : Midline decimal
-  point for journals that require it
-- [`theme_wgh()`](theme_wgh.md) [`scale_colour_wgh_sex()`](theme_wgh.md)
-  [`scale_fill_wgh_sex()`](theme_wgh.md)
-  [`scale_colour_wgh_bmi()`](theme_wgh.md)
-  [`scale_fill_wgh_bmi()`](theme_wgh.md)
-  [`scale_colour_wgh()`](theme_wgh.md)
-  [`scale_fill_wgh()`](theme_wgh.md) : House ggplot2 theme and palettes
-- [`wgh_palette()`](wgh_palette.md) : Colour palettes used by the
-  package
-- [`wgh_plot_options()`](wgh_plot_options.md) : Display options shared
-  by all plot functions
-- [`wgh_references()`](wgh_references.md) : Studies of the research
-  program reproduced by the flows
-- [`wgh_parallel_info()`](wgh_parallel_info.md) : Describe the current
-  parallel set-up
+- [`wgh_data()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_data.md)
+  : Create a validated growth data object
+- [`` `$`( ``*`<wgh_data>`*`)`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_data_access.md)
+  [`` `$<-`( ``*`<wgh_data>`*`)`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_data_access.md)
+  [`` `[`( ``*`<wgh_data>`*`)`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_data_access.md)
+  [`dim(`*`<wgh_data>`*`)`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_data_access.md)
+  : Work with the columns of a wgh_data object
+- [`wgh_map()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_map.md)
+  : Show or extract the column mapping of a wgh_data object
+- [`wgh_config()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_config.md)
+  [`wgh_mode()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_config.md)
+  [`wgh_opt()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_config.md)
+  : Run modes: development, analysis and publication settings in one
+  place
+- [`wgh_taus()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_taus.md)
+  : Quantile grids that are safe to match
+- [`wgh_parallel()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_parallel.md)
+  : Set up parallel workers with reproducible random streams
+- [`wgh_sample_flow()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_sample_flow.md)
+  : Track attrition and site representativeness through restriction
+  steps
+- [`wgh_min_visits()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_min_visits.md)
+  : Keep children with at least a given number of visits
+- [`wgh_fmt_p()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_fmt_p.md)
+  [`wgh_fmt_est()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_fmt_p.md)
+  [`wgh_fmt_ci()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_fmt_p.md)
+  : Consistent number formatting for tables
+- [`wgh_midline_decimal()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_midline_decimal.md)
+  : Midline decimal point for journals that require it
+- [`theme_wgh()`](https://nhanhocu.github.io/WeGrowHealthR/reference/theme_wgh.md)
+  [`scale_colour_wgh_sex()`](https://nhanhocu.github.io/WeGrowHealthR/reference/theme_wgh.md)
+  [`scale_fill_wgh_sex()`](https://nhanhocu.github.io/WeGrowHealthR/reference/theme_wgh.md)
+  [`scale_colour_wgh_bmi()`](https://nhanhocu.github.io/WeGrowHealthR/reference/theme_wgh.md)
+  [`scale_fill_wgh_bmi()`](https://nhanhocu.github.io/WeGrowHealthR/reference/theme_wgh.md)
+  [`scale_colour_wgh()`](https://nhanhocu.github.io/WeGrowHealthR/reference/theme_wgh.md)
+  [`scale_fill_wgh()`](https://nhanhocu.github.io/WeGrowHealthR/reference/theme_wgh.md)
+  : House ggplot2 theme and palettes
+- [`wgh_palette()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_palette.md)
+  : Colour palettes used by the package
+- [`wgh_plot_options()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_options.md)
+  : Display options shared by all plot functions
+- [`wgh_references()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_references.md)
+  : Studies of the research program reproduced by the flows
+- [`wgh_parallel_info()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_parallel_info.md)
+  : Describe the current parallel set-up
 
 ## Output and reports
 
-- [`wgh_report()`](wgh_report.md) : Report objects returned by the paper
-  flows
-- [`wgh_export()`](wgh_export.md) : Export a report: workbook of tables,
-  figures and a bundle
-- [`wgh_compare_outputs()`](wgh_compare_outputs.md) : Compare a report's
-  tables with frozen golden outputs
-- [`wgh_flextable()`](wgh_flextable.md) : Publication-style flextable
-- [`wgh_export_xlsx()`](wgh_export_xlsx.md) : Write several tables to
-  one workbook, one sheet per table
-- [`wgh_save_figure()`](wgh_save_figure.md) : Save a figure as TIFF (600
-  dpi, LZW) and PDF
-- [`wgh_bundle_save()`](wgh_bundle_save.md)
-  [`wgh_bundle_load()`](wgh_bundle_save.md) : Versioned reproducibility
-  bundles
-- [`wgh_log_fit()`](wgh_log_fit.md) : Convergence and diagnostics log
-  for many fits
+- [`wgh_report()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_report.md)
+  : Report objects returned by the paper flows
+- [`wgh_export()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_export.md)
+  : Export a report: workbook of tables, figures and a bundle
+- [`wgh_compare_outputs()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_compare_outputs.md)
+  : Compare a report's tables with frozen golden outputs
+- [`wgh_flextable()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flextable.md)
+  : Publication-style flextable
+- [`wgh_export_xlsx()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_export_xlsx.md)
+  : Write several tables to one workbook, one sheet per table
+- [`wgh_save_figure()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_save_figure.md)
+  : Save a figure as TIFF (600 dpi, LZW) and PDF
+- [`wgh_bundle_save()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_bundle_save.md)
+  [`wgh_bundle_load()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_bundle_save.md)
+  : Versioned reproducibility bundles
+- [`wgh_log_fit()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_log_fit.md)
+  : Convergence and diagnostics log for many fits
 
 ## Data preparation
 
-- [`wgh_clean()`](wgh_clean.md) : Clean a raw growth data export in one
-  call
-- [`wgh_decimal_age()`](wgh_decimal_age.md) : Exact decimal age,
-  optionally corrected for preterm birth
-- [`wgh_age_bands()`](wgh_age_bands.md)
-  [`wgh_add_period()`](wgh_age_bands.md) : Standard age groups and
-  calendar periods
-- [`wgh_flag_biv()`](wgh_flag_biv.md) : Flag biologically implausible
-  values
-- [`wgh_digit_preference()`](wgh_digit_preference.md) : Terminal digit
-  preference in recorded measurements
-- [`wgh_dedup_visits()`](wgh_dedup_visits.md) : Remove duplicate visits
-  and guarantee increasing ages within a child
-- [`wgh_visit_summary()`](wgh_visit_summary.md) : Summarise the visit
-  pattern of a longitudinal cohort
-- [`wgh_merge_measures()`](wgh_merge_measures.md) : Join height-based
-  and BMI-based panels of the same children
+- [`wgh_clean()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_clean.md)
+  : Clean a raw growth data export in one call
+- [`wgh_decimal_age()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_decimal_age.md)
+  : Exact decimal age, optionally corrected for preterm birth
+- [`wgh_age_bands()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_age_bands.md)
+  [`wgh_add_period()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_age_bands.md)
+  : Standard age groups and calendar periods
+- [`wgh_flag_biv()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flag_biv.md)
+  : Flag biologically implausible values
+- [`wgh_digit_preference()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_digit_preference.md)
+  : Terminal digit preference in recorded measurements
+- [`wgh_dedup_visits()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_dedup_visits.md)
+  : Remove duplicate visits and guarantee increasing ages within a child
+- [`wgh_visit_summary()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_visit_summary.md)
+  : Summarise the visit pattern of a longitudinal cohort
+- [`wgh_merge_measures()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_merge_measures.md)
+  : Join height-based and BMI-based panels of the same children
 
 ## References, z-scores and classification
 
-- [`wgh_reference()`](wgh_reference.md) : Look up LMS parameters of a
-  growth reference
-- [`wgh_zscore()`](wgh_zscore.md) : Z-scores against a growth reference
-  for any indicator
-- [`wgh_lms_z()`](wgh_lms_z.md) [`wgh_lms_value()`](wgh_lms_z.md) : LMS
-  z-scores and their inverse
-- [`wgh_add_zscores()`](wgh_add_zscores.md) : Add z-scores to growth
-  data
-- [`wgh_compare_references()`](wgh_compare_references.md) : Compare
-  z-scores from different references, methods and packages
-- [`wgh_classify()`](wgh_classify.md) : Classify nutritional status
-- [`wgh_dbm()`](wgh_dbm.md) : Double burden of malnutrition
-- [`wgh_bmi_category()`](wgh_bmi_category.md) : BMI category from a
-  BMI-for-age z-score
-- [`wgh_fit_lms()`](wgh_fit_lms.md) : Fit LMS-type growth reference
-  curves with GAMLSS
-- [`wgh_centiles()`](wgh_centiles.md) : Centiles from a fitted LMS
-  reference
+- [`wgh_reference()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_reference.md)
+  : Look up LMS parameters of a growth reference
+- [`wgh_zscore()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_zscore.md)
+  : Z-scores against a growth reference for any indicator
+- [`wgh_lms_z()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_lms_z.md)
+  [`wgh_lms_value()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_lms_z.md)
+  : LMS z-scores and their inverse
+- [`wgh_add_zscores()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_add_zscores.md)
+  : Add z-scores to growth data
+- [`wgh_compare_references()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_compare_references.md)
+  : Compare z-scores from different references, methods and packages
+- [`wgh_classify()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_classify.md)
+  : Classify nutritional status
+- [`wgh_dbm()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_dbm.md)
+  : Double burden of malnutrition
+- [`wgh_bmi_category()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_bmi_category.md)
+  : BMI category from a BMI-for-age z-score
+- [`wgh_fit_lms()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_fit_lms.md)
+  : Fit LMS-type growth reference curves with GAMLSS
+- [`wgh_centiles()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_centiles.md)
+  : Centiles from a fitted LMS reference
 
 ## Descriptive epidemiology and trends
 
-- [`wgh_table1()`](wgh_table1.md) : Cohort characteristics table
-- [`wgh_prevalence()`](wgh_prevalence.md) : Prevalence with confidence
-  intervals by any strata
-- [`wgh_multinom_ci()`](wgh_multinom_ci.md) : Simultaneous confidence
-  intervals for multinomial proportions
-- [`wgh_trend_test()`](wgh_trend_test.md) : Trend tests across calendar
-  years or ordered groups
-- [`wgh_median_ci()`](wgh_median_ci.md) : Median with a
-  distribution-free confidence interval
-- [`wgh_median_diff()`](wgh_median_diff.md) : Bootstrap difference in
-  medians between groups
-- [`wgh_compare_groups()`](wgh_compare_groups.md) : Compare groups at
-  chosen ages with Kruskal-Wallis and Dunn tests
-- [`wgh_gee_trend()`](wgh_gee_trend.md)
-  [`wgh_trend_slopes()`](wgh_gee_trend.md) : Calendar-time trends with
-  generalised estimating equations
-- [`wgh_plot_calibration()`](wgh_plot_calibration.md)
-  [`wgh_plot_bland_altman()`](wgh_plot_calibration.md) : Calibration and
-  Bland-Altman plots for a prediction model
-- [`wgh_plot_child_prediction()`](wgh_plot_child_prediction.md) : Show
-  one child's height prediction on a growth chart
-- [`wgh_plot_condref_calibration()`](wgh_plot_condref_calibration.md) :
-  Calibration of conditional growth references
-- [`wgh_plot_fan()`](wgh_plot_fan.md) : Fan chart of a child's
-  conditional reference
-- [`wgh_plot_forest()`](wgh_plot_forest.md) : Forest plot of estimates
-  with intervals
-- [`wgh_plot_growth_chart()`](wgh_plot_growth_chart.md) : Growth chart
-  with reference curves and a child's measurements
-- [`wgh_plot_heatmap()`](wgh_plot_heatmap.md) : Heat map of a summary by
-  two variables
-- [`wgh_plot_options()`](wgh_plot_options.md) : Display options shared
-  by all plot functions
-- [`wgh_plot_phenotypes()`](wgh_plot_phenotypes.md) : Plot growth
-  phenotypes
-- [`wgh_plot_prevalence()`](wgh_plot_prevalence.md) : Prevalence over
-  time
-- [`wgh_plot_spaghetti()`](wgh_plot_spaghetti.md) : Spaghetti plot of
-  individual trajectories
-- [`wgh_plot_status_bars()`](wgh_plot_status_bars.md) : Stacked bars of
-  nutritional status by group
-- [`wgh_plot_trajectories()`](wgh_plot_trajectories.md) : Trajectories
-  by group with tests at milestone ages
-- [`wgh_plot_waterfall()`](wgh_plot_waterfall.md) : Waterfall
-  explanation of one prediction
+- [`wgh_table1()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_table1.md)
+  : Cohort characteristics table
+- [`wgh_prevalence()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_prevalence.md)
+  : Prevalence with confidence intervals by any strata
+- [`wgh_multinom_ci()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_multinom_ci.md)
+  : Simultaneous confidence intervals for multinomial proportions
+- [`wgh_trend_test()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_trend_test.md)
+  : Trend tests across calendar years or ordered groups
+- [`wgh_median_ci()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_median_ci.md)
+  : Median with a distribution-free confidence interval
+- [`wgh_median_diff()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_median_diff.md)
+  : Bootstrap difference in medians between groups
+- [`wgh_compare_groups()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_compare_groups.md)
+  : Compare groups at chosen ages with Kruskal-Wallis and Dunn tests
+- [`wgh_gee_trend()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_gee_trend.md)
+  [`wgh_trend_slopes()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_gee_trend.md)
+  : Calendar-time trends with generalised estimating equations
+- [`wgh_plot_calibration()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_calibration.md)
+  [`wgh_plot_bland_altman()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_calibration.md)
+  : Calibration and Bland-Altman plots for a prediction model
+- [`wgh_plot_child_prediction()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_child_prediction.md)
+  : Show one child's height prediction on a growth chart
+- [`wgh_plot_condref_calibration()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_condref_calibration.md)
+  : Calibration of conditional growth references
+- [`wgh_plot_fan()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_fan.md)
+  : Fan chart of a child's conditional reference
+- [`wgh_plot_forest()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_forest.md)
+  : Forest plot of estimates with intervals
+- [`wgh_plot_growth_chart()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_growth_chart.md)
+  : Growth chart with reference curves and a child's measurements
+- [`wgh_plot_heatmap()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_heatmap.md)
+  : Heat map of a summary by two variables
+- [`wgh_plot_options()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_options.md)
+  : Display options shared by all plot functions
+- [`wgh_plot_phenotypes()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_phenotypes.md)
+  : Plot growth phenotypes
+- [`wgh_plot_prevalence()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_prevalence.md)
+  : Prevalence over time
+- [`wgh_plot_spaghetti()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_spaghetti.md)
+  : Spaghetti plot of individual trajectories
+- [`wgh_plot_status_bars()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_status_bars.md)
+  : Stacked bars of nutritional status by group
+- [`wgh_plot_trajectories()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_trajectories.md)
+  : Trajectories by group with tests at milestone ages
+- [`wgh_plot_waterfall()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_waterfall.md)
+  : Waterfall explanation of one prediction
 
 ## Trajectories
 
-- [`wgh_index_exposure()`](wgh_index_exposure.md) : Exposure at a
-  prepubertal index age, attached to every visit of a child
-- [`wgh_exposure_change()`](wgh_exposure_change.md) : Change in exposure
-  category between two index ages
-- [`wgh_fit_lmm()`](wgh_fit_lmm.md) : Fit a linear mixed model for
-  growth trajectories
-- [`wgh_contrasts()`](wgh_contrasts.md) : Contrasts between groups at
-  stated ages
-- [`wgh_icc()`](wgh_icc.md) [`wgh_fit_stats()`](wgh_icc.md) : Intraclass
-  correlation and fit statistics of a mixed model
-- [`wgh_sensitivity()`](wgh_sensitivity.md) : Rerun an analysis under
-  alternative eligibility rules
+- [`wgh_index_exposure()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_index_exposure.md)
+  : Exposure at a prepubertal index age, attached to every visit of a
+  child
+- [`wgh_exposure_change()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_exposure_change.md)
+  : Change in exposure category between two index ages
+- [`wgh_fit_lmm()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_fit_lmm.md)
+  : Fit a linear mixed model for growth trajectories
+- [`wgh_contrasts()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_contrasts.md)
+  : Contrasts between groups at stated ages
+- [`wgh_icc()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_icc.md)
+  [`wgh_fit_stats()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_icc.md)
+  : Intraclass correlation and fit statistics of a mixed model
+- [`wgh_sensitivity()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_sensitivity.md)
+  : Rerun an analysis under alternative eligibility rules
 
 ## Growth curves and the pubertal spurt
 
-- [`wgh_fit_sitar()`](wgh_fit_sitar.md) : Fit a SITAR growth curve model
-  safely
-- [`wgh_aphv()`](wgh_aphv.md) : Age and velocity at peak height velocity
-- [`wgh_sitar_effects()`](wgh_sitar_effects.md) : Child-level SITAR
-  effects ready to join to exposures
-- [`wgh_age_density()`](wgh_age_density.md) : Children and visits by
-  age, and where the data thin out
-- [`wgh_check_identifiable()`](wgh_check_identifiable.md) : Check SITAR
-  random effects for non-identifiability
-- [`wgh_sitar_diagnostics()`](wgh_sitar_diagnostics.md) : Diagnostics of
-  a SITAR fit
-- [`wgh_sitar_select()`](wgh_sitar_select.md) : Choose between competing
-  SITAR specifications with a written rule
-- [`wgh_sitar_ci()`](wgh_sitar_ci.md) : Bootstrap confidence intervals
-  for population APHV and PHV
-- [`wgh_velocity_panel()`](wgh_velocity_panel.md) : Per-child height
-  velocity curves from a SITAR fit
-- [`wgh_curve_features()`](wgh_curve_features.md) : Curve features of
-  the pubertal spurt: peak width and duration
-- [`wgh_fpca_curves()`](wgh_fpca_curves.md) : Functional principal
-  components of velocity curves
+- [`wgh_fit_sitar()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_fit_sitar.md)
+  : Fit a SITAR growth curve model safely
+- [`wgh_aphv()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_aphv.md)
+  : Age and velocity at peak height velocity
+- [`wgh_sitar_effects()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_sitar_effects.md)
+  : Child-level SITAR effects ready to join to exposures
+- [`wgh_age_density()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_age_density.md)
+  : Children and visits by age, and where the data thin out
+- [`wgh_check_identifiable()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_check_identifiable.md)
+  : Check SITAR random effects for non-identifiability
+- [`wgh_sitar_diagnostics()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_sitar_diagnostics.md)
+  : Diagnostics of a SITAR fit
+- [`wgh_sitar_select()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_sitar_select.md)
+  : Choose between competing SITAR specifications with a written rule
+- [`wgh_sitar_ci()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_sitar_ci.md)
+  : Bootstrap confidence intervals for population APHV and PHV
+- [`wgh_velocity_panel()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_velocity_panel.md)
+  : Per-child height velocity curves from a SITAR fit
+- [`wgh_curve_features()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_curve_features.md)
+  : Curve features of the pubertal spurt: peak width and duration
+- [`wgh_fpca_curves()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_fpca_curves.md)
+  : Functional principal components of velocity curves
 
 ## Distributional models and conditional references
 
-- [`wgh_rq()`](wgh_rq.md) : Pooled quantile regression with a
-  child-level cluster bootstrap
-- [`wgh_slopes()`](wgh_slopes.md) : Exposure slopes at stated ages from
-  a quantile model
-- [`wgh_test_heterogeneity()`](wgh_test_heterogeneity.md)
-  [`wgh_test_sex_difference()`](wgh_test_heterogeneity.md) : Tests
-  across quantiles and between sexes
-- [`wgh_crossing()`](wgh_crossing.md)
-  [`wgh_rearrange()`](wgh_crossing.md) : Quantile crossing and monotone
-  rearrangement
-- [`wgh_qgam_check()`](wgh_qgam_check.md) : Smooth quantile regression
-  sensitivity check
-- [`wgh_lqmm()`](wgh_lqmm.md) : Linear quantile mixed model over a grid
-  of quantiles
-- [`wgh_dispersion()`](wgh_dispersion.md) : Spread of the growth
-  distribution by age and exposure
-- [`wgh_support()`](wgh_support.md) : Which combinations of age and
-  exposure are supported by the data
-- [`wgh_scalar_quantiles()`](wgh_scalar_quantiles.md) : Quantile models
-  for one value per child
-- [`wgh_gamlss_scale()`](wgh_gamlss_scale.md) : GAMLSS scale model as a
-  cross-check on quantile-based spread
-- [`wgh_conditional_panel()`](wgh_conditional_panel.md) : Build a
-  conditioning-window to target-age panel
-- [`wgh_condref()`](wgh_condref.md) : Fit conditional growth references
-- [`predict(`*`<wgh_condref>`*`)`](predict.wgh_condref.md) : Predict
-  conditional quantiles for new children
-- [`wgh_condref_cv()`](wgh_condref_cv.md) : Cross-validate conditional
-  references with child-level or site-level folds
-- [`wgh_condref_centile()`](wgh_condref_centile.md) : Conditional
-  centile of an observed later measurement
-- [`wgh_condref_compare()`](wgh_condref_compare.md) : Compare growth
-  references child by child
-- [`wgh_quantile_forest()`](wgh_quantile_forest.md)
-  [`predict(`*`<wgh_qrf>`*`)`](wgh_quantile_forest.md) : Quantile random
-  forest for conditional growth predictions
+- [`wgh_rq()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_rq.md)
+  : Pooled quantile regression with a child-level cluster bootstrap
+- [`wgh_slopes()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_slopes.md)
+  : Exposure slopes at stated ages from a quantile model
+- [`wgh_test_heterogeneity()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_test_heterogeneity.md)
+  [`wgh_test_sex_difference()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_test_heterogeneity.md)
+  : Tests across quantiles and between sexes
+- [`wgh_crossing()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_crossing.md)
+  [`wgh_rearrange()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_crossing.md)
+  : Quantile crossing and monotone rearrangement
+- [`wgh_qgam_check()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_qgam_check.md)
+  : Smooth quantile regression sensitivity check
+- [`wgh_lqmm()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_lqmm.md)
+  : Linear quantile mixed model over a grid of quantiles
+- [`wgh_dispersion()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_dispersion.md)
+  : Spread of the growth distribution by age and exposure
+- [`wgh_support()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_support.md)
+  : Which combinations of age and exposure are supported by the data
+- [`wgh_scalar_quantiles()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_scalar_quantiles.md)
+  : Quantile models for one value per child
+- [`wgh_gamlss_scale()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_gamlss_scale.md)
+  : GAMLSS scale model as a cross-check on quantile-based spread
+- [`wgh_conditional_panel()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_conditional_panel.md)
+  : Build a conditioning-window to target-age panel
+- [`wgh_condref()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_condref.md)
+  : Fit conditional growth references
+- [`predict(`*`<wgh_condref>`*`)`](https://nhanhocu.github.io/WeGrowHealthR/reference/predict.wgh_condref.md)
+  : Predict conditional quantiles for new children
+- [`wgh_condref_cv()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_condref_cv.md)
+  : Cross-validate conditional references with child-level or site-level
+  folds
+- [`wgh_condref_centile()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_condref_centile.md)
+  : Conditional centile of an observed later measurement
+- [`wgh_condref_compare()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_condref_compare.md)
+  : Compare growth references child by child
+- [`wgh_quantile_forest()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_quantile_forest.md)
+  [`predict(`*`<wgh_qrf>`*`)`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_quantile_forest.md)
+  : Quantile random forest for conditional growth predictions
 
 ## Phenotypes, states and transitions
 
-- [`wgh_fpca()`](wgh_fpca.md) : Sparse functional principal components
-  of growth trajectories
-- [`wgh_cluster()`](wgh_cluster.md) : Gaussian mixture clustering of
-  growth features
-- [`wgh_name_phenotypes()`](wgh_name_phenotypes.md) : Reproducible names
-  for growth phenotypes
-- [`wgh_cluster_neighbours()`](wgh_cluster_neighbours.md)
-  [`wgh_cluster_stability()`](wgh_cluster_neighbours.md) : Neighbouring
-  solutions and bootstrap stability of a clustering
-- [`wgh_validate_phenotypes()`](wgh_validate_phenotypes.md) : Validate
-  phenotypes against independent characteristics
-- [`wgh_link_outcome()`](wgh_link_outcome.md) : Link phenotypes to a
-  later outcome
-- [`wgh_states()`](wgh_states.md) : Height-for-age bands
-- [`wgh_transitions()`](wgh_transitions.md) : Transitions between
-  consecutive visits
-- [`wgh_transition_matrix()`](wgh_transition_matrix.md)
-  [`wgh_canalization_summary()`](wgh_transition_matrix.md) : Transition
-  matrices and canalization summaries
-- [`wgh_rtm()`](wgh_rtm.md) : Conditional change scores
-- [`wgh_transition_glmm()`](wgh_transition_glmm.md) : Mixed models for
-  catch-up, catch-down and persistence
-- [`wgh_msm_data()`](wgh_msm_data.md) : Prepare panel data for a
-  multistate model
-- [`wgh_msm()`](wgh_msm.md) : Continuous-time multistate model of growth
-  bands
-- [`wgh_msm_check()`](wgh_msm_check.md)
-  [`wgh_msm_summary()`](wgh_msm_check.md)
-  [`wgh_msm_prevalence()`](wgh_msm_check.md) : Plausibility checks and
-  summaries of a multistate model
-- [`wgh_hmm()`](wgh_hmm.md) : Hidden Markov model for misclassified
-  growth bands
-- [`wgh_false_moves()`](wgh_false_moves.md) : How many band changes are
-  measurement error?
+- [`wgh_fpca()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_fpca.md)
+  : Sparse functional principal components of growth trajectories
+- [`wgh_cluster()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_cluster.md)
+  : Gaussian mixture clustering of growth features
+- [`wgh_name_phenotypes()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_name_phenotypes.md)
+  : Reproducible names for growth phenotypes
+- [`wgh_cluster_neighbours()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_cluster_neighbours.md)
+  [`wgh_cluster_stability()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_cluster_neighbours.md)
+  : Neighbouring solutions and bootstrap stability of a clustering
+- [`wgh_validate_phenotypes()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_validate_phenotypes.md)
+  : Validate phenotypes against independent characteristics
+- [`wgh_link_outcome()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_link_outcome.md)
+  : Link phenotypes to a later outcome
+- [`wgh_states()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_states.md)
+  : Height-for-age bands
+- [`wgh_transitions()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_transitions.md)
+  : Transitions between consecutive visits
+- [`wgh_transition_matrix()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_transition_matrix.md)
+  [`wgh_canalization_summary()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_transition_matrix.md)
+  : Transition matrices and canalization summaries
+- [`wgh_rtm()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_rtm.md)
+  : Conditional change scores
+- [`wgh_transition_glmm()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_transition_glmm.md)
+  : Mixed models for catch-up, catch-down and persistence
+- [`wgh_msm_data()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_msm_data.md)
+  : Prepare panel data for a multistate model
+- [`wgh_msm()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_msm.md)
+  : Continuous-time multistate model of growth bands
+- [`wgh_msm_check()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_msm_check.md)
+  [`wgh_msm_summary()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_msm_check.md)
+  [`wgh_msm_prevalence()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_msm_check.md)
+  : Plausibility checks and summaries of a multistate model
+- [`wgh_hmm()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_hmm.md)
+  : Hidden Markov model for misclassified growth bands
+- [`wgh_false_moves()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_false_moves.md)
+  : How many band changes are measurement error?
 
 ## Prediction, evaluation and explanation
 
-- [`wgh_prediction_cohort()`](wgh_prediction_cohort.md) : Build a
-  prediction cohort: prepubertal features and a late outcome
-- [`wgh_features()`](wgh_features.md) : Growth features from serial
-  visits
-- [`wgh_benchmark()`](wgh_benchmark.md) : Benchmark prediction models on
-  identical folds
-- [`wgh_prediction_interval()`](wgh_prediction_interval.md) : Individual
-  prediction intervals for linear and mixed models
-- [`wgh_compare_models()`](wgh_compare_models.md) : Bootstrap comparison
-  of two models' cross-validated error
-- [`wgh_predict_child()`](wgh_predict_child.md) : Predict
-  late-adolescent height for one new child
-- [`wgh_benchmark_intervals()`](wgh_benchmark_intervals.md) : Prediction
-  intervals for every child of a benchmark cohort
-- [`wgh_benchmark_shap()`](wgh_benchmark_shap.md) : SHAP explanation of
-  a benchmark model
-- [`wgh_split()`](wgh_split.md) : Child-level and site-level data splits
-- [`wgh_leakage_check()`](wgh_leakage_check.md) : Check that features do
-  not use information from the outcome period
-- [`wgh_score()`](wgh_score.md) : Proper scores for quantile predictions
-- [`wgh_score_rows()`](wgh_score_rows.md) : Proper scores for each
-  prediction
-- [`wgh_paired_scores()`](wgh_paired_scores.md) : Paired comparison of
-  two predictors, child by child
-- [`wgh_calibration()`](wgh_calibration.md) : Calibration of quantile
-  predictions
-- [`wgh_conformal()`](wgh_conformal.md) : Conformalised quantile
-  intervals
-- [`wgh_shap()`](wgh_shap.md) : SHAP values for a prediction model
-- [`wgh_shap_summary()`](wgh_shap_summary.md)
-  [`wgh_shap_boot()`](wgh_shap_summary.md) : Global SHAP importance with
-  bootstrap intervals
-- [`wgh_permutation_importance()`](wgh_permutation_importance.md) :
-  Permutation importance
-- [`wgh_rank_stability()`](wgh_rank_stability.md) : Stability of feature
-  rankings across folds or sites
-- [`wgh_shap_interaction()`](wgh_shap_interaction.md) : Analytic SHAP
-  for linear models with interaction terms
+- [`wgh_prediction_cohort()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_prediction_cohort.md)
+  : Build a prediction cohort: prepubertal features and a late outcome
+- [`wgh_features()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_features.md)
+  : Growth features from serial visits
+- [`wgh_benchmark()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_benchmark.md)
+  : Benchmark prediction models on identical folds
+- [`wgh_prediction_interval()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_prediction_interval.md)
+  : Individual prediction intervals for linear and mixed models
+- [`wgh_compare_models()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_compare_models.md)
+  : Bootstrap comparison of two models' cross-validated error
+- [`wgh_predict_child()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_predict_child.md)
+  : Predict late-adolescent height for one new child
+- [`wgh_benchmark_intervals()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_benchmark_intervals.md)
+  : Prediction intervals for every child of a benchmark cohort
+- [`wgh_benchmark_shap()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_benchmark_shap.md)
+  : SHAP explanation of a benchmark model
+- [`wgh_split()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_split.md)
+  : Child-level and site-level data splits
+- [`wgh_leakage_check()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_leakage_check.md)
+  : Check that features do not use information from the outcome period
+- [`wgh_score()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_score.md)
+  : Proper scores for quantile predictions
+- [`wgh_score_rows()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_score_rows.md)
+  : Proper scores for each prediction
+- [`wgh_paired_scores()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_paired_scores.md)
+  : Paired comparison of two predictors, child by child
+- [`wgh_calibration()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_calibration.md)
+  : Calibration of quantile predictions
+- [`wgh_conformal()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_conformal.md)
+  : Conformalised quantile intervals
+- [`wgh_shap()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_shap.md)
+  : SHAP values for a prediction model
+- [`wgh_shap_summary()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_shap_summary.md)
+  [`wgh_shap_boot()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_shap_summary.md)
+  : Global SHAP importance with bootstrap intervals
+- [`wgh_permutation_importance()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_permutation_importance.md)
+  : Permutation importance
+- [`wgh_rank_stability()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_rank_stability.md)
+  : Stability of feature rankings across folds or sites
+- [`wgh_shap_interaction()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_shap_interaction.md)
+  : Analytic SHAP for linear models with interaction terms
 
 ## Causal helpers
 
-- [`wgh_exposure_window()`](wgh_exposure_window.md) : Exposure defined
-  in a window that precedes the outcome
-- [`wgh_mediation()`](wgh_mediation.md) : Mediation analysis with the
-  parametric g-formula
+- [`wgh_exposure_window()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_exposure_window.md)
+  : Exposure defined in a window that precedes the outcome
+- [`wgh_mediation()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_mediation.md)
+  : Mediation analysis with the parametric g-formula
 
 ## Study flows and pipeline
 
-- [`wgh_flow_canalization()`](wgh_flow_canalization.md) : Flow:
-  canalization, catch-up and catch-down (Ho 2026, manuscript under
-  review)
-- [`wgh_flow_conditional_references()`](wgh_flow_conditional_references.md)
+- [`wgh_flow_canalization()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_canalization.md)
+  : Flow: canalization, catch-up and catch-down (Ho 2026, manuscript
+  under review)
+- [`wgh_flow_conditional_references()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_conditional_references.md)
   : Flow: conditional growth references (Ho 2026, medRxiv
   2026.09.23.26363771)
-- [`wgh_flow_distributional_height()`](wgh_flow_distributional_height.md)
+- [`wgh_flow_distributional_height()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_distributional_height.md)
   : Flow: BMI and the height-for-age distribution (Ho 2026, medRxiv
   2026.09.08.26362487)
-- [`wgh_flow_explain_prediction()`](wgh_flow_explain_prediction.md) :
-  Flow: explainable individual growth prediction (Ho 2026, manuscript
+- [`wgh_flow_explain_prediction()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_explain_prediction.md)
+  : Flow: explainable individual growth prediction (Ho 2026, manuscript
   under review)
-- [`wgh_flow_growth_inequality()`](wgh_flow_growth_inequality.md) :
-  Flow: growth inequality, the spread of height by BMI (Ho 2026,
+- [`wgh_flow_growth_inequality()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_growth_inequality.md)
+  : Flow: growth inequality, the spread of height by BMI (Ho 2026,
   manuscript under review)
-- [`wgh_flow_growth_phenotypes()`](wgh_flow_growth_phenotypes.md) :
-  Flow: growth phenotypes by functional clustering (Ho 2026, medRxiv
+- [`wgh_flow_growth_phenotypes()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_growth_phenotypes.md)
+  : Flow: growth phenotypes by functional clustering (Ho 2026, medRxiv
   2026.09.05.26362315)
-- [`wgh_flow_height_prediction()`](wgh_flow_height_prediction.md) :
-  Flow: predicting late-adolescent height (Ho 2026, manuscript under
+- [`wgh_flow_height_prediction()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_height_prediction.md)
+  : Flow: predicting late-adolescent height (Ho 2026, manuscript under
   review)
-- [`wgh_flow_index_trajectory()`](wgh_flow_index_trajectory.md) : Flow:
-  prepubertal BMI and the height trajectory (Ho et al. 2026, medRxiv
-  2026.07.26.26358003)
-- [`wgh_flow_malnutrition_trends()`](wgh_flow_malnutrition_trends.md) :
-  Flow: stunting, thinness, obesity and double burden (Ho et al. 2026,
+- [`wgh_flow_index_trajectory()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_index_trajectory.md)
+  : Flow: prepubertal BMI and the height trajectory (Ho et al. 2026,
+  medRxiv 2026.07.26.26358003)
+- [`wgh_flow_malnutrition_trends()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_malnutrition_trends.md)
+  : Flow: stunting, thinness, obesity and double burden (Ho et al. 2026,
   medRxiv 2026.07.26.26358982)
-- [`wgh_flow_phenotype_outcomes()`](wgh_flow_phenotype_outcomes.md) :
-  Flow: growth phenotypes and later outcomes, growth side (Ho 2026,
+- [`wgh_flow_phenotype_outcomes()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_phenotype_outcomes.md)
+  : Flow: growth phenotypes and later outcomes, growth side (Ho 2026,
   manuscript in preparation)
-- [`wgh_flow_pubertal_spurt()`](wgh_flow_pubertal_spurt.md) : Flow: the
-  pubertal growth spurt by SITAR (Ho et al. 2026, medRxiv
+- [`wgh_flow_pubertal_spurt()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_pubertal_spurt.md)
+  : Flow: the pubertal growth spurt by SITAR (Ho et al. 2026, medRxiv
   2026.07.26.26358986)
-- [`wgh_flow_secular_trends()`](wgh_flow_secular_trends.md) : Flow:
-  secular trends, prevalence and regional differences (Ho et al. 2026,
-  Sci Rep 16:7515)
-- [`wgh_flow_spurt_duration()`](wgh_flow_spurt_duration.md) : Flow:
-  duration of the pubertal spurt (Ho 2026, medRxiv 2026.09.09.26362696)
-- [`wgh_flow_velocity_distribution()`](wgh_flow_velocity_distribution.md)
+- [`wgh_flow_secular_trends()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_secular_trends.md)
+  : Flow: secular trends, prevalence and regional differences (Ho et al.
+  2026, Sci Rep 16:7515)
+- [`wgh_flow_spurt_duration()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_spurt_duration.md)
+  : Flow: duration of the pubertal spurt (Ho 2026, medRxiv
+  2026.09.09.26362696)
+- [`wgh_flow_velocity_distribution()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_velocity_distribution.md)
   : Flow: prepubertal BMI and the distribution of pubertal velocity (Ho
   2026, medRxiv 2026.09.04.26362313)
-- [`wgh_use_pipeline()`](wgh_use_pipeline.md) : Write a targets pipeline
-  that chains the paper flows
+- [`wgh_use_pipeline()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_use_pipeline.md)
+  : Write a targets pipeline that chains the paper flows
 
 ## Simulation and data
 
-- [`wgh_simulate()`](wgh_simulate.md) : Simulate a longitudinal school
-  health cohort
-- [`wgh_preset()`](wgh_preset.md) : Settings of a simulation preset
-- [`wgh_preset_peaks()`](wgh_preset_peaks.md) : Population peak of the
-  mean height curve in a preset
-- [`wgh_add_messiness()`](wgh_add_messiness.md) : Inject realistic
-  data-entry errors into a clean growth dataset
-- [`wgh_simulate_clinical_cases()`](wgh_simulate_clinical_cases.md) :
-  Simulate a small clinical dataset with sparse, irregular visits
-- [`wgh_truth_check()`](wgh_truth_check.md) : Check estimates against
-  the simulation truth
-- [`wgh_resemblance_report()`](wgh_resemblance_report.md) : Compare a
-  simulated cohort with the published patterns
-- [`wgh_tune_preset()`](wgh_tune_preset.md) : Nudge preset settings
-  toward the published patterns
-- [`wgh_download()`](wgh_download.md) : Download the frozen full-size
-  teaching cohort
-- [`growdat`](growdat.md) : Book 1 teaching cohort (simulated)
-- [`growdat_raw`](growdat_raw.md) : Book 1 raw export with data-entry
-  errors (simulated)
-- [`growdat2_mini`](growdat2_mini.md)
-  [`growdat2_mini_truth`](growdat2_mini.md) : Book 2 teaching cohort,
-  small version (simulated)
-- [`clinical_cases`](clinical_cases.md) : Clinical cases with sparse,
-  irregular visits (simulated)
-- [`who_lms`](who_lms.md) : WHO growth reference LMS parameters
-- [`cdc_lms`](cdc_lms.md) : CDC 2000 growth chart LMS parameters
-- [`wgh_targets`](wgh_targets.md) : Published patterns that the wgh_like
-  preset is set to resemble
+- [`wgh_simulate()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_simulate.md)
+  : Simulate a longitudinal school health cohort
+- [`wgh_preset()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_preset.md)
+  : Settings of a simulation preset
+- [`wgh_preset_peaks()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_preset_peaks.md)
+  : Population peak of the mean height curve in a preset
+- [`wgh_add_messiness()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_add_messiness.md)
+  : Inject realistic data-entry errors into a clean growth dataset
+- [`wgh_simulate_clinical_cases()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_simulate_clinical_cases.md)
+  : Simulate a small clinical dataset with sparse, irregular visits
+- [`wgh_truth_check()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_truth_check.md)
+  : Check estimates against the simulation truth
+- [`wgh_resemblance_report()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_resemblance_report.md)
+  : Compare a simulated cohort with the published patterns
+- [`wgh_tune_preset()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_tune_preset.md)
+  : Nudge preset settings toward the published patterns
+- [`wgh_download()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_download.md)
+  : Download the frozen full-size teaching cohort
+- [`growdat`](https://nhanhocu.github.io/WeGrowHealthR/reference/growdat.md)
+  : Book 1 teaching cohort (simulated)
+- [`growdat_raw`](https://nhanhocu.github.io/WeGrowHealthR/reference/growdat_raw.md)
+  : Book 1 raw export with data-entry errors (simulated)
+- [`growdat2_mini`](https://nhanhocu.github.io/WeGrowHealthR/reference/growdat2_mini.md)
+  [`growdat2_mini_truth`](https://nhanhocu.github.io/WeGrowHealthR/reference/growdat2_mini.md)
+  : Book 2 teaching cohort, small version (simulated)
+- [`clinical_cases`](https://nhanhocu.github.io/WeGrowHealthR/reference/clinical_cases.md)
+  : Clinical cases with sparse, irregular visits (simulated)
+- [`who_lms`](https://nhanhocu.github.io/WeGrowHealthR/reference/who_lms.md)
+  : WHO growth reference LMS parameters
+- [`cdc_lms`](https://nhanhocu.github.io/WeGrowHealthR/reference/cdc_lms.md)
+  : CDC 2000 growth chart LMS parameters
+- [`wgh_targets`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_targets.md)
+  : Published patterns that the wgh_like preset is set to resemble
 
 ## Plot methods
 
-- [`plot(`*`<wgh_benchmark>`*`)`](plot.wgh_benchmark.md) : Plot a
-  prediction benchmark
-- [`plot(`*`<wgh_lms>`*`)`](plot.wgh_lms.md) : Plot cohort centile
-  curves
-- [`plot(`*`<wgh_report>`*`)`](plot.wgh_report.md) : Show a figure of a
-  report
-- [`plot(`*`<wgh_resemblance>`*`)`](plot.wgh_resemblance.md) : Plot a
-  resemblance report
-- [`plot(`*`<wgh_rq>`*`)`](plot.wgh_rq.md) : Plot quantile regression
-  slopes
-- [`plot(`*`<wgh_sample_flow>`*`)`](plot.wgh_sample_flow.md) : Plot a
-  sample flow
-- [`plot(`*`<wgh_shap>`*`)`](plot.wgh_shap.md) : Plot SHAP explanations
-- [`plot(`*`<wgh_sitar>`*`)`](plot.wgh_sitar.md) : Plot a SITAR growth
-  curve
+- [`plot(`*`<wgh_benchmark>`*`)`](https://nhanhocu.github.io/WeGrowHealthR/reference/plot.wgh_benchmark.md)
+  : Plot a prediction benchmark
+- [`plot(`*`<wgh_lms>`*`)`](https://nhanhocu.github.io/WeGrowHealthR/reference/plot.wgh_lms.md)
+  : Plot cohort centile curves
+- [`plot(`*`<wgh_report>`*`)`](https://nhanhocu.github.io/WeGrowHealthR/reference/plot.wgh_report.md)
+  : Show a figure of a report
+- [`plot(`*`<wgh_resemblance>`*`)`](https://nhanhocu.github.io/WeGrowHealthR/reference/plot.wgh_resemblance.md)
+  : Plot a resemblance report
+- [`plot(`*`<wgh_rq>`*`)`](https://nhanhocu.github.io/WeGrowHealthR/reference/plot.wgh_rq.md)
+  : Plot quantile regression slopes
+- [`plot(`*`<wgh_sample_flow>`*`)`](https://nhanhocu.github.io/WeGrowHealthR/reference/plot.wgh_sample_flow.md)
+  : Plot a sample flow
+- [`plot(`*`<wgh_shap>`*`)`](https://nhanhocu.github.io/WeGrowHealthR/reference/plot.wgh_shap.md)
+  : Plot SHAP explanations
+- [`plot(`*`<wgh_sitar>`*`)`](https://nhanhocu.github.io/WeGrowHealthR/reference/plot.wgh_sitar.md)
+  : Plot a SITAR growth curve

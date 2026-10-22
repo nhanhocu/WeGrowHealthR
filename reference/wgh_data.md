@@ -107,18 +107,22 @@ and either `age` or both `dob` and `date` are required.
 
 ## Next steps
 
-Pass the object to [`wgh_clean()`](wgh_clean.md) for cleaning,
-[`wgh_add_zscores()`](wgh_add_zscores.md) for WHO or CDC z-scores,
-[`wgh_classify()`](wgh_classify.md) for nutritional status and
-[`wgh_sample_flow()`](wgh_sample_flow.md) to record the analytic sample.
-Every function in the package accepts a `wgh_data` object or a plain
-data frame.
+Pass the object to
+[`wgh_clean()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_clean.md)
+for cleaning,
+[`wgh_add_zscores()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_add_zscores.md)
+for WHO or CDC z-scores,
+[`wgh_classify()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_classify.md)
+for nutritional status and
+[`wgh_sample_flow()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_sample_flow.md)
+to record the analytic sample. Every function in the package accepts a
+`wgh_data` object or a plain data frame.
 
 ## See also
 
-[`wgh_clean()`](wgh_clean.md),
-[`wgh_add_zscores()`](wgh_add_zscores.md),
-[`wgh_sample_flow()`](wgh_sample_flow.md)
+[`wgh_clean()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_clean.md),
+[`wgh_add_zscores()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_add_zscores.md),
+[`wgh_sample_flow()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_sample_flow.md)
 
 ## Examples
 

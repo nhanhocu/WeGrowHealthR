@@ -23,7 +23,8 @@ wgh_condref(
 
 - panel:
 
-  Output of [`wgh_conditional_panel()`](wgh_conditional_panel.md).
+  Output of
+  [`wgh_conditional_panel()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_conditional_panel.md).
 
 - formula:
 
@@ -37,8 +38,9 @@ wgh_condref(
 - forest:
 
   Also fit a quantile random forest benchmark
-  ([`wgh_quantile_forest()`](wgh_quantile_forest.md), needs `ranger`),
-  available in [`predict()`](https://rdrr.io/r/stats/predict.html) as
+  ([`wgh_quantile_forest()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_quantile_forest.md),
+  needs `ranger`), available in
+  [`predict()`](https://rdrr.io/r/stats/predict.html) as
   `type = "forest"`.
 
 ## Value

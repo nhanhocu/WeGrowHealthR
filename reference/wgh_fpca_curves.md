@@ -15,7 +15,8 @@ wgh_fpca_curves(panel, max_k = 4)
 
 - panel:
 
-  Output of [`wgh_velocity_panel()`](wgh_velocity_panel.md).
+  Output of
+  [`wgh_velocity_panel()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_velocity_panel.md).
 
 - max_k:
 

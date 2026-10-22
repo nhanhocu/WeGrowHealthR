@@ -86,7 +86,8 @@ wgh_plot_options(
 
 - theme:
 
-  A complete ggplot2 theme replacing [`theme_wgh()`](theme_wgh.md).
+  A complete ggplot2 theme replacing
+  [`theme_wgh()`](https://nhanhocu.github.io/WeGrowHealthR/reference/theme_wgh.md).
 
 ## Value
 

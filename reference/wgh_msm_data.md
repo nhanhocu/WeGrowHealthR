@@ -14,7 +14,8 @@ wgh_msm_data(x, min_gap = 0.25)
 
 - x:
 
-  Output of [`wgh_states()`](wgh_states.md).
+  Output of
+  [`wgh_states()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_states.md).
 
 - min_gap:
 

@@ -5,11 +5,13 @@ in growth. This function measures how much. It redraws each measured
 height from the error-free height with a chosen measurement error SD,
 rounds it to one decimal as a school scale would, recomputes HAZ with
 the WHO reference, assigns bands and pairs consecutive visits, exactly
-as [`wgh_states()`](wgh_states.md) and
-[`wgh_transitions()`](wgh_transitions.md) do. It then compares the
-measured transitions with the error-free ones. Repeating this for
-several error SDs shows how fast false transitions grow with measurement
-error (Book 2 Chapter 12).
+as
+[`wgh_states()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_states.md)
+and
+[`wgh_transitions()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_transitions.md)
+do. It then compares the measured transitions with the error-free ones.
+Repeating this for several error SDs shows how fast false transitions
+grow with measurement error (Book 2 Chapter 12).
 
 ## Usage
 
@@ -29,9 +31,10 @@ wgh_false_moves(
 
 - x:
 
-  A `wgh_sim` object from [`wgh_simulate()`](wgh_simulate.md), or growth
-  data with `id` (or `pid`), `sex`, `age`, `height` and optionally
-  `height_true`.
+  A `wgh_sim` object from
+  [`wgh_simulate()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_simulate.md),
+  or growth data with `id` (or `pid`), `sex`, `age`, `height` and
+  optionally `height_true`.
 
 - error_sds:
 
@@ -40,8 +43,9 @@ wgh_false_moves(
 - percentiles, min_interval, max_interval:
 
   Band cut-offs and the allowed interval between visits, as in
-  [`wgh_states()`](wgh_states.md) and
-  [`wgh_transitions()`](wgh_transitions.md).
+  [`wgh_states()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_states.md)
+  and
+  [`wgh_transitions()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_transitions.md).
 
 - attended_only:
 
@@ -64,20 +68,23 @@ moves by starting band.
 ## Details
 
 With simulated data the error-free height is known (`height_true` in the
-truth file of a [`wgh_simulate()`](wgh_simulate.md) object). With real
-data it is not, and the observed height is used as the reference: the
-result then shows how many additional band changes a given amount of
-extra measurement error would create, which is a lower bound for the
-real share.
+truth file of a
+[`wgh_simulate()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_simulate.md)
+object). With real data it is not, and the observed height is used as
+the reference: the result then shows how many additional band changes a
+given amount of extra measurement error would create, which is a lower
+bound for the real share.
 
 ## Next steps
 
 Report the expected share of false moves with any transition analysis
-([`wgh_transition_matrix()`](wgh_transition_matrix.md),
-[`wgh_canalization_summary()`](wgh_transition_matrix.md)), use
-[`wgh_rtm()`](wgh_rtm.md) to separate regression to the mean from real
-catch-up, and [`wgh_hmm()`](wgh_hmm.md) to model misclassification
-directly.
+([`wgh_transition_matrix()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_transition_matrix.md),
+[`wgh_canalization_summary()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_transition_matrix.md)),
+use
+[`wgh_rtm()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_rtm.md)
+to separate regression to the mean from real catch-up, and
+[`wgh_hmm()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_hmm.md)
+to model misclassification directly.
 
 ## Examples
 

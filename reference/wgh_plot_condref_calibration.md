@@ -25,7 +25,8 @@ wgh_plot_condref_calibration(
 
 - panel:
 
-  Output of [`wgh_conditional_panel()`](wgh_conditional_panel.md).
+  Output of
+  [`wgh_conditional_panel()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_conditional_panel.md).
 
 - folds:
 
@@ -38,7 +39,8 @@ wgh_plot_condref_calibration(
 
 - formula, taus:
 
-  Passed to [`wgh_condref()`](wgh_condref.md).
+  Passed to
+  [`wgh_condref()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_condref.md).
 
 - seed:
 
@@ -50,7 +52,8 @@ wgh_plot_condref_calibration(
 
 - ...:
 
-  Display options (see [`wgh_plot_options()`](wgh_plot_options.md)).
+  Display options (see
+  [`wgh_plot_options()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_options.md)).
 
 ## Value
 

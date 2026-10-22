@@ -23,8 +23,9 @@ wgh_flow_secular_trends(x = NULL, mode = NULL, fit_lms = TRUE)
 
 - mode:
 
-  Run mode (see [`wgh_config()`](wgh_config.md)); `NULL` keeps the
-  current mode.
+  Run mode (see
+  [`wgh_config()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_config.md));
+  `NULL` keeps the current mode.
 
 - fit_lms:
 
@@ -32,7 +33,8 @@ wgh_flow_secular_trends(x = NULL, mode = NULL, fit_lms = TRUE)
 
 ## Value
 
-A [wgh_report](wgh_report.md).
+A
+[wgh_report](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_report.md).
 
 ## Examples
 

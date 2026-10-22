@@ -2,11 +2,11 @@
 
 `growdat` before cleaning, as a school health information system might
 export it, with errors injected by
-[`wgh_add_messiness()`](wgh_add_messiness.md) (heights in metres,
-weights in grams, swapped values, digit slips, duplicated rows,
-inconsistent sex codes, stray spaces, wrong examination years and
-missing values). The attribute `"messiness_log"` lists every injected
-error.
+[`wgh_add_messiness()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_add_messiness.md)
+(heights in metres, weights in grams, swapped values, digit slips,
+duplicated rows, inconsistent sex codes, stray spaces, wrong examination
+years and missing values). The attribute `"messiness_log"` lists every
+injected error.
 
 ## Usage
 
@@ -16,8 +16,9 @@ growdat_raw
 
 ## Format
 
-A data frame like [growdat](growdat.md) without the z-score and BMI
-columns.
+A data frame like
+[growdat](https://nhanhocu.github.io/WeGrowHealthR/reference/growdat.md)
+without the z-score and BMI columns.
 
 ## Source
 

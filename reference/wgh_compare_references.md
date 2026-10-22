@@ -15,7 +15,8 @@ wgh_compare_references(value, age, sex, indicator = c("hfa", "wfa", "bfa"))
 
 - value, age, sex, indicator:
 
-  As in [`wgh_zscore()`](wgh_zscore.md).
+  As in
+  [`wgh_zscore()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_zscore.md).
 
 ## Value
 

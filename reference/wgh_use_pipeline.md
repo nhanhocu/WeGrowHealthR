@@ -2,14 +2,17 @@
 
 Writes a `_targets.R` file in which the flows run in the program's real
 order: data preparation, then the SITAR models of the pubertal spurt
-study ([`wgh_flow_pubertal_spurt()`](wgh_flow_pubertal_spurt.md)), then
-the analyses that reuse them (height prediction, velocity distribution,
-spurt duration and growth phenotypes), then the analysis that reuses the
-phenotypes, alongside the independent descriptive and distributional
-studies. See [`wgh_references()`](wgh_references.md) for the studies
-behind each flow. `targets` caches every step, so changing one analysis
-reruns only what depends on it. This replaces the hand-off of saved
-`.RData` workspaces between scripts (Book 2 Chapter 18).
+study
+([`wgh_flow_pubertal_spurt()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_pubertal_spurt.md)),
+then the analyses that reuse them (height prediction, velocity
+distribution, spurt duration and growth phenotypes), then the analysis
+that reuses the phenotypes, alongside the independent descriptive and
+distributional studies. See
+[`wgh_references()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_references.md)
+for the studies behind each flow. `targets` caches every step, so
+changing one analysis reruns only what depends on it. This replaces the
+hand-off of saved `.RData` workspaces between scripts (Book 2 Chapter
+18).
 
 ## Usage
 
@@ -45,7 +48,7 @@ The path of the written file, invisibly.
 
 ``` r
 f <- wgh_use_pipeline(tempdir(), overwrite = TRUE)
-#> Wrote /tmp/RtmpCADCMM/_targets.R. Run it with `targets::tar_make()`.
+#> Wrote /tmp/Rtmp8fRUT4/_targets.R. Run it with `targets::tar_make()`.
 cat(readLines(f)[1:10], sep = "\n")
 #> ## Pipeline written by WeGrowHealthR::wgh_use_pipeline()
 #> library(targets)

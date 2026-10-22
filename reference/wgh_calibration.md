@@ -13,7 +13,8 @@ wgh_calibration(obs, qmat, taus, group = NULL)
 
 - obs, qmat, taus:
 
-  As in [`wgh_score()`](wgh_score.md).
+  As in
+  [`wgh_score()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_score.md).
 
 - group:
 

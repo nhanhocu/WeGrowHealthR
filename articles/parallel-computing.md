@@ -1,10 +1,11 @@
 # Parallel computing
 
 > **About this vignette.** All data are simulated with
-> [`wgh_simulate()`](../reference/wgh_simulate.md). The results
-> illustrate the code and are not research findings. The vignette was
-> precomputed on a machine with 2 cores, so the speed-ups shown are
-> modest. On a machine with 8 or 16 cores they are much larger.
+> [`wgh_simulate()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_simulate.md).
+> The results illustrate the code and are not research findings. The
+> vignette was precomputed on a machine with 2 cores, so the speed-ups
+> shown are modest. On a machine with 8 or 16 cores they are much
+> larger.
 
 The heaviest analyses of the research program are bootstraps over
 children, grids of quantiles and cross-validation folds. Each replicate,
@@ -19,15 +20,15 @@ functions: you set up workers once, and every heavy step uses them.
 
 | Function | What is split across workers |
 |----|----|
-| [`wgh_rq()`](../reference/wgh_rq.md) | Bootstrap replicates over children |
-| [`wgh_lqmm()`](../reference/wgh_lqmm.md) | The quantile grid and the bootstrap replicates |
-| [`wgh_sitar_ci()`](../reference/wgh_sitar_ci.md) | Bootstrap refits of the SITAR model |
-| [`wgh_scalar_quantiles()`](../reference/wgh_scalar_quantiles.md) | Bootstrap replicates |
-| [`wgh_mediation()`](../reference/wgh_mediation.md) | Bootstrap replicates |
-| [`wgh_link_outcome()`](../reference/wgh_link_outcome.md) | Bootstrap replicates |
-| [`wgh_cluster_stability()`](../reference/wgh_cluster_neighbours.md) | Bootstrap refits of the mixture model |
-| [`wgh_benchmark()`](../reference/wgh_benchmark.md) | Cross-validation folds of every model |
-| [`wgh_condref_cv()`](../reference/wgh_condref_cv.md), [`wgh_condref_compare()`](../reference/wgh_condref_compare.md) | Cross-validation folds |
+| [`wgh_rq()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_rq.md) | Bootstrap replicates over children |
+| [`wgh_lqmm()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_lqmm.md) | The quantile grid and the bootstrap replicates |
+| [`wgh_sitar_ci()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_sitar_ci.md) | Bootstrap refits of the SITAR model |
+| [`wgh_scalar_quantiles()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_scalar_quantiles.md) | Bootstrap replicates |
+| [`wgh_mediation()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_mediation.md) | Bootstrap replicates |
+| [`wgh_link_outcome()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_link_outcome.md) | Bootstrap replicates |
+| [`wgh_cluster_stability()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_cluster_neighbours.md) | Bootstrap refits of the mixture model |
+| [`wgh_benchmark()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_benchmark.md) | Cross-validation folds of every model |
+| [`wgh_condref_cv()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_condref_cv.md), [`wgh_condref_compare()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_condref_compare.md) | Cross-validation folds |
 | Flows | Every one of the steps above inside them |
 
 Lighter steps, such as a bootstrap of a mean, stay sequential because
@@ -35,7 +36,8 @@ sending the work to other processes would cost more than it saves.
 
 ## Setting up workers
 
-[`wgh_parallel()`](../reference/wgh_parallel.md) starts the workers with
+[`wgh_parallel()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_parallel.md)
+starts the workers with
 [`future::plan()`](https://future.futureverse.org/reference/plan.html):
 
 - `workers` is the number of R processes. The default leaves one core
@@ -49,8 +51,8 @@ sending the work to other processes would cost more than it saves.
 
 All arguments are checked before anything changes, so a wrong call
 leaves your set-up as it was.
-[`wgh_parallel_info()`](../reference/wgh_parallel_info.md) shows the
-current state.
+[`wgh_parallel_info()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_parallel_info.md)
+shows the current state.
 
 ``` r
 

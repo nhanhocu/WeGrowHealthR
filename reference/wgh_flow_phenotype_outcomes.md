@@ -1,9 +1,9 @@
 # Flow: growth phenotypes and later outcomes, growth side (Ho 2026, manuscript in preparation)
 
 Links growth phenotypes from
-[`wgh_flow_growth_phenotypes()`](wgh_flow_growth_phenotypes.md) to a
-later outcome: representativeness of the linked sample, phenotype to
-outcome models with bootstrap intervals, a dose-response model on a
+[`wgh_flow_growth_phenotypes()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_growth_phenotypes.md)
+to a later outcome: representativeness of the linked sample, phenotype
+to outcome models with bootstrap intervals, a dose-response model on a
 continuous phenotype feature and a g-formula mediation of the timing
 effect through late-adolescent BMI (only when `outcome_data` is
 supplied, since the default outcome is itself defined from BMI).
@@ -30,13 +30,14 @@ wgh_flow_phenotype_outcomes(
 
 - mode:
 
-  Run mode (see [`wgh_config()`](wgh_config.md)); `NULL` keeps the
-  current mode.
+  Run mode (see
+  [`wgh_config()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_config.md));
+  `NULL` keeps the current mode.
 
 - phenotypes:
 
   A report from
-  [`wgh_flow_growth_phenotypes()`](wgh_flow_growth_phenotypes.md)
+  [`wgh_flow_growth_phenotypes()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_growth_phenotypes.md)
   (computed when `NULL`).
 
 - outcome_data:
@@ -52,7 +53,8 @@ wgh_flow_phenotype_outcomes(
 
 ## Value
 
-A [wgh_report](wgh_report.md).
+A
+[wgh_report](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_report.md).
 
 ## Examples
 

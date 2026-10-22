@@ -61,7 +61,7 @@ wgh_plot_growth_chart(
 - reference:
 
   `"who"`, `"cdc"` or a custom LMS table (see
-  [`wgh_reference()`](wgh_reference.md)).
+  [`wgh_reference()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_reference.md)).
 
 - age_range:
 
@@ -86,8 +86,9 @@ wgh_plot_growth_chart(
 
 - ...:
 
-  Display options (see [`wgh_plot_options()`](wgh_plot_options.md)), for
-  example `title`, `base_size` or `y_limits`.
+  Display options (see
+  [`wgh_plot_options()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_options.md)),
+  for example `title`, `base_size` or `y_limits`.
 
 ## Value
 
@@ -95,11 +96,14 @@ A ggplot object.
 
 ## Next steps
 
-Read a child's z-scores with [`wgh_add_zscores()`](wgh_add_zscores.md),
+Read a child's z-scores with
+[`wgh_add_zscores()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_add_zscores.md),
 compare references with
-[`wgh_compare_references()`](wgh_compare_references.md), or build a
-personalised expected range with [`wgh_condref()`](wgh_condref.md) and
-[`wgh_plot_fan()`](wgh_plot_fan.md).
+[`wgh_compare_references()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_compare_references.md),
+or build a personalised expected range with
+[`wgh_condref()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_condref.md)
+and
+[`wgh_plot_fan()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_fan.md).
 
 ## Examples
 

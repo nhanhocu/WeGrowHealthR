@@ -51,8 +51,9 @@ A data frame with one row per visit:
 
 ## Source
 
-Simulated with [`wgh_simulate()`](wgh_simulate.md). See
-`data-raw/datasets.R`.
+Simulated with
+[`wgh_simulate()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_simulate.md).
+See `data-raw/datasets.R`.
 
 ## Examples
 

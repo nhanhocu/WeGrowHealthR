@@ -2,7 +2,7 @@
 
 Plots prevalence with confidence bands over calendar time (or any
 ordered variable) from the output of
-[`wgh_prevalence()`](wgh_prevalence.md).
+[`wgh_prevalence()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_prevalence.md).
 
 ## Usage
 
@@ -20,7 +20,9 @@ wgh_plot_prevalence(
 
 - prev:
 
-  Output of [`wgh_prevalence()`](wgh_prevalence.md) with a time column.
+  Output of
+  [`wgh_prevalence()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_prevalence.md)
+  with a time column.
 
 - time:
 
@@ -36,7 +38,8 @@ wgh_plot_prevalence(
 
 - ...:
 
-  Display options (see [`wgh_plot_options()`](wgh_plot_options.md)).
+  Display options (see
+  [`wgh_plot_options()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_options.md)).
 
 ## Value
 

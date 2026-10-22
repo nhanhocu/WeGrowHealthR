@@ -22,7 +22,8 @@ wgh_prevalence(
 
 - x:
 
-  Data, usually after [`wgh_classify()`](wgh_classify.md).
+  Data, usually after
+  [`wgh_classify()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_classify.md).
 
 - outcome:
 

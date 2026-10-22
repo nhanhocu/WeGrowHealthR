@@ -17,8 +17,10 @@ wgh_clean(x, repair_units = TRUE, drop_duplicates = TRUE, z_limit = 6)
 
 - x:
 
-  A data frame or [wgh_data](wgh_data.md) object. Recognised columns:
-  `pid` or `id`, `sex`, `age`, `dob`, `examdate`, `height`, `weight`.
+  A data frame or
+  [wgh_data](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_data.md)
+  object. Recognised columns: `pid` or `id`, `sex`, `age`, `dob`,
+  `examdate`, `height`, `weight`.
 
 - repair_units:
 

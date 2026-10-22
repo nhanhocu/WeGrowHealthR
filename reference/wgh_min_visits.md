@@ -21,7 +21,7 @@ wgh_min_visits(k = 3, span = 0)
 ## Value
 
 A function usable as a step in
-[`wgh_sample_flow()`](wgh_sample_flow.md).
+[`wgh_sample_flow()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_sample_flow.md).
 
 ## Examples
 

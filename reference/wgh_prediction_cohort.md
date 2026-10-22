@@ -38,7 +38,8 @@ wgh_prediction_cohort(
 
 - sitar_effects:
 
-  Optional output of [`wgh_sitar_effects()`](wgh_sitar_effects.md).
+  Optional output of
+  [`wgh_sitar_effects()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_sitar_effects.md).
 
 ## Value
 

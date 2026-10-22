@@ -3,7 +3,8 @@
 Summarises variables by group: median (IQR) or mean (SD) for numeric
 variables and n (%) for categorical ones, with a test of difference
 between groups (Kruskal-Wallis or chi-square). Use
-[`wgh_flextable()`](wgh_flextable.md) to format it for a manuscript.
+[`wgh_flextable()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flextable.md)
+to format it for a manuscript.
 
 ## Usage
 

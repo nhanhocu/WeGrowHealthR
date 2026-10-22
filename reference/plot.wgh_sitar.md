@@ -21,7 +21,8 @@ plot(
 
 - x:
 
-  A `wgh_sitar` object from [`wgh_fit_sitar()`](wgh_fit_sitar.md).
+  A `wgh_sitar` object from
+  [`wgh_fit_sitar()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_fit_sitar.md).
 
 - type:
 
@@ -37,7 +38,8 @@ plot(
 
 - ...:
 
-  Display options (see [`wgh_plot_options()`](wgh_plot_options.md)).
+  Display options (see
+  [`wgh_plot_options()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_options.md)).
 
 ## Value
 

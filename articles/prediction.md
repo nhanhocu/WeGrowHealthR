@@ -1,12 +1,13 @@
 # Predicting late-adolescent height and explaining predictions
 
 > **About this vignette.** All data are simulated with
-> [`wgh_simulate()`](../reference/wgh_simulate.md). The results show how
-> the methods work and resemble the published patterns, but they are not
-> the published findings and are not research results. The functions run
-> in development mode: SITAR models use at most 1,000 children, the
-> benchmark uses 5-fold cross-validation and the prediction cohort has a
-> few hundred children, so model rankings are illustrative.
+> [`wgh_simulate()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_simulate.md).
+> The results show how the methods work and resemble the published
+> patterns, but they are not the published findings and are not research
+> results. The functions run in development mode: SITAR models use at
+> most 1,000 children, the benchmark uses 5-fold cross-validation and
+> the prediction cohort has a few hundred children, so model rankings
+> are illustrative.
 
 Parents and clinicians often ask how tall a child will be. A prediction
 is useful only if it is accurate for new children, if it comes with an
@@ -27,8 +28,8 @@ it, and finally run the flows. The vignette is precomputed.
 Prediction needs children measured both before puberty and in late
 adolescence, so this vignette uses a simulated cohort followed for 14
 school years with little dropout (see
-[`vignette("simulated-data")`](../articles/simulated-data.md) for the
-settings).
+[`vignette("simulated-data")`](https://nhanhocu.github.io/WeGrowHealthR/articles/simulated-data.md)
+for the settings).
 
 ``` r
 
@@ -43,7 +44,7 @@ v <- wgh_simulate(8000, seed = 7, years = 2012:2025, missing_years = integer(),
 
 The question is: from what we know about a child before puberty, how
 tall will the child be in late adolescence?
-[`wgh_prediction_cohort()`](../reference/wgh_prediction_cohort.md)
+[`wgh_prediction_cohort()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_prediction_cohort.md)
 builds one row per child:
 
 - the **baseline** is the earliest visit at or before a prepubertal
@@ -98,9 +99,10 @@ unrepresentative.
 
 ## 2. A fair comparison of models
 
-[`wgh_benchmark()`](../reference/wgh_benchmark.md) fits a ladder of
-models, from the simplest to machine learning, and evaluates them all on
-the **same** child-level folds, so the comparison is fair:
+[`wgh_benchmark()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_benchmark.md)
+fits a ladder of models, from the simplest to machine learning, and
+evaluates them all on the **same** child-level folds, so the comparison
+is fair:
 
 | Code | Model                                                                |
 |------|----------------------------------------------------------------------|
@@ -168,9 +170,9 @@ interpretable model is preferred. Prediction is harder in girls, whose
 baseline is earlier (up to 9 years) and whose pubertal timing varies
 more.
 
-[`wgh_compare_models()`](../reference/wgh_compare_models.md) tests
-whether two models differ, with a paired bootstrap of their out-of-fold
-errors:
+[`wgh_compare_models()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_compare_models.md)
+tests whether two models differ, with a paired bootstrap of their
+out-of-fold errors:
 
 ``` r
 
@@ -186,10 +188,10 @@ wgh_compare_models(bm, "M5", "M8", B = 500)
 
 A model can have a small RMSE and still be biased for tall or short
 children.
-[`wgh_plot_calibration()`](../reference/wgh_plot_calibration.md) groups
-children by predicted height and plots the mean observed against the
-mean predicted height. Points on the diagonal mean the model is right on
-average across the range.
+[`wgh_plot_calibration()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_calibration.md)
+groups children by predicted height and plots the mean observed against
+the mean predicted height. Points on the diagonal mean the model is
+right on average across the range.
 
 ``` r
 
@@ -213,14 +215,14 @@ wgh_plot_bland_altman(bm, "M5", alpha = 0.2)
 ## 4. How sure is a prediction? Prediction intervals
 
 A single number hides the uncertainty.
-[`wgh_prediction_interval()`](../reference/wgh_prediction_interval.md)
+[`wgh_prediction_interval()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_prediction_interval.md)
 gives a 95% prediction interval for linear and mixed models, combining
 the uncertainty of the fitted mean with the residual variance. The
 interval is for an individual child, so it is much wider than a
 confidence interval for the mean.
 
 For the children of a benchmark,
-[`wgh_benchmark_intervals()`](../reference/wgh_benchmark_intervals.md)
+[`wgh_benchmark_intervals()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_benchmark_intervals.md)
 applies it to the full-data fit of a model and checks how many observed
 heights fall inside their interval:
 
@@ -252,10 +254,10 @@ model, `wgh_prediction_interval(model, newdata)` does the same.
 
 ## 5. Showing a prediction to a family or clinician
 
-[`wgh_predict_child()`](../reference/wgh_predict_child.md) predicts for
-one child described by baseline features (features that are not supplied
-are filled with cohort medians), and
-[`wgh_plot_child_prediction()`](../reference/wgh_plot_child_prediction.md)
+[`wgh_predict_child()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_predict_child.md)
+predicts for one child described by baseline features (features that are
+not supplied are filled with cohort medians), and
+[`wgh_plot_child_prediction()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_child_prediction.md)
 shows the result on a growth chart: the measured heights up to the
 cutoff, the predicted late-adolescent height with its interval, and WHO
 centiles for context. When later measurements are supplied, they show
@@ -303,16 +305,17 @@ wgh_predict_child(bm, new_boy, "M5")
 
 SHAP values split a prediction into contributions of each feature,
 relative to the average prediction (the baseline). They add up exactly
-to the prediction. [`wgh_shap()`](../reference/wgh_shap.md) computes
-them for any model: exactly for tree models (TreeSHAP) and linear
-models, and by kernel SHAP otherwise, with `bg_X` as the background
-data.
+to the prediction.
+[`wgh_shap()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_shap.md)
+computes them for any model: exactly for tree models (TreeSHAP) and
+linear models, and by kernel SHAP otherwise, with `bg_X` as the
+background data.
 
 Here we explain the gradient boosting model of boys (M7), which is the
 kind of model that most needs explaining.
-[`wgh_benchmark_shap()`](../reference/wgh_benchmark_shap.md) explains
-any model of a benchmark with the same feature preparation as in the
-benchmark.
+[`wgh_benchmark_shap()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_benchmark_shap.md)
+explains any model of a benchmark with the same feature preparation as
+in the benchmark.
 
 ``` r
 
@@ -359,8 +362,8 @@ the prediction and the colour shows whether the feature value was high
 or low. For baseline HAZ, high values (orange) push the prediction up:
 children who are tall for their age before puberty end up taller.
 
-[`wgh_plot_waterfall()`](../reference/wgh_plot_waterfall.md) explains
-one prediction, step by step from the baseline:
+[`wgh_plot_waterfall()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_waterfall.md)
+explains one prediction, step by step from the baseline:
 
 ``` r
 
@@ -370,7 +373,7 @@ wgh_plot_waterfall(sh, row = 1, title = "Why this boy is predicted to be tall")
 ![Waterfall explanation of one boy's
 prediction](figures/pred-waterfall-1.png)
 
-[`wgh_permutation_importance()`](../reference/wgh_permutation_importance.md)
+[`wgh_permutation_importance()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_permutation_importance.md)
 is a model-agnostic check: it measures how much the error grows when one
 feature is shuffled. When it agrees with the SHAP ranking, the
 explanation is robust.
@@ -378,14 +381,14 @@ explanation is robust.
 ## 7. Explaining predictions across the distribution
 
 The conditional growth references
-([`vignette("growth-distributions")`](../articles/growth-distributions.md))
+([`vignette("growth-distributions")`](https://nhanhocu.github.io/WeGrowHealthR/articles/growth-distributions.md))
 predict several quantiles of later height-for-age for each child. The
 second study asked whether the same features drive the median, the lower
 and the upper predictions. For a linear quantile model with independent
 features, SHAP values are exact and simple: the coefficient times the
 centred feature value, with interaction terms shared equally between
 their features.
-[`wgh_shap_interaction()`](../reference/wgh_shap_interaction.md)
+[`wgh_shap_interaction()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_shap_interaction.md)
 computes them.
 
 ``` r
@@ -409,13 +412,13 @@ model cannot show.
 
 ## 8. Both studies in one call each
 
-[`wgh_flow_height_prediction()`](../reference/wgh_flow_height_prediction.md)
+[`wgh_flow_height_prediction()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_height_prediction.md)
 builds the cohort (joining SITAR timing and intensity from the pubertal
 spurt flow, never size), runs the full model ladder, leave-one-site-out
 validation, the M5 against M7 bootstrap, prediction intervals,
 calibration and Bland-Altman plots, SHAP for M7 and an example
 individual prediction.
-[`wgh_flow_explain_prediction()`](../reference/wgh_flow_explain_prediction.md)
+[`wgh_flow_explain_prediction()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_explain_prediction.md)
 explains the conditional reference models across quantiles, with
 permutation importance and the stability of feature rankings across
 folds.

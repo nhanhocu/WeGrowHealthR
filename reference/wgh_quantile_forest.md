@@ -4,9 +4,10 @@ Fits a quantile regression forest (`ranger` with `quantreg = TRUE`) of
 the target z-score on the baseline features, separately by sex and
 target age, and predicts any quantile for new children. It is a
 flexible, assumption-light benchmark for the linear conditional
-references of [`wgh_condref()`](wgh_condref.md): if the forest does not
-predict better out of sample, the simpler, interpretable model is
-preferred (Book 2 Chapter 15).
+references of
+[`wgh_condref()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_condref.md):
+if the forest does not predict better out of sample, the simpler,
+interpretable model is preferred (Book 2 Chapter 15).
 
 ## Usage
 
@@ -29,7 +30,8 @@ predict(object, newdata, ...)
 
 - panel:
 
-  Output of [`wgh_conditional_panel()`](wgh_conditional_panel.md).
+  Output of
+  [`wgh_conditional_panel()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_conditional_panel.md).
 
 - formula:
 
@@ -73,8 +75,9 @@ quantiles (one row per child, rearranged to be monotone).
 ## Next steps
 
 Compare the forest with the conditional reference out of sample with
-[`wgh_condref_cv()`](wgh_condref_cv.md) (`forest = TRUE`) or child by
-child with [`wgh_condref_compare()`](wgh_condref_compare.md).
+[`wgh_condref_cv()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_condref_cv.md)
+(`forest = TRUE`) or child by child with
+[`wgh_condref_compare()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_condref_compare.md).
 
 ## Examples
 

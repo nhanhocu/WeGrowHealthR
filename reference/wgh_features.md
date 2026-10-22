@@ -2,7 +2,7 @@
 
 Velocity, slope and change features for each child from visits within an
 age window (a lower-level helper used by
-[`wgh_prediction_cohort()`](wgh_prediction_cohort.md)).
+[`wgh_prediction_cohort()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_prediction_cohort.md)).
 
 ## Usage
 

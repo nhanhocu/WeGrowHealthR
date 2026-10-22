@@ -15,7 +15,8 @@ wgh_transitions(x, min_interval = 0.5, max_interval = 2.5)
 
 - x:
 
-  Output of [`wgh_states()`](wgh_states.md).
+  Output of
+  [`wgh_states()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_states.md).
 
 - min_interval, max_interval:
 

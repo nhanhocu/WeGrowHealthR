@@ -100,20 +100,14 @@
 <ol style="list-style-type: decimal"><li><p>Create the public repository <code>WeGrowHealthR</code> and push the source (the contents of this folder, including <code>.github/</code>).</p></li>
 <li>
 <p>Add the links to <code>DESCRIPTION</code>, either with <code>usethis::use_github_links()</code> or by hand:</p>
-<pre><code>URL: https://github.com/&lt;account&gt;/WeGrowHealthR, https://&lt;account&gt;.github.io/WeGrowHealthR/
-BugReports: https://github.com/&lt;account&gt;/WeGrowHealthR/issues</code></pre>
+<pre><code>URL: https://github.com/nhanhocu/WeGrowHealthR, https://nhanhocu.github.io/WeGrowHealthR/
+BugReports: https://github.com/nhanhocu/WeGrowHealthR/issues</code></pre>
 <p>Add the same <code>url</code> to <code>_pkgdown.yml</code> and <code>repository-code</code> to <code>CITATION.cff</code>. Commit.</p>
 </li>
 <li><p>Turn on GitHub Pages for the <code>gh-pages</code> branch (Settings, Pages). The <code>pkgdown</code> workflow fills it.</p></li>
 <li><p>Wait for <code>R-CMD-check</code> to pass on all five configurations and run the <code>integration</code> workflow by hand (Actions, integration, Run workflow).</p></li>
 <li><p>Create release <code>v1.0.1</code> (tag <code>v1.0.1</code>), attach the tarball, <code>growdat2.rds</code> and <code>growdat2.md5</code>, and paste the 1.0.1 section of <code>NEWS.md</code> as the release notes.</p></li>
-<li>
-<p>Set the frozen cohort as the default download in a new patch version, or tell readers to run</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>WeGrowHealthR.growdat2_url <span class="op">=</span> <span class="st">"https://github.com/&lt;account&gt;/WeGrowHealthR/releases/download/v1.0.1/growdat2.rds"</span>,</span>
-<span>        WeGrowHealthR.growdat2_md5 <span class="op">=</span> <span class="st">"&lt;checksum from growdat2.md5&gt;"</span><span class="op">)</span></span>
-<span><span class="va">growdat2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/wgh_download.html">wgh_download</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-</li>
+<li><p><code><a href="reference/wgh_download.html">wgh_download()</a></code> already points to <code>https://github.com/nhanhocu/WeGrowHealthR/releases/download/v1.0.1/growdat2.rds</code> with checksum <code>7e636199ba6d54c6de0b6cc94df40d05</code> (set in <code>R/zzz.R</code>). The asset name and the tag must match exactly. If the cohort is ever regenerated, upload it to a new release and update both values in <code>R/zzz.R</code>.</p></li>
 </ol></div>
 <div class="section level2">
 <h2 id="e-zenodo-archive-and-doi">E. Zenodo archive and DOI<a class="anchor" aria-label="anchor" href="#e-zenodo-archive-and-doi"></a></h2>

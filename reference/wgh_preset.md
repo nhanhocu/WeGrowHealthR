@@ -1,9 +1,10 @@
 # Settings of a simulation preset
 
 Returns the full list of settings used by
-[`wgh_simulate()`](wgh_simulate.md). Change single elements to build
-alternative worlds, for example a cohort in which adiposity has no
-effect on timing, and pass the list back as `preset`.
+[`wgh_simulate()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_simulate.md).
+Change single elements to build alternative worlds, for example a cohort
+in which adiposity has no effect on timing, and pass the list back as
+`preset`.
 
 ## Usage
 

@@ -44,7 +44,8 @@ wgh_plot_trajectories(
 
 - ...:
 
-  Display options (see [`wgh_plot_options()`](wgh_plot_options.md));
+  Display options (see
+  [`wgh_plot_options()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_options.md));
   `show_ci = FALSE` removes the confidence bands.
 
 ## Value

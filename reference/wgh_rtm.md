@@ -14,8 +14,9 @@ wgh_rtm(transitions, x = NULL, var = "haz", by = "sex")
 
 - transitions:
 
-  Output of [`wgh_transitions()`](wgh_transitions.md) (needs `haz` at
-  both visits) or a data frame with `z1` and `z2`.
+  Output of
+  [`wgh_transitions()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_transitions.md)
+  (needs `haz` at both visits) or a data frame with `z1` and `z2`.
 
 - x:
 

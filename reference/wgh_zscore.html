@@ -99,7 +99,9 @@ references plain LMS is always used.</p></dd>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Numeric vector of z-scores. Convert to percentiles with
-<code>100 * pnorm(z)</code>.</p>
+<code>100 * pnorm(z)</code>. The result is <code>NA</code> when the value, age or sex is
+missing, the sex is not recognised, the age is negative or outside the
+reference range, or (WHO) weight-for-age is requested above 10 years.</p>
     </div>
 
     <div class="section level2">

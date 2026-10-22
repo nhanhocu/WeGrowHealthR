@@ -14,8 +14,9 @@ wgh_add_messiness(data, rate = 0.03, seed = 2024)
 
 - data:
 
-  A data frame from [`wgh_simulate()`](wgh_simulate.md) (`$visits`) or
-  `growdat`.
+  A data frame from
+  [`wgh_simulate()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_simulate.md)
+  (`$visits`) or `growdat`.
 
 - rate:
 

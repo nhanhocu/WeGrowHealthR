@@ -28,12 +28,13 @@ wgh_plot_child_prediction(
 
 - benchmark:
 
-  A `wgh_benchmark` object from [`wgh_benchmark()`](wgh_benchmark.md).
+  A `wgh_benchmark` object from
+  [`wgh_benchmark()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_benchmark.md).
 
 - child:
 
   A one-row data frame with the child's features (one row of
-  [`wgh_prediction_cohort()`](wgh_prediction_cohort.md)).
+  [`wgh_prediction_cohort()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_prediction_cohort.md)).
 
 - visits:
 
@@ -58,7 +59,8 @@ wgh_plot_child_prediction(
 
 - ...:
 
-  Display options (see [`wgh_plot_options()`](wgh_plot_options.md)).
+  Display options (see
+  [`wgh_plot_options()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_options.md)).
 
 ## Value
 

@@ -24,7 +24,7 @@ Ho et al. (2026, Sci Rep 16:7515), Ho et al. (2026, medRxiv
 2026.07.26.26358982), Ho et al. (2026, medRxiv 2026.07.26.26358986), Ho
 (2026, medRxiv 2026.09.08.26362487) and Ho (2026, medRxiv
 2026.09.05.26362315). Full citations:
-[`wgh_references()`](wgh_references.md).
+[`wgh_references()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_references.md).
 
 ## Examples
 

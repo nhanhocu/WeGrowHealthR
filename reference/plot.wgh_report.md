@@ -23,7 +23,8 @@ plot(x, which = 1, ...)
 
 - ...:
 
-  Display options (see [`wgh_plot_options()`](wgh_plot_options.md)).
+  Display options (see
+  [`wgh_plot_options()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_options.md)).
   When none are given, the figure is returned exactly as the flow made
   it.
 

@@ -36,7 +36,7 @@ wgh_zscore(
 - reference:
 
   `"who"` (default), `"cdc"` or a custom LMS table (see
-  [`wgh_reference()`](wgh_reference.md)).
+  [`wgh_reference()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_reference.md)).
 
 - method:
 
@@ -50,7 +50,9 @@ wgh_zscore(
 ## Value
 
 Numeric vector of z-scores. Convert to percentiles with
-`100 * pnorm(z)`.
+`100 * pnorm(z)`. The result is `NA` when the value, age or sex is
+missing, the sex is not recognised, the age is negative or outside the
+reference range, or (WHO) weight-for-age is requested above 10 years.
 
 ## Examples
 

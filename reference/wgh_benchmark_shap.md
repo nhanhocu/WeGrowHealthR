@@ -44,8 +44,10 @@ wgh_benchmark_shap(
 
 ## Value
 
-A `wgh_shap` object (see [`wgh_shap()`](wgh_shap.md)) whose rows are
-children of the cohort, with their ids as attribute `"id"`.
+A `wgh_shap` object (see
+[`wgh_shap()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_shap.md))
+whose rows are children of the cohort, with their ids as attribute
+`"id"`.
 
 ## Examples
 

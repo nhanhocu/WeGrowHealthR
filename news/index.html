@@ -63,8 +63,22 @@
 <li>The bundled datasets and the precomputed vignettes were regenerated.</li>
 </ul></div>
 <div class="section level3">
+<h3 id="further-corrections-and-tests-1-0-1">Further corrections and tests<a class="anchor" aria-label="anchor" href="#further-corrections-and-tests-1-0-1"></a></h3>
+<ul><li>A <code>wgh_data</code> object now behaves like its data: <code>x$age</code>, <code>x$bmi &lt;- ...</code>, <code>x[rows, ]</code> (returns a <code>wgh_data</code>), <code>x[rows, cols]</code> and <code>nrow(x)</code>. Before, <code>x[rows, ]</code> failed, so the README example did not run. See <code><a href="../reference/wgh_data_access.html">?wgh_data_access</a></code>.</li>
+<li>
+<code><a href="../reference/wgh_zscore.html">wgh_zscore()</a></code> and <code><a href="../reference/wgh_reference.html">wgh_reference()</a></code> return <code>NA</code> for negative ages (for example a date of birth entered after the measurement date). Before, the WHO 2006 table was extrapolated and gave impossible z-scores.</li>
+<li>New boundary tests: values exactly on a WHO cut-off, missing and out-of-range inputs, sex codes, mutually exclusive categories and the CDC percentile rules.</li>
+<li>A missing suggested package is now reported with the function that needs it.</li>
+<li>A test checks the frozen Book 2 cohort on the GitHub release: checksum, identical repeated downloads and rejection of a wrong checksum.</li>
+<li>README: what the optional packages are needed for, typical computing times by run mode, and the difference between software validation and clinical validation. <code>cran-comments.md</code> lists only observed check results.</li>
+</ul></div>
+<div class="section level3">
 <h3 id="release-1-0-1">Release<a class="anchor" aria-label="anchor" href="#release-1-0-1"></a></h3>
-<ul><li>GitHub Actions workflows for <code>R CMD check --as-cran</code> on Linux, Windows and macOS with all suggested packages, a weekly and pre-release integration workflow that runs all 14 flows on the three systems, and a pkgdown site.</li>
+<ul><li>
+<code><a href="../reference/wgh_download.html">wgh_download()</a></code> downloads the frozen Book 2 cohort from the GitHub release by default and verifies its checksum. It regenerates the cohort locally when offline.</li>
+<li>Repository, website and issue tracker links in <code>DESCRIPTION</code>, the README, <code>CITATION.cff</code> and <code>_pkgdown.yml</code>.</li>
+<li>The package is cited as software (<code>citation("WeGrowHealthR")</code>). Study papers are cited with <code><a href="../reference/wgh_references.html">wgh_references()</a></code>. Shorter title for CRAN.</li>
+<li>GitHub Actions workflows for <code>R CMD check --as-cran</code> on Linux, Windows and macOS with all suggested packages, a weekly and pre-release integration workflow that runs all 14 flows on the three systems, and a pkgdown site.</li>
 <li>
 <code>CITATION.cff</code>, <code>CONTRIBUTING.md</code>, <code>CODE_OF_CONDUCT.md</code>, issue templates and <code>cran-comments.md</code>.</li>
 <li>README wording on suggested packages and on the research program corrected.</li>

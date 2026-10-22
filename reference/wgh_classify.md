@@ -42,11 +42,16 @@ Short stature is height below the 3rd percentile.
 
 ## Next steps
 
-Count and compare with [`wgh_prevalence()`](wgh_prevalence.md), test
-trends with [`wgh_trend_test()`](wgh_trend_test.md) or
-[`wgh_gee_trend()`](wgh_gee_trend.md), and plot with
-[`wgh_plot_status_bars()`](wgh_plot_status_bars.md) or
-[`wgh_plot_prevalence()`](wgh_plot_prevalence.md).
+Count and compare with
+[`wgh_prevalence()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_prevalence.md),
+test trends with
+[`wgh_trend_test()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_trend_test.md)
+or
+[`wgh_gee_trend()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_gee_trend.md),
+and plot with
+[`wgh_plot_status_bars()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_status_bars.md)
+or
+[`wgh_plot_prevalence()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_prevalence.md).
 
 ## Examples
 

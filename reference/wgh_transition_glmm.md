@@ -17,7 +17,8 @@ wgh_transition_glmm(
 
 - transitions:
 
-  Output of [`wgh_transitions()`](wgh_transitions.md).
+  Output of
+  [`wgh_transitions()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_transitions.md).
 
 - outcome:
 

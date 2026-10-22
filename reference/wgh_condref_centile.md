@@ -26,7 +26,7 @@ wgh_condref_centile(object, newdata, type = "conditional", flag = 3)
 - type:
 
   Reference used (see
-  [`predict.wgh_condref()`](predict.wgh_condref.md)).
+  [`predict.wgh_condref()`](https://nhanhocu.github.io/WeGrowHealthR/reference/predict.wgh_condref.md)).
 
 - flag:
 

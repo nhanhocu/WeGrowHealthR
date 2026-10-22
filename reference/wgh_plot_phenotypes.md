@@ -45,7 +45,8 @@ wgh_plot_phenotypes(
 
 - ...:
 
-  Display options (see [`wgh_plot_options()`](wgh_plot_options.md));
+  Display options (see
+  [`wgh_plot_options()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_options.md));
   `show_ci = TRUE` adds confidence bands to the mean curves.
 
 ## Value

@@ -17,7 +17,8 @@ plot(x, type = c("importance", "beeswarm"), max_features = 15, ...)
 
 - x:
 
-  A `wgh_shap` object from [`wgh_shap()`](wgh_shap.md).
+  A `wgh_shap` object from
+  [`wgh_shap()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_shap.md).
 
 - type:
 
@@ -29,7 +30,8 @@ plot(x, type = c("importance", "beeswarm"), max_features = 15, ...)
 
 - ...:
 
-  Display options (see [`wgh_plot_options()`](wgh_plot_options.md)).
+  Display options (see
+  [`wgh_plot_options()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_options.md)).
 
 ## Value
 

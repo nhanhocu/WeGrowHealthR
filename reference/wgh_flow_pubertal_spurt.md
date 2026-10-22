@@ -30,8 +30,9 @@ wgh_flow_pubertal_spurt(
 
 - mode:
 
-  Run mode (see [`wgh_config()`](wgh_config.md)); `NULL` keeps the
-  current mode.
+  Run mode (see
+  [`wgh_config()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_config.md));
+  `NULL` keeps the current mode.
 
 - ci_B:
 
@@ -45,8 +46,10 @@ wgh_flow_pubertal_spurt(
 
 ## Value
 
-A [wgh_report](wgh_report.md) whose `models` hold the SITAR fits and
-`tables` include `individual_effects`.
+A
+[wgh_report](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_report.md)
+whose `models` hold the SITAR fits and `tables` include
+`individual_effects`.
 
 ## Examples
 

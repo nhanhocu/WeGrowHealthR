@@ -1,11 +1,12 @@
 # Secular trends, prevalence and the double burden of malnutrition
 
 > **About this vignette.** All data are simulated with
-> [`wgh_simulate()`](../reference/wgh_simulate.md). The results show how
-> the methods work and resemble the published patterns, but they are not
-> the published findings and are not research results. The flows and
-> functions run in development mode (`wgh_config("dev")`), with 100
-> bootstrap replicates where stated in the code.
+> [`wgh_simulate()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_simulate.md).
+> The results show how the methods work and resemble the published
+> patterns, but they are not the published findings and are not research
+> results. The flows and functions run in development mode
+> (`wgh_config("dev")`), with 100 bootstrap replicates where stated in
+> the code.
 
 This vignette reproduces the descriptive and trend analyses of two
 studies:
@@ -22,9 +23,10 @@ because it uses a full-size simulated cohort.
 
 ## Data
 
-[`wgh_simulate()`](../reference/wgh_simulate.md) builds a cohort that
-resembles the school health cohort of the studies. With 30,000 children
-and the default seed it gives the same teaching cohort as the books.
+[`wgh_simulate()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_simulate.md)
+builds a cohort that resembles the school health cohort of the studies.
+With 30,000 children and the default seed it gives the same teaching
+cohort as the books.
 
 ``` r
 
@@ -50,12 +52,12 @@ visits.
 
 ## 1. Describing the cohort (Table 1)
 
-[`wgh_table1()`](../reference/wgh_table1.md) summarises variables by
-group. Numeric variables are shown as median (IQR) by default
-(`numeric_summary = "mean"` gives mean (SD)), and categorical variables
-as n (%). `per_child = TRUE` uses each child’s first visit, which is
-what a cohort description needs, and a test of difference between groups
-is added.
+[`wgh_table1()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_table1.md)
+summarises variables by group. Numeric variables are shown as median
+(IQR) by default (`numeric_summary = "mean"` gives mean (SD)), and
+categorical variables as n (%). `per_child = TRUE` uses each child’s
+first visit, which is what a cohort description needs, and a test of
+difference between groups is added.
 
 ``` r
 
@@ -80,15 +82,17 @@ t1
 ```
 
 **Next step.** Export tables with
-[`wgh_flextable()`](../reference/wgh_flextable.md) (for Word) or
-[`wgh_export_xlsx()`](../reference/wgh_export_xlsx.md) (for Excel).
+[`wgh_flextable()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flextable.md)
+(for Word) or
+[`wgh_export_xlsx()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_export_xlsx.md)
+(for Excel).
 
 ## 2. Height, weight and BMI by age and calendar year
 
 The first study compared median measurements by single year of age
 across calendar years.
-[`wgh_median_ci()`](../reference/wgh_median_ci.md) gives medians with
-distribution-free confidence intervals, and
+[`wgh_median_ci()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_median_ci.md)
+gives medians with distribution-free confidence intervals, and
 `wgh_trend_test(type = "mood_median")` tests whether the medians differ
 across years within each sex and age.
 
@@ -137,10 +141,10 @@ increase in height.
 
 ### First against last year, and site differences
 
-[`wgh_median_diff()`](../reference/wgh_median_diff.md) estimates the
-difference in medians between groups with a bootstrap that resamples
-children, not visits, so repeated visits of the same child are handled
-correctly. `ref` sets the reference group and `B` the number of
+[`wgh_median_diff()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_median_diff.md)
+estimates the difference in medians between groups with a bootstrap that
+resamples children, not visits, so repeated visits of the same child are
+handled correctly. `ref` sets the reference group and `B` the number of
 replicates (from the run mode when not given).
 
 ``` r
@@ -168,8 +172,9 @@ first year) and its bootstrap interval. The same function with
 ### Calendar trends with GEE
 
 Prevalence and medians by year ignore that the same children are
-measured again. [`wgh_gee_trend()`](../reference/wgh_gee_trend.md) fits
-generalised estimating equations with an exchangeable working
+measured again.
+[`wgh_gee_trend()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_gee_trend.md)
+fits generalised estimating equations with an exchangeable working
 correlation within children, giving the change per calendar year within
 age groups. For a continuous outcome it is a linear GEE (cm per year),
 and for a TRUE/FALSE indicator a logistic GEE (odds ratio per year).
@@ -193,11 +198,12 @@ describe a slow secular increase in height.
 
 ## 3. Nutritional status prevalence
 
-[`wgh_prevalence()`](../reference/wgh_prevalence.md) with a status
-variable gives the share of each category. `method = "sison_glaz"` gives
-simultaneous 95% intervals for all categories, so the intervals can be
-compared with each other. Prevalence from 5 years and below 5 years are
-reported separately, because the WHO cut-offs differ.
+[`wgh_prevalence()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_prevalence.md)
+with a status variable gives the share of each category.
+`method = "sison_glaz"` gives simultaneous 95% intervals for all
+categories, so the intervals can be compared with each other. Prevalence
+from 5 years and below 5 years are reported separately, because the WHO
+cut-offs differ.
 
 ``` r
 
@@ -267,10 +273,10 @@ reproduces it.
 
 The second study looked at all forms of malnutrition together. The same
 functions are applied to each indicator.
-[`wgh_gee_trend()`](../reference/wgh_gee_trend.md) gives the odds ratio
-per calendar year within age groups. Age groups with fewer than
-`min_events` cases are skipped with a warning, because a logistic GEE
-with very few events does not converge.
+[`wgh_gee_trend()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_gee_trend.md)
+gives the odds ratio per calendar year within age groups. Age groups
+with fewer than `min_events` cases are skipped with a warning, because a
+logistic GEE with very few events does not converge.
 
 ``` r
 
@@ -319,7 +325,9 @@ group](figures/trends-forest-1.png)
 
 The double burden can be measured in a child (stunting together with
 overweight) or in a population (stunting and overweight both common in
-the same group). [`wgh_dbm()`](../reference/wgh_dbm.md) returns both.
+the same group).
+[`wgh_dbm()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_dbm.md)
+returns both.
 
 ``` r
 
@@ -404,14 +412,15 @@ wgh_export(malnutrition, "malnutrition_results")
 
 With `fit_lms = TRUE` (default) the trends flow also fits cohort LMS
 height centiles with `gamlss` (see
-[`wgh_fit_lms()`](../reference/wgh_fit_lms.md) and
-[`plot.wgh_lms()`](../reference/plot.wgh_lms.md)).
+[`wgh_fit_lms()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_fit_lms.md)
+and
+[`plot.wgh_lms()`](https://nhanhocu.github.io/WeGrowHealthR/reference/plot.wgh_lms.md)).
 
 ## Where to go next
 
-- [`vignette("trajectories")`](../articles/trajectories.md) follows
-  children over time instead of comparing cross-sections.
-- [`vignette("growth-distributions")`](../articles/growth-distributions.md)
+- [`vignette("trajectories")`](https://nhanhocu.github.io/WeGrowHealthR/articles/trajectories.md)
+  follows children over time instead of comparing cross-sections.
+- [`vignette("growth-distributions")`](https://nhanhocu.github.io/WeGrowHealthR/articles/growth-distributions.md)
   asks whether BMI is related to height differently in short and tall
   children.
 

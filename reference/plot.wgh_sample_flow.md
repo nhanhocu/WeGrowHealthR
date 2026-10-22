@@ -16,7 +16,7 @@ plot(x, type = c("auto", "total", "site"), ...)
 - x:
 
   A `wgh_sample_flow` object from
-  [`wgh_sample_flow()`](wgh_sample_flow.md).
+  [`wgh_sample_flow()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_sample_flow.md).
 
 - type:
 
@@ -24,7 +24,8 @@ plot(x, type = c("auto", "total", "site"), ...)
 
 - ...:
 
-  Display options (see [`wgh_plot_options()`](wgh_plot_options.md)).
+  Display options (see
+  [`wgh_plot_options()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_plot_options.md)).
 
 ## Value
 

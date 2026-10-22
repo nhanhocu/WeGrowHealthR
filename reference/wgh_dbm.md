@@ -21,7 +21,8 @@ wgh_dbm(
 
 - x:
 
-  Classified data (see [`wgh_classify()`](wgh_classify.md)).
+  Classified data (see
+  [`wgh_classify()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_classify.md)).
 
 - by:
 

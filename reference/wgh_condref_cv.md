@@ -1,9 +1,10 @@
 # Cross-validate conditional references with child-level or site-level folds
 
 Splits children into folds (or leaves one site out at a time), fits
-[`wgh_condref()`](wgh_condref.md) on the training part and scores the
-conditional model and the benchmarks on the held-out part with
-[`wgh_score()`](wgh_score.md).
+[`wgh_condref()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_condref.md)
+on the training part and scores the conditional model and the benchmarks
+on the held-out part with
+[`wgh_score()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_score.md).
 
 ## Usage
 
@@ -22,7 +23,8 @@ wgh_condref_cv(
 
 - panel:
 
-  Output of [`wgh_conditional_panel()`](wgh_conditional_panel.md).
+  Output of
+  [`wgh_conditional_panel()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_conditional_panel.md).
 
 - folds:
 
@@ -30,7 +32,8 @@ wgh_condref_cv(
 
 - formula, taus:
 
-  Passed to [`wgh_condref()`](wgh_condref.md).
+  Passed to
+  [`wgh_condref()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_condref.md).
 
 - seed:
 

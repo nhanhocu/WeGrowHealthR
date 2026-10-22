@@ -1,12 +1,12 @@
 # Reproducing the research program with flows
 
 > **About this vignette.** All data are simulated with
-> [`wgh_simulate()`](../reference/wgh_simulate.md). The flows run in
-> development mode (`wgh_config("dev")`): SITAR models use at most 1,000
-> children each, bootstraps use 10 replicates and cross-validation 3
-> folds. The results show what each flow produces. They resemble the
-> published patterns but are not the published findings, and they are
-> not research results.
+> [`wgh_simulate()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_simulate.md).
+> The flows run in development mode (`wgh_config("dev")`): SITAR models
+> use at most 1,000 children each, bootstraps use 10 replicates and
+> cross-validation 3 folds. The results show what each flow produces.
+> They resemble the published patterns but are not the published
+> findings, and they are not research results.
 
 WeGrowHealthR reproduces the analyses of a research program on the
 growth of urban schoolchildren. Each study has a **flow**: one function
@@ -24,24 +24,24 @@ chaining, pipelines, your own data, corrected methods and citation.
 
 | Ref | Study | Flow | Reuses |
 |:---|:---|:---|:---|
-| \[1\] | Ho et al. 2026, Sci Rep 16:7515 | [`wgh_flow_secular_trends()`](../reference/wgh_flow_secular_trends.md) |  |
-| \[2\] | Ho et al. 2026, medRxiv 2026.07.26.26358982 | [`wgh_flow_malnutrition_trends()`](../reference/wgh_flow_malnutrition_trends.md) |  |
-| \[3\] | Ho et al. 2026, medRxiv 2026.07.26.26358003 | [`wgh_flow_index_trajectory()`](../reference/wgh_flow_index_trajectory.md) |  |
-| \[4\] | Ho et al. 2026, medRxiv 2026.07.26.26358986 | [`wgh_flow_pubertal_spurt()`](../reference/wgh_flow_pubertal_spurt.md) |  |
-| \[5\] | Ho 2026, manuscript under review, late-adolescent height prediction | [`wgh_flow_height_prediction()`](../reference/wgh_flow_height_prediction.md) | pubertal spurt report |
-| \[6\] | Ho 2026, medRxiv 2026.09.08.26362487 | [`wgh_flow_distributional_height()`](../reference/wgh_flow_distributional_height.md) |  |
-| \[7\] | Ho 2026, medRxiv 2026.09.04.26362313 | [`wgh_flow_velocity_distribution()`](../reference/wgh_flow_velocity_distribution.md) | pubertal spurt report |
-| \[8\] | Ho 2026, medRxiv 2026.09.09.26362696 | [`wgh_flow_spurt_duration()`](../reference/wgh_flow_spurt_duration.md) | pubertal spurt report |
-| \[9\] | Ho 2026, medRxiv 2026.09.05.26362315 | [`wgh_flow_growth_phenotypes()`](../reference/wgh_flow_growth_phenotypes.md) | pubertal spurt report |
-| \[10\] | Ho 2026, medRxiv 2026.09.23.26363771 | [`wgh_flow_conditional_references()`](../reference/wgh_flow_conditional_references.md) |  |
-| \[11\] | Ho 2026, manuscript under review, canalization | [`wgh_flow_canalization()`](../reference/wgh_flow_canalization.md) |  |
-| \[12\] | Ho 2026, manuscript under review, growth inequality | [`wgh_flow_growth_inequality()`](../reference/wgh_flow_growth_inequality.md) |  |
-| \[13\] | Ho 2026, manuscript in preparation, growth phenotypes and later health | [`wgh_flow_phenotype_outcomes()`](../reference/wgh_flow_phenotype_outcomes.md) | growth phenotype report |
-| \[14\] | Ho 2026, manuscript under review, explainable growth prediction | [`wgh_flow_explain_prediction()`](../reference/wgh_flow_explain_prediction.md) |  |
+| \[1\] | Ho et al. 2026, Sci Rep 16:7515 | [`wgh_flow_secular_trends()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_secular_trends.md) |  |
+| \[2\] | Ho et al. 2026, medRxiv 2026.07.26.26358982 | [`wgh_flow_malnutrition_trends()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_malnutrition_trends.md) |  |
+| \[3\] | Ho et al. 2026, medRxiv 2026.07.26.26358003 | [`wgh_flow_index_trajectory()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_index_trajectory.md) |  |
+| \[4\] | Ho et al. 2026, medRxiv 2026.07.26.26358986 | [`wgh_flow_pubertal_spurt()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_pubertal_spurt.md) |  |
+| \[5\] | Ho 2026, manuscript under review, late-adolescent height prediction | [`wgh_flow_height_prediction()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_height_prediction.md) | pubertal spurt report |
+| \[6\] | Ho 2026, medRxiv 2026.09.08.26362487 | [`wgh_flow_distributional_height()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_distributional_height.md) |  |
+| \[7\] | Ho 2026, medRxiv 2026.09.04.26362313 | [`wgh_flow_velocity_distribution()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_velocity_distribution.md) | pubertal spurt report |
+| \[8\] | Ho 2026, medRxiv 2026.09.09.26362696 | [`wgh_flow_spurt_duration()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_spurt_duration.md) | pubertal spurt report |
+| \[9\] | Ho 2026, medRxiv 2026.09.05.26362315 | [`wgh_flow_growth_phenotypes()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_growth_phenotypes.md) | pubertal spurt report |
+| \[10\] | Ho 2026, medRxiv 2026.09.23.26363771 | [`wgh_flow_conditional_references()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_conditional_references.md) |  |
+| \[11\] | Ho 2026, manuscript under review, canalization | [`wgh_flow_canalization()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_canalization.md) |  |
+| \[12\] | Ho 2026, manuscript under review, growth inequality | [`wgh_flow_growth_inequality()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_growth_inequality.md) |  |
+| \[13\] | Ho 2026, manuscript in preparation, growth phenotypes and later health | [`wgh_flow_phenotype_outcomes()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_phenotype_outcomes.md) | growth phenotype report |
+| \[14\] | Ho 2026, manuscript under review, explainable growth prediction | [`wgh_flow_explain_prediction()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_explain_prediction.md) |  |
 
 The full references are listed at the end.
-[`wgh_references()`](../reference/wgh_references.md) returns them with
-their DOIs.
+[`wgh_references()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_references.md)
+returns them with their DOIs.
 
 ## How a flow works
 
@@ -76,7 +76,7 @@ c(children = length(unique(v$pid)), visits = nrow(v))
 
 ## 1. Secular trends, prevalence and regional differences \[1\]
 
-[`wgh_flow_secular_trends()`](../reference/wgh_flow_secular_trends.md)
+[`wgh_flow_secular_trends()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_secular_trends.md)
 describes the cohort, compares median height by age across calendar
 years and sites, fits GEE calendar trends, and estimates nutritional
 status prevalence with simultaneous intervals and trend tests.
@@ -122,7 +122,7 @@ differences between sites and the direction of the calendar trend.
 
 ## 2. Stunting, thinness, obesity and the double burden \[2\]
 
-[`wgh_flow_malnutrition_trends()`](../reference/wgh_flow_malnutrition_trends.md)
+[`wgh_flow_malnutrition_trends()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_malnutrition_trends.md)
 estimates four indicators by sex and year, tests trends, fits GEE
 logistic models of calendar trends within age groups and measures the
 double burden of malnutrition in children and in populations.
@@ -167,7 +167,7 @@ in the model status.
 
 ## 3. Prepubertal BMI and the height trajectory \[3\]
 
-[`wgh_flow_index_trajectory()`](../reference/wgh_flow_index_trajectory.md)
+[`wgh_flow_index_trajectory()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_index_trajectory.md)
 assigns a BMI category at a prepubertal index age, compares HAZ between
 categories at milestone ages, fits mixed models of the HAZ trajectory
 and reports contrasts at stated ages.
@@ -208,7 +208,7 @@ before puberty, and how it shrinks or reverses in adolescence.
 
 ## 4. The pubertal growth spurt by SITAR \[4\]
 
-[`wgh_flow_pubertal_spurt()`](../reference/wgh_flow_pubertal_spurt.md)
+[`wgh_flow_pubertal_spurt()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_pubertal_spurt.md)
 fits SITAR models for boys and girls, checks them, estimates the
 population APHV and PHV with intervals, extracts each child’s timing and
 intensity and relates them to prepubertal BMI and height. Its report is
@@ -250,7 +250,7 @@ predict early timing.
 
 ## 5. Predicting late-adolescent height \[5\]
 
-[`wgh_flow_height_prediction()`](../reference/wgh_flow_height_prediction.md)
+[`wgh_flow_height_prediction()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_height_prediction.md)
 builds a cohort of prepubertal features and late-adolescent height,
 compares nine models on the same folds and by site, attaches prediction
 intervals, checks calibration and agreement, explains the gradient
@@ -308,7 +308,7 @@ warns about this).
 
 ## 6. BMI and the height-for-age distribution \[6\]
 
-[`wgh_flow_distributional_height()`](../reference/wgh_flow_distributional_height.md)
+[`wgh_flow_distributional_height()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_distributional_height.md)
 fits quantile models of HAZ on BAZ with a spline of age, by sex, reads
 BAZ slopes at stated ages with a child-level bootstrap and tests whether
 slopes differ across quantiles and between the sexes. `engine = "lqmm"`
@@ -354,7 +354,7 @@ upper quantiles, and how it changes from childhood to adolescence.
 
 ## 7. Prepubertal BMI and the distribution of pubertal velocity \[7\]
 
-[`wgh_flow_velocity_distribution()`](../reference/wgh_flow_velocity_distribution.md)
+[`wgh_flow_velocity_distribution()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_velocity_distribution.md)
 relates prepubertal BMI to the whole distribution of height velocity
 around puberty, and to each child’s timing, intensity and peak velocity,
 with quantile models and a mediation analysis through timing.
@@ -398,7 +398,7 @@ passes through timing.
 
 ## 8. The duration of the pubertal spurt \[8\]
 
-[`wgh_flow_spurt_duration()`](../reference/wgh_flow_spurt_duration.md)
+[`wgh_flow_spurt_duration()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_spurt_duration.md)
 measures each child’s spurt width on the spurt amplitude, shows how
 often the older fraction-of-peak definition is censored, and relates
 duration to prepubertal BMI with and without adjustment for timing and
@@ -447,7 +447,7 @@ intensity.
 
 ## 9. Peri-pubertal growth phenotypes \[9\]
 
-[`wgh_flow_growth_phenotypes()`](../reference/wgh_flow_growth_phenotypes.md)
+[`wgh_flow_growth_phenotypes()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_growth_phenotypes.md)
 summarises trajectories with functional PCA, adds SITAR timing and
 intensity, clusters children with Gaussian mixtures, names the
 phenotypes, checks their stability and validity, and relates them to
@@ -499,7 +499,7 @@ and fast), their shares, and an adjusted Rand index well above zero.
 
 ## 10. Conditional growth references \[10\]
 
-[`wgh_flow_conditional_references()`](../reference/wgh_flow_conditional_references.md)
+[`wgh_flow_conditional_references()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_conditional_references.md)
 predicts each child’s later height-for-age distribution from earlier
 growth, validates the references against unconditional, persistence and
 WHO benchmarks by cross-validation and by site, checks calibration,
@@ -546,10 +546,11 @@ coverage near 90% and a much narrower range than the WHO band.
 
 ## 11. Canalization, catch-up and catch-down \[11\]
 
-[`wgh_flow_canalization()`](../reference/wgh_flow_canalization.md) puts
-visits into height-for-age bands, builds transition matrices, summarises
-persistence, catch-up and catch-down by age, fits a continuous-time
-multistate model and mixed models of catch-up and catch-down.
+[`wgh_flow_canalization()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_canalization.md)
+puts visits into height-for-age bands, builds transition matrices,
+summarises persistence, catch-up and catch-down by age, fits a
+continuous-time multistate model and mixed models of catch-up and
+catch-down.
 
 ``` r
 
@@ -587,8 +588,9 @@ sex](figures/flows-f11-1.png)
 
 **What to look at.** High persistence on the diagonal, moves mostly to
 adjacent bands, and the warning that part of every move is measurement
-error. [`wgh_false_moves()`](../reference/wgh_false_moves.md) estimates
-how large that part is:
+error.
+[`wgh_false_moves()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_false_moves.md)
+estimates how large that part is:
 
 ``` r
 
@@ -604,7 +606,7 @@ wgh_false_moves(v, error_sds = c(0.5, 1))
 
 ## 12. Growth inequality over age and BMI \[12\]
 
-[`wgh_flow_growth_inequality()`](../reference/wgh_flow_growth_inequality.md)
+[`wgh_flow_growth_inequality()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_growth_inequality.md)
 reads the spread of the height-for-age distribution (the 5th to 95th
 centile range and the interquartile range) at each age and BAZ, with
 bootstrap intervals, and flags combinations with little data.
@@ -646,7 +648,7 @@ and at which ages.
 
 ## 13. Growth phenotypes and later outcomes, growth side \[13\]
 
-[`wgh_flow_phenotype_outcomes()`](../reference/wgh_flow_phenotype_outcomes.md)
+[`wgh_flow_phenotype_outcomes()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_phenotype_outcomes.md)
 links the phenotypes of flow 9 to a later outcome with bootstrap
 intervals and a dose-response model on timing. By default the outcome is
 overweight or obesity at 15 years or older. Pass your own outcome table
@@ -689,7 +691,7 @@ outcome, and the warnings for phenotypes with few events.
 
 ## 14. Explainable individual growth prediction \[14\]
 
-[`wgh_flow_explain_prediction()`](../reference/wgh_flow_explain_prediction.md)
+[`wgh_flow_explain_prediction()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flow_explain_prediction.md)
 explains the conditional reference models with exact SHAP values at the
 median and outer quantiles, compares them with permutation importance
 and checks that feature rankings are stable across folds.
@@ -729,9 +731,9 @@ and the rankings are stable (mean Spearman correlation near 1).
 
 The SITAR models of the pubertal spurt study are reused by flows 5, 7, 8
 and 9, and the phenotypes by flow 13, as above.
-[`wgh_use_pipeline()`](../reference/wgh_use_pipeline.md) writes a
-`targets` pipeline that chains all the flows in this order and caches
-each step:
+[`wgh_use_pipeline()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_use_pipeline.md)
+writes a `targets` pipeline that chains all the flows in this order and
+caches each step:
 
 ``` r
 
@@ -740,8 +742,9 @@ targets::tar_make()
 ```
 
 For long runs, start parallel workers first with
-[`wgh_parallel()`](../reference/wgh_parallel.md) (see
-[`vignette("parallel-computing")`](../articles/parallel-computing.md)).
+[`wgh_parallel()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_parallel.md)
+(see
+[`vignette("parallel-computing")`](https://nhanhocu.github.io/WeGrowHealthR/articles/parallel-computing.md)).
 
 ## Using your own data
 
@@ -763,16 +766,16 @@ the original output:
 | Default (corrected) | Legacy option | What changed |
 |----|----|----|
 | `wgh_sitar_ci(method = "bootstrap")` | `method = "legacy"` | APHV and PHV intervals come from a bootstrap over children |
-| [`wgh_sitar_effects()`](../reference/wgh_sitar_effects.md) | `legacy_c_labels = TRUE` | Positive SITAR intensity `c` means a faster spurt |
+| [`wgh_sitar_effects()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_sitar_effects.md) | `legacy_c_labels = TRUE` | Positive SITAR intensity `c` means a faster spurt |
 | Exact individual APHV | none | Exact SITAR formula instead of APHV plus `b` |
 | `wgh_curve_features(reference = "takeoff")` | `reference = "zero"` | Duration measured on the spurt amplitude |
 | `wgh_zscore(method = "who")` | `method = "lms"` or `"symmetric"` | WHO restricted tails for weight and BMI |
 | `wgh_benchmark(site_effect = "fixed")` | `site_effect = "random"` | Site as a fixed effect in the model ladder |
-| [`wgh_leakage_check()`](../reference/wgh_leakage_check.md) | none | Features from outcome-window visits are flagged |
+| [`wgh_leakage_check()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_leakage_check.md) | none | Features from outcome-window visits are flagged |
 
-[`wgh_compare_outputs()`](../reference/wgh_compare_outputs.md) compares
-a report’s tables with frozen tables from the original code, column by
-column.
+[`wgh_compare_outputs()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_compare_outputs.md)
+compares a report’s tables with frozen tables from the original code,
+column by column.
 
 ## Citing
 

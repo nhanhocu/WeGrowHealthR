@@ -19,8 +19,9 @@ wgh_curve_features(
 
 - panel:
 
-  Output of [`wgh_velocity_panel()`](wgh_velocity_panel.md) (fine grid
-  recommended).
+  Output of
+  [`wgh_velocity_panel()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_velocity_panel.md)
+  (fine grid recommended).
 
 - thresholds:
 
