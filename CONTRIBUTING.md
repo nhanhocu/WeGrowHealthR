@@ -4,7 +4,8 @@ Thank you for helping to improve the package.
 
 ## Reporting a problem
 
-Open an issue on the repository with the bug report template. A good report
+Open an issue at <https://github.com/nhanhocu/WeGrowHealthR/issues> with
+the bug report template. A good report
 has a short description, the full error message, a minimal example that
 runs on bundled or simulated data (for example `wgh_simulate(2000, seed = 1)`),
 and the output of `sessionInfo()` and `wgh_parallel_info()`.

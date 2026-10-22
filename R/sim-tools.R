@@ -367,10 +367,12 @@ wgh_tune_preset <- function(preset = "wgh_like", n_children = 15000, iterations 
 #'
 #' The full growdat2 cohort used in Book 2 is generated once with
 #' `wgh_simulate(30000, preset = "wgh_like", seed = 2026, style = "book2")`,
-#' frozen and deposited in a public archive, so every reader gets identical
-#' numbers whatever their R version. Until the deposit exists, or when
-#' offline, the function regenerates the same cohort locally (which gives
-#' identical data on the same R version).
+#' frozen and attached to the GitHub release of the package
+#' (<https://github.com/nhanhocu/WeGrowHealthR/releases>), so every reader
+#' gets identical numbers whatever their R version. The file is downloaded
+#' and its checksum verified by default. When offline, or when `url = NULL`,
+#' the function regenerates the same cohort locally (which gives identical
+#' data on the same R version).
 #'
 #' The download is written to a temporary file first and only moved to
 #' `destfile` after it has been read successfully and, when `md5` is given,

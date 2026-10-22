@@ -16,8 +16,8 @@ wgh_reference(indicator = c("hfa", "wfa", "bfa"), age, sex, reference = "who")
 \item{reference}{\code{"who"}, \code{"cdc"} or a data frame (see Details).}
 }
 \value{
-A data frame with columns \code{L}, \code{M}, \code{S} (\code{NA} outside the
-reference's age range).
+A data frame with columns \code{L}, \code{M}, \code{S} (\code{NA} for negative ages
+and outside the reference's age range).
 }
 \description{
 Linear interpolation of LMS tables at exact ages.

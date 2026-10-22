@@ -164,7 +164,12 @@ test_that("quantile forests give monotone quantiles and can be compared child by
   expect_true(all(apply(P[ok, ], 1, function(z) !is.unsorted(z))))
   cmp <- wgh_condref_compare(cp, models = c("conditional", "forest"), reference = "who", folds = 3, B = 100)
   expect_equal(nrow(cmp), 2)
-  expect_true(all(cmp$mean_diff < 0))       # both beat the WHO band
+  # The simulated cohort has strong tracking of height-for-age by design, so
+  # any reference that uses the baseline must beat the unconditional WHO band
+  # (by about 55 to 60% in CRPS). A failure here means a scoring or fitting
+  # error, not a close call.
+  expect_true(all(cmp$mean_diff < 0))
+  expect_true(all(cmp$upper < 0))
 })
 
 test_that("an invalid parallel set-up changes nothing", {
@@ -289,4 +294,56 @@ test_that("the paired bootstrap p-value has about the nominal size and good powe
   r <- sim_p(-0.4, 7)
   expect_lt(r$upper, 0); expect_lt(r$p_value, 0.05)
   expect_gte(r$p_value, 1 / 200)
+})
+
+test_that("a missing suggested package is reported with the function that needs it", {
+  wgh_fake_feature <- function() WeGrowHealthR:::.need_reason()
+  expect_equal(wgh_fake_feature(), "to use `wgh_fake_feature()`")
+  outer <- function() wgh_fake_feature()
+  expect_equal(outer(), "to use `wgh_fake_feature()`")
+  expect_null(WeGrowHealthR:::.need_reason())
+  expect_error(WeGrowHealthR:::.need("aPackageThatDoesNotExist", "to test"), "aPackageThatDoesNotExist")
+})
+
+test_that("the frozen Book 2 cohort on the GitHub release is the one documented", {
+  skip_on_cran()
+  url <- getOption("WeGrowHealthR.growdat2_url"); md5 <- getOption("WeGrowHealthR.growdat2_md5")
+  expect_match(url, "/releases/download/v[0-9.]+/growdat2\\.rds$")
+  expect_match(md5, "^[0-9a-f]{32}$")
+  probe <- tempfile(fileext = ".rds")
+  ok <- tryCatch(utils::download.file(url, probe, mode = "wb", quiet = TRUE) == 0, error = function(e) FALSE,
+                 warning = function(w) FALSE)
+  skip_if_not(isTRUE(ok), "release asset not reachable (offline or release not yet published)")
+  expect_identical(unname(tools::md5sum(probe)), md5)
+  a <- wgh_download(destfile = tempfile(fileext = ".rds"))
+  b <- wgh_download(destfile = tempfile(fileext = ".rds"))
+  expect_identical(attr(a, "provenance")$source, "downloaded")
+  expect_true(attr(a, "provenance")$md5_verified)
+  expect_identical(as.data.frame(a), as.data.frame(b))     # repeated downloads give identical data
+  expect_error(wgh_download(destfile = tempfile(fileext = ".rds"), md5 = "0123456789abcdef0123456789abcdef"),
+               "Checksum")
+})
+
+test_that("a wgh_data object can be used like its data", {
+  gd <- wgh_data(growdat, id = "pid", sex = "sex", dob = "dob", date = "examdate",
+                 height = "height", weight = "weight", site = "site")
+  expect_equal(gd$age, gd$data$age)
+  expect_equal(dim(gd), dim(gd$data)); expect_equal(nrow(gd), nrow(gd$data))
+  sub <- gd[gd$age >= 10, ]
+  expect_s3_class(sub, "wgh_data")
+  expect_true(all(sub$age >= 10)); expect_equal(nrow(sub), sum(gd$age >= 10))
+  expect_identical(sub$map, gd$map); expect_identical(sub$log, gd$log)
+  cols <- gd[1:3, c("id", "age")]
+  expect_s3_class(cols, "tbl_df"); expect_equal(dim(cols), c(3L, 2L))
+  expect_equal(gd[, "age", drop = TRUE], gd$data$age)
+  gd$bmi2 <- gd$weight / (gd$height / 100)^2
+  expect_true("bmi2" %in% names(gd$data)); expect_s3_class(gd, "wgh_data")
+  # NA in a logical row condition drops the row
+  gd$flag <- c(NA, rep(TRUE, nrow(gd) - 1))
+  expect_equal(nrow(gd[gd$flag, ]), nrow(gd) - 1)
+  expect_error(gd[1:3], "rows")
+  # the README example: classify, then subset and summarise
+  cl <- wgh_classify(gd)
+  pr <- wgh_prevalence(cl[cl$age >= 5, ], "obesity", by = c("sex", "year"))
+  expect_true(nrow(pr) > 0)
 })

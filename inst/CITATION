@@ -2,11 +2,11 @@ citHeader("To cite the WeGrowHealthR package in publications, please use:")
 
 bibentry(
   bibtype = "Manual",
-  title = "WeGrowHealthR: Child Growth Data Analysis, Modelling and Reproducible Research Workflows",
+  title = "WeGrowHealthR: Child Growth Data Analysis, Modelling and Reproducible Workflows",
   author = person("Nhan Thi", "Ho"),
   year = "2026",
   note = paste("R package version", meta$Version),
-  textVersion = paste0("Ho NT (2026). WeGrowHealthR: Child Growth Data Analysis, Modelling and Reproducible Research Workflows. R package version ", meta$Version, ".")
+  textVersion = paste0("Ho NT (2026). WeGrowHealthR: Child Growth Data Analysis, Modelling and Reproducible Workflows. R package version ", meta$Version, ".")
 )
 
 ## When the software paper is published, uncomment and complete this entry,

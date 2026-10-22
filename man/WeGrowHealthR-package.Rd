@@ -30,6 +30,15 @@ cohorts resemble a large school health cohort, so analyses give tables
 and figures similar to the published ones, but they are not real data
 and their numbers are not findings.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/nhanhocu/WeGrowHealthR}
+  \item \url{https://nhanhocu.github.io/WeGrowHealthR/}
+  \item Report bugs at \url{https://github.com/nhanhocu/WeGrowHealthR/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Nhan Thi Ho \email{nhanhocumc@gmail.com} (MD, PhD) [copyright holder]
 

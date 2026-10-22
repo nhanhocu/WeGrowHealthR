@@ -1,7 +1,6 @@
 # Citation metadata for GitHub ("Cite this repository") and Zenodo.
 # Update version and date-released at each release. After the first Zenodo
 # archive, add the concept DOI under "identifiers".
-repository-code: https://github.com/nhanhocu/WeGrowHealthR
 cff-version: 1.2.0
 message: "If you use WeGrowHealthR, please cite the software as below. To cite the studies whose analyses a flow reproduces, use wgh_references() in R."
 type: software
@@ -9,7 +8,8 @@ title: "WeGrowHealthR: Child Growth Data Analysis, Modelling and Reproducible Wo
 version: 1.0.1
 date-released: 2026-10-21
 license: GPL-3.0-only
-"https://github.com/nhanhocu/WeGrowHealthR"
+repository-code: "https://github.com/nhanhocu/WeGrowHealthR"
+url: "https://nhanhocu.github.io/WeGrowHealthR/"
 authors:
   - family-names: Ho
     given-names: Nhan Thi

@@ -2,39 +2,45 @@
 
 This is a new submission.
 
-## Test environments
+## Test environments and results
 
-* Local: Ubuntu 24.04, R 4.3.3 (R CMD check --as-cran, offline)
-* GitHub Actions: Ubuntu (R devel, release and oldrel-1), Windows (R
-  release), macOS (R release), with all suggested packages installed
-* win-builder (R devel): to be run before submission
-* R-hub: to be run before submission
+Only results that were actually observed are listed. Fill in the pending
+rows before submitting, and delete any row that was not run.
 
-## R CMD check results
+| Environment | Command | Errors | Warnings | Notes | Status |
+|---|---|---|---|---|---|
+| Ubuntu 24.04, R 4.3.3, offline | `R CMD check --as-cran --no-manual` | 0 | 0 | 2 | Done 2026-10-21 |
+| Ubuntu 24.04, R 4.3.3 | `R CMD Rd2pdf` (PDF manual alone) | 0 | | | Done 2026-10-21, 157 pages |
+| GitHub Actions: Ubuntu R devel, release, oldrel-1, Windows release, macOS release | `R CMD check --as-cran --no-manual` | | | | Pending |
+| win-builder, R devel | `devtools::check_win_devel()` | | | | Pending |
+| win-builder, R release | `devtools::check_win_release()` | | | | Pending |
+| macOS builder, R release | `devtools::check_mac_release()` | | | | Pending |
+| R-hub | `rhub::rhub_check()` | | | | Pending |
 
-0 errors | 0 warnings | 1 note
+Notes in the local check, both from the check machine:
 
-* This is a new submission.
+* `Packages suggested but not available for checking: 'learnr', 'targets'`.
+  The two packages were not installed on that machine.
+* `checking for future file timestamps ... unable to verify current time`.
+  The machine had no network access.
 
-The local check (R 4.3.3, Ubuntu 24.04, `--as-cran`, offline) gave
-0 errors. Its remaining warning and notes came from the check machine, not
-the package: `learnr` and `targets` were not installed, the time could not
-be verified without a network, the LaTeX font `inconsolata` was missing for
-the PDF manual (the manual builds without it), and `tidy` was not available
-for HTML validation. These are expected to disappear on CRAN and on the
-GitHub Actions machines, where all suggested packages and TinyTeX are
-installed. Update this section with the win-builder and R-hub results before
-submitting.
+The PDF manual was built separately with `R CMD Rd2pdf` (157 pages, no
+errors). Inside `R CMD check` on the same machine it failed only because the
+LaTeX font `inconsolata` was not installed.
 
-The data include a teaching dataset of a raw export with entry errors
-(`growdat_raw`) that contains a few non-ASCII characters on purpose: a sex
-code written in Vietnamese, which the cleaning functions are taught to
-recognise.
+Expected on CRAN: the note `New submission`.
 
 ## Notes for the reviewer
 
+* The teaching dataset `growdat_raw` is a raw export with entry errors. It
+  contains a few non-ASCII characters on purpose (a sex code written in
+  Vietnamese) that the cleaning functions are taught to recognise.
 * Examples that fit models for more than a few seconds are wrapped in
   `\donttest{}`. Long tests are skipped on CRAN.
+* `wgh_download()` downloads a frozen teaching dataset (1.3 MB) from the
+  package's GitHub release and verifies its MD5 checksum. Without internet
+  access it falls back to regenerating the same data locally with a
+  warning, so it fails gracefully.
 * Nothing is written outside `tempdir()` unless the user gives a path.
   Functions with a `seed` argument restore the user's random number state
   when they finish.

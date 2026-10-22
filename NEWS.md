@@ -36,8 +36,35 @@
   BMI distribution, observed velocity and height-for-age band transitions.
 * The bundled datasets and the precomputed vignettes were regenerated.
 
+## Further corrections and tests
+
+* A `wgh_data` object now behaves like its data: `x$age`, `x$bmi <- ...`,
+  `x[rows, ]` (returns a `wgh_data`), `x[rows, cols]` and `nrow(x)`. Before,
+  `x[rows, ]` failed, so the README example did not run. See
+  `?wgh_data_access`.
+* `wgh_zscore()` and `wgh_reference()` return `NA` for negative ages (for
+  example a date of birth entered after the measurement date). Before, the
+  WHO 2006 table was extrapolated and gave impossible z-scores.
+* New boundary tests: values exactly on a WHO cut-off, missing and
+  out-of-range inputs, sex codes, mutually exclusive categories and the CDC
+  percentile rules.
+* A missing suggested package is now reported with the function that needs
+  it.
+* A test checks the frozen Book 2 cohort on the GitHub release: checksum,
+  identical repeated downloads and rejection of a wrong checksum.
+* README: what the optional packages are needed for, typical computing
+  times by run mode, and the difference between software validation and
+  clinical validation. `cran-comments.md` lists only observed check results.
+
 ## Release
 
+* `wgh_download()` downloads the frozen Book 2 cohort from the GitHub
+  release by default and verifies its checksum. It regenerates the cohort
+  locally when offline.
+* Repository, website and issue tracker links in `DESCRIPTION`, the README,
+  `CITATION.cff` and `_pkgdown.yml`.
+* The package is cited as software (`citation("WeGrowHealthR")`). Study
+  papers are cited with `wgh_references()`. Shorter title for CRAN.
 * GitHub Actions workflows for `R CMD check --as-cran` on Linux, Windows and
   macOS with all suggested packages, a weekly and pre-release integration
   workflow that runs all 14 flows on the three systems, and a pkgdown site.

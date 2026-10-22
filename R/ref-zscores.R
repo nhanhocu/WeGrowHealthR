@@ -85,8 +85,8 @@
 #' @param age Age in years.
 #' @param sex `"Male"` or `"Female"` (other spellings are recognised).
 #' @param reference `"who"`, `"cdc"` or a data frame (see Details).
-#' @return A data frame with columns `L`, `M`, `S` (`NA` outside the
-#'   reference's age range).
+#' @return A data frame with columns `L`, `M`, `S` (`NA` for negative ages
+#'   and outside the reference's age range).
 #' @section Next steps:
 #' Use [wgh_lms_value()] to turn the parameters into centile curves, or
 #' [wgh_zscore()] to score measurements.
@@ -109,7 +109,7 @@ wgh_reference <- function(indicator = c("hfa", "wfa", "bfa"), age, sex, referenc
   if (!custom) reference <- match.arg(tolower(reference), c("who", "cdc"))
   ctab <- if (custom) .custom_lms(reference, indicator) else NULL
   for (s in .sexes) {
-    idx <- which(sex == s & !is.na(am))
+    idx <- which(sex == s & !is.na(am) & am >= 0)   # negative ages (date errors) give NA
     if (!length(idx)) next
     if (custom) {
       tt <- ctab[ctab$sex == s, ]
@@ -201,7 +201,9 @@ wgh_lms_value <- function(z, L, M, S) {
 #'   in older code and kept only to reproduce earlier results). For other
 #'   references plain LMS is always used.
 #' @return Numeric vector of z-scores. Convert to percentiles with
-#'   `100 * pnorm(z)`.
+#'   `100 * pnorm(z)`. The result is `NA` when the value, age or sex is
+#'   missing, the sex is not recognised, the age is negative or outside the
+#'   reference range, or (WHO) weight-for-age is requested above 10 years.
 #' @examples
 #' wgh_zscore(c(120, 150), age = c(7, 12), sex = "Male", indicator = "hfa")
 #' wgh_zscore(c(120, 150), age = c(7, 12), sex = "Male", indicator = "hfa", reference = "cdc")

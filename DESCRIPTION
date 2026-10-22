@@ -20,8 +20,10 @@ Description: Tools and one-call workflows for longitudinal child growth data,
     'mclust' do the fitting, and the package adds growth-specific data
     handling, cluster bootstraps, safeguards and publication output. The
     flows reproduce the analyses of a research program on the growth of
-    urban schoolchildren, starting with Ho et al. (2026)
-    <doi:10.1038/s41598-026-37210-w>.
+    urban schoolchildren.
+URL: https://github.com/nhanhocu/WeGrowHealthR,
+    https://nhanhocu.github.io/WeGrowHealthR/
+BugReports: https://github.com/nhanhocu/WeGrowHealthR/issues
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
@@ -78,6 +80,3 @@ VignetteBuilder: knitr
 Config/testthat/edition: 3
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
-URL: https://github.com/nhanhocu/WeGrowHealthR,
-    https://nhanhocu.github.io/WeGrowHealthR/
-BugReports: https://github.com/nhanhocu/WeGrowHealthR/issues

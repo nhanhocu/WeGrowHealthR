@@ -35,3 +35,53 @@ test_that("LMS value is the inverse of the LMS z-score", {
 test_that("weight-for-age is missing above 10 years", {
   expect_true(is.na(wgh_zscore(40, 12, "Female", "wfa")))
 })
+
+test_that("z-scores are missing for impossible or out-of-range inputs", {
+  z <- wgh_zscore(c(150, NA, 150, 150, 150), age = c(25, 12, NA, -1, 12),
+                  sex = c("Female", "Female", "Female", "Female", NA), indicator = "hfa")
+  expect_true(all(is.na(z)))                                   # past 19 y, no value, no age, negative age, no sex
+  expect_true(is.na(wgh_zscore(150, 19.1, "Female", "hfa")))   # WHO 2007 ends at 19 y
+  expect_false(is.na(wgh_zscore(150, 19, "Female", "hfa")))
+  expect_true(is.na(wgh_zscore(150, 1.5, "Female", "hfa", reference = "cdc")))  # CDC starts at 2 y
+  expect_true(is.na(wgh_reference("hfa", age = -0.5, sex = "Male")$M))
+  # sex codes are recognised in common spellings
+  expect_equal(wgh_zscore(100, 5, "F", "hfa"), wgh_zscore(100, 5, "Female", "hfa"))
+  expect_equal(wgh_zscore(100, 5, 2, "hfa"), wgh_zscore(100, 5, "Female", "hfa"))
+})
+
+test_that("WHO classification applies the cut-offs exactly and the categories exclude each other", {
+  d <- data.frame(id = 1:9, sex = "Male", height = 100, weight = 20,
+                  age = c(4, 4, 4, 8, 8, 8, 8, 8, 8),
+                  haz = c(-2, -2.0001, 0, 0, 0, 0, 0, -3.0001, 2.0001),
+                  baz = c(2, 2.0001, 3.0001, 1, 1.0001, 2, 2.0001, -2.0001, -3.0001))
+  cl <- wgh_classify(d)
+  # a value exactly on a cut-off is not beyond it
+  expect_equal(cl$stunting, c(FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE))
+  expect_equal(as.character(cl$height_status),
+               c("Normal", "Stunting", "Normal", "Normal", "Normal", "Normal", "Normal", "Severe stunting", "Tall"))
+  # under 5: overweight above 2 SD, obesity above 3 SD. From 5: above 1 and 2 SD
+  expect_equal(as.character(cl$bmi_status),
+               c("Normal", "Overweight", "Obesity", "Normal", "Overweight", "Overweight", "Obesity",
+                 "Thinness", "Severe thinness"))
+  expect_false(any(cl$overweight & cl$obesity))
+  expect_equal(cl$overweight_obesity, cl$overweight | cl$obesity)
+  expect_equal(cl$thinness, d$baz < -2)
+})
+
+test_that("missing z-scores give missing categories", {
+  d <- data.frame(id = 1:2, sex = "Female", age = c(8, 8), height = 120, weight = 22,
+                  haz = c(NA, 0), baz = c(0, NA))
+  cl <- wgh_classify(d)
+  expect_true(is.na(cl$height_status[1])); expect_true(is.na(cl$stunting[1]))
+  expect_true(is.na(cl$bmi_status[2])); expect_true(is.na(cl$obesity[2]))
+})
+
+test_that("CDC classification uses the percentile rules", {
+  p <- c(0.0499, 0.0501, 0.8499, 0.8501, 0.9499, 0.9501)
+  d <- data.frame(id = 1:6, sex = "Male", age = 10, height = 140)
+  ref <- wgh_reference("bfa", age = 10, sex = "Male", reference = "cdc")
+  d$weight <- wgh_lms_value(qnorm(p), ref$L, ref$M, ref$S) * 1.4^2
+  cl <- wgh_classify(d, system = "cdc")
+  expect_equal(as.character(cl$bmi_status),
+               c("Underweight", "Healthy weight", "Healthy weight", "Overweight", "Overweight", "Obesity"))
+})

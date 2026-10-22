@@ -3,8 +3,21 @@
 `%||%` <- function(x, y) if (is.null(x)) y else x
 
 .need <- function(pkg, why = NULL) {
-  rlang::check_installed(pkg, reason = why)
+  rlang::check_installed(pkg, reason = why %||% .need_reason())
   invisible(TRUE)
+}
+
+## "to use `wgh_xxx()`" for the innermost exported function on the call
+## stack, so a missing suggested package is reported with the feature that
+## needs it
+.need_reason <- function() {
+  calls <- rev(sys.calls())
+  for (cl in calls) {
+    f <- cl[[1]]
+    nm <- if (is.name(f)) as.character(f) else if (is.call(f) && length(f) == 3) as.character(f[[3]]) else ""
+    if (length(nm) == 1 && grepl("^wgh_", nm)) return(paste0("to use `", nm, "()`"))
+  }
+  NULL
 }
 
 .tbl <- function(x) tibble::as_tibble(x)

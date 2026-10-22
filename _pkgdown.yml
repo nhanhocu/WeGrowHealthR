@@ -3,7 +3,7 @@ template:
   bootstrap: 5
 reference:
 - title: Foundation
-  contents: [wgh_data, wgh_map, wgh_config, wgh_taus, wgh_parallel, wgh_sample_flow, wgh_min_visits, wgh_fmt_p, wgh_midline_decimal, theme_wgh, wgh_palette, wgh_plot_options, wgh_references, wgh_parallel_info]
+  contents: [wgh_data, wgh_data_access, wgh_map, wgh_config, wgh_taus, wgh_parallel, wgh_sample_flow, wgh_min_visits, wgh_fmt_p, wgh_midline_decimal, theme_wgh, wgh_palette, wgh_plot_options, wgh_references, wgh_parallel_info]
 - title: Output and reports
   contents: [wgh_report, wgh_export, wgh_compare_outputs, wgh_flextable, wgh_export_xlsx, wgh_save_figure, wgh_bundle_save, wgh_log_fit]
 - title: Data preparation

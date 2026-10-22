@@ -178,6 +178,72 @@ print.wgh_data <- function(x, ...) {
 #' @export
 as.data.frame.wgh_data <- function(x, ...) as.data.frame(x$data, ...)
 
+#' Work with the columns of a wgh_data object
+#'
+#' A `wgh_data` object holds the standardised data (`$data`), the column
+#' mapping (`$map`) and the data checks (`$log`). For convenience it also
+#' behaves like its data: `x$age` returns a column, `x$bmi <- ...` adds or
+#' replaces one, `x[rows, ]` keeps the selected rows and returns a
+#' `wgh_data` (mapping and checks kept, rows where a logical condition is
+#' `NA` dropped), `x[rows, cols]` returns a tibble,
+#' and `nrow(x)`, `ncol(x)` and `dim(x)` refer to the data. The names
+#' `data`, `map` and `log` always refer to the parts of the object, so a
+#' data column with one of these names must be reached through `x$data`.
+#'
+#' @param x A `wgh_data` object.
+#' @param name A column name, or `data`, `map` or `log`.
+#' @param value New values.
+#' @param i,j Row and column indices, as for a data frame.
+#' @param ... Not used.
+#' @param drop Passed to the tibble when columns are selected.
+#' @return See Description.
+#' @examples
+#' gd <- wgh_data(growdat, id = "pid", sex = "sex", age = "age", height = "height", weight = "weight")
+#' summary(gd$age)
+#' older <- gd[gd$age >= 10, ]
+#' older
+#' nrow(older)
+#' head(gd[, c("id", "age", "height")])
+#' @name wgh_data_access
+NULL
+
+.wgh_parts <- c("data", "map", "log")
+
+#' @rdname wgh_data_access
+#' @export
+`$.wgh_data` <- function(x, name) {
+  if (name %in% .wgh_parts) return(unclass(x)[[name]])
+  unclass(x)[["data"]][[name]]
+}
+
+#' @rdname wgh_data_access
+#' @export
+`$<-.wgh_data` <- function(x, name, value) {
+  cls <- class(x); y <- unclass(x)
+  if (name %in% .wgh_parts) y[[name]] <- value else y[["data"]][[name]] <- value
+  structure(y, class = cls)
+}
+
+#' @rdname wgh_data_access
+#' @export
+`[.wgh_data` <- function(x, i, j, ..., drop = FALSE) {
+  d <- unclass(x)[["data"]]
+  if (missing(j)) {
+    if (nargs() == 2) .stop("Use {.code x[rows, ]} to select rows or {.code x$data} for the data.")
+    y <- unclass(x)
+    if (!missing(i)) {
+      if (is.logical(i)) i <- i & !is.na(i)
+      y[["data"]] <- d[i, , drop = FALSE]
+    }
+    return(structure(y, class = class(x)))
+  }
+  if (missing(i)) d[, j, drop = drop] else d[i, j, drop = drop]
+}
+
+#' @rdname wgh_data_access
+#' @export
+dim.wgh_data <- function(x) dim(unclass(x)[["data"]])
+
 #' @export
 summary.wgh_data <- function(object, ...) {
   d <- object$data

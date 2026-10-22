@@ -59,8 +59,8 @@ Windows and macOS come from CI and cannot be shown on a single machine.
    or by hand:
 
    ```
-   URL: https://github.com/<account>/WeGrowHealthR, https://<account>.github.io/WeGrowHealthR/
-   BugReports: https://github.com/<account>/WeGrowHealthR/issues
+   URL: https://github.com/nhanhocu/WeGrowHealthR, https://nhanhocu.github.io/WeGrowHealthR/
+   BugReports: https://github.com/nhanhocu/WeGrowHealthR/issues
    ```
 
    Add the same `url` to `_pkgdown.yml` and `repository-code` to
@@ -72,14 +72,12 @@ Windows and macOS come from CI and cannot be shown on a single machine.
 5. Create release `v1.0.1` (tag `v1.0.1`), attach the tarball,
    `growdat2.rds` and `growdat2.md5`, and paste the 1.0.1 section of
    `NEWS.md` as the release notes.
-6. Set the frozen cohort as the default download in a new patch version, or
-   tell readers to run
-
-   ```r
-   options(WeGrowHealthR.growdat2_url = "https://github.com/<account>/WeGrowHealthR/releases/download/v1.0.1/growdat2.rds",
-           WeGrowHealthR.growdat2_md5 = "<checksum from growdat2.md5>")
-   growdat2 <- wgh_download()
-   ```
+6. `wgh_download()` already points to
+   `https://github.com/nhanhocu/WeGrowHealthR/releases/download/v1.0.1/growdat2.rds`
+   with checksum `7e636199ba6d54c6de0b6cc94df40d05` (set in `R/zzz.R`). The
+   asset name and the tag must match exactly. If the cohort is ever
+   regenerated, upload it to a new release and update both values in
+   `R/zzz.R`.
 
 ## E. Zenodo archive and DOI
 

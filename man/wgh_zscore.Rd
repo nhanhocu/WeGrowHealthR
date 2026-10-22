@@ -34,7 +34,9 @@ references plain LMS is always used.}
 }
 \value{
 Numeric vector of z-scores. Convert to percentiles with
-\code{100 * pnorm(z)}.
+\code{100 * pnorm(z)}. The result is \code{NA} when the value, age or sex is
+missing, the sex is not recognised, the age is negative or outside the
+reference range, or (WHO) weight-for-age is requested above 10 years.
 }
 \description{
 Z-scores against a growth reference for any indicator
