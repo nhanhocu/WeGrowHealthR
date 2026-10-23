@@ -4,7 +4,8 @@ Title: Child Growth Data Analysis, Modelling and Reproducible Workflows
 Version: 1.0.1
 Authors@R: c(
     person("Nhan Thi", "Ho", email = "nhanhocumc@gmail.com",
-           role = c("aut", "cre", "cph"), comment = ("MD, PhD", ORCID = "0000-0002-7898-0956")))
+           role = c("aut", "cre", "cph"),
+           comment = c("MD, PhD", ORCID = "0000-0002-7898-0956")))
 Description: Tools and one-call workflows for longitudinal child growth data,
     written to accompany the books 'Child Growth Data Analysis and Modeling
     with R' and its advanced companion. The package covers data cleaning,
