@@ -61,6 +61,7 @@ if (requireNamespace("qgam", quietly = TRUE)) {
 }
 #> Estimating learning rate. Each dot corresponds to a loss evaluation. 
 #> qu = 0.5........done 
+#> Warning: Fitting terminated with step failure - check results carefully
 #> # A tibble: 2 × 3
 #>     age   tau estimate
 #>   <dbl> <dbl>    <dbl>
