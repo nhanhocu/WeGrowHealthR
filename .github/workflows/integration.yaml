@@ -18,6 +18,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     name: integration (${{ matrix.os }})
     timeout-minutes: 180
+    defaults:
+      run:
+        shell: bash
     strategy:
       fail-fast: false
       matrix:
