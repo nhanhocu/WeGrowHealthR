@@ -60,7 +60,7 @@ pan <- wgh_velocity_panel(fit, time = "aphv", grid = seq(-4, 4, by = 0.05), obse
 cf <- wgh_curve_features(pan)
 summary(cf$width_p50)
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>   1.977   2.181   2.258   2.266   2.343   2.763 
+#>   1.977   2.182   2.258   2.266   2.343   2.763 
 # The legacy definition (fraction of peak velocity) is often censored
 mean(wgh_curve_features(pan, thresholds = 0.5, reference = "zero")$censored_left_p50)
 #> [1] 1

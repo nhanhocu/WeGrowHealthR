@@ -38,13 +38,13 @@ wgh_check_identifiable(fit)
 #> [1] TRUE
 #> 
 #> $max_abs_corr
-#> [1] 0.5851787
+#> [1] 0.5851957
 #> 
 #> $pair
-#> [1] "c-b"
+#> [1] "b-c"
 #> 
 #> $reason
-#> [1] "OK: random effects c-b correlated at r = -0.585"
+#> [1] "OK: random effects b-c correlated at r = -0.585"
 #> 
 # }
 ```
