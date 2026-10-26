@@ -38,6 +38,6 @@ if (requireNamespace("fdapace", quietly = TRUE)) {
   fp <- wgh_fpca_curves(pan[pan$id %in% unique(pan$id)[1:150], ])
   fp$variance_explained
 }
-#> [1] 0.9016492 0.9997287 0.9999467 1.0000000
+#> [1] 0.9016470 0.9997287 0.9999467 1.0000000
 # }
 ```

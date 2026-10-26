@@ -48,7 +48,7 @@ The path of the written file, invisibly.
 
 ``` r
 f <- wgh_use_pipeline(tempdir(), overwrite = TRUE)
-#> Wrote /tmp/Rtmpmf8l20/_targets.R. Run it with `targets::tar_make()`.
+#> Wrote /tmp/Rtmpf520PH/_targets.R. Run it with `targets::tar_make()`.
 cat(readLines(f)[1:10], sep = "\n")
 #> ## Pipeline written by WeGrowHealthR::wgh_use_pipeline()
 #> library(targets)
