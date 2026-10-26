@@ -29,7 +29,7 @@ install.packages("WeGrowHealthR_1.0.1.tar.gz", repos = NULL, type = "source")
 ```
 
 Parallel computing needs the package installed (not loaded with
-`devtools::load_all()`).
+[`devtools::load_all()`](https://devtools.r-lib.org/reference/load_all.html)).
 
 Modelling engines (`sitar`, `quantreg`, `lqmm`, `msm`, `fdapace`,
 `mclust`, `xgboost`, `ranger`, `kernelshap`, `gamlss` and others) are

@@ -42,7 +42,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Contributing to WeGrowHealthR</h1>
-      <small class="dont-index">Source: <a href="https://github.com/nhanhocu/WeGrowHealthR/blob/master/CONTRIBUTING.md" class="external-link"><code>CONTRIBUTING.md</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/nhanhocu/WeGrowHealthR/blob/v1.0.1/CONTRIBUTING.md" class="external-link"><code>CONTRIBUTING.md</code></a></small>
     </div>
 
 <div id="contributing-to-wegrowhealthr" class="section level1">
@@ -62,7 +62,7 @@
 <ol style="list-style-type: decimal"><li>Fork the repository and create a branch.</li>
 <li>Follow the existing style: exported functions start with <code>wgh_</code>, use <code>.need()</code> for suggested packages, <code>.wgh_map()</code> for anything that should run in parallel, and <code>.try()</code> so that failed models are recorded in the model status rather than stopping a flow.</li>
 <li>Add or update tests in <code>tests/testthat/</code>. Numerical results should be checked against an independent reference (published values, a closed form or another package) where one exists.</li>
-<li>Run <code>devtools::document()</code>, <code>devtools::test()</code> and <code>R CMD check --as-cran</code> before opening a pull request.</li>
+<li>Run <code><a href="https://devtools.r-lib.org/reference/document.html" class="external-link">devtools::document()</a></code>, <code><a href="https://devtools.r-lib.org/reference/test.html" class="external-link">devtools::test()</a></code> and <code>R CMD check --as-cran</code> before opening a pull request.</li>
 <li>Add a line to <code>NEWS.md</code>.</li>
 </ol></div>
 <div class="section level2">

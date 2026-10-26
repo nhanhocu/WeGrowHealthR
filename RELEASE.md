@@ -16,13 +16,18 @@ example in a fresh library, spelling of documentation and vignettes.
     `growdat2.rds` and `growdat2.md5`. Do this before submitting, so
     [`wgh_download()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_download.md)
     works and the release link in the documentation resolves.
-3.  On your computer: `urlchecker::url_check()` and fix any broken link.
-4.  `devtools::check_win_devel()`, `devtools::check_win_release()`,
-    `devtools::check_mac_release()` and, after `rhub::rhub_setup()`,
-    `rhub::rhub_check()`. Wait for the e-mails.
+3.  On your computer:
+    [`urlchecker::url_check()`](https://urlchecker.r-lib.org/reference/url_check.html)
+    and fix any broken link.
+4.  [`devtools::check_win_devel()`](https://devtools.r-lib.org/reference/check_win.html),
+    [`devtools::check_win_release()`](https://devtools.r-lib.org/reference/check_win.html),
+    [`devtools::check_mac_release()`](https://devtools.r-lib.org/reference/check_mac_release.html)
+    and, after `rhub::rhub_setup()`, `rhub::rhub_check()`. Wait for the
+    e-mails.
 5.  Fill in the pending rows of `cran-comments.md` with the real
     results.
-6.  `devtools::submit_cran()`, then confirm the e-mail from CRAN.
+6.  [`devtools::submit_cran()`](https://devtools.r-lib.org/reference/submit_cran.html),
+    then confirm the e-mail from CRAN.
 7.  After acceptance: tag the accepted version, switch the README
     install line to `install.packages("WeGrowHealthR")`, and start the R
     Journal paper.
@@ -34,8 +39,9 @@ example in a fresh library, spelling of documentation and vignettes.
 2.  Rebuild data if `data-raw/` or the simulation engine changed:
     `source("data-raw/datasets.R")`, `source("data-raw/wgh_targets.R")`,
     `source("data-raw/cdc_lms.R")`.
-3.  Regenerate documentation: `devtools::document()`, and the README
-    with `rmarkdown::render("README.Rmd")`.
+3.  Regenerate documentation:
+    [`devtools::document()`](https://devtools.r-lib.org/reference/document.html),
+    and the README with `rmarkdown::render("README.Rmd")`.
 4.  Install the package (`R CMD INSTALL .`), then precompute the study
     vignettes: in `vignettes/`, run `Rscript precompute.R`. It knits
     each `.Rmd.orig` to `.Rmd` with figures in `vignettes/figures/` and
@@ -83,7 +89,8 @@ Windows and macOS come from CI and cannot be shown on a single machine.
     (the contents of this folder, including `.github/`).
 
 2.  Add the links to `DESCRIPTION`, either with
-    `usethis::use_github_links()` or by hand:
+    [`usethis::use_github_links()`](https://usethis.r-lib.org/reference/use_github_links.html)
+    or by hand:
 
         URL: https://github.com/nhanhocu/WeGrowHealthR, https://nhanhocu.github.io/WeGrowHealthR/
         BugReports: https://github.com/nhanhocu/WeGrowHealthR/issues
@@ -121,11 +128,15 @@ Windows and macOS come from CI and cannot be shown on a single machine.
 
 ## F. CRAN
 
-1.  Check on the CRAN test services: `devtools::check_win_devel()`,
-    `devtools::check_mac_release()` and `rhub::rhub_check()`.
+1.  Check on the CRAN test services:
+    [`devtools::check_win_devel()`](https://devtools.r-lib.org/reference/check_win.html),
+    [`devtools::check_mac_release()`](https://devtools.r-lib.org/reference/check_mac_release.html)
+    and `rhub::rhub_check()`.
 2.  Update `cran-comments.md` with the results.
-3.  Submit with `devtools::release()` or the CRAN web form. Confirm the
-    e-mail sent to the maintainer address.
+3.  Submit with
+    [`devtools::release()`](https://devtools.r-lib.org/reference/release.html)
+    or the CRAN web form. Confirm the e-mail sent to the maintainer
+    address.
 4.  After acceptance, change the installation line in the README to
     `install.packages("WeGrowHealthR")` and tag the accepted version.
 

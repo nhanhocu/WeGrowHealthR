@@ -31,8 +31,10 @@ supports and which published method or book chapter it follows.
 3.  Add or update tests in `tests/testthat/`. Numerical results should
     be checked against an independent reference (published values, a
     closed form or another package) where one exists.
-4.  Run `devtools::document()`, `devtools::test()` and
-    `R CMD check --as-cran` before opening a pull request.
+4.  Run
+    [`devtools::document()`](https://devtools.r-lib.org/reference/document.html),
+    [`devtools::test()`](https://devtools.r-lib.org/reference/test.html)
+    and `R CMD check --as-cran` before opening a pull request.
 5.  Add a line to `NEWS.md`.
 
 ## Vignettes

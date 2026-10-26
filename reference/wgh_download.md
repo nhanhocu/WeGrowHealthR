@@ -99,14 +99,9 @@ attr(small, "provenance")
 #> [1] "4.6.1"
 #> 
 #> $time
-#> [1] "2026-10-24 03:53:22 UTC"
+#> [1] "2026-10-26 02:09:22 UTC"
 #> 
 # \donttest{
 growdat2 <- wgh_download()
-#> Warning: downloaded length 0 != reported length 9
-#> Warning: cannot open URL 'https://github.com/nhanhocu/WeGrowHealthR/releases/download/v1.0.1/growdat2.rds': HTTP status was '404 Not Found'
-#> Warning: Download failed (cannot open URL
-#> 'https://github.com/nhanhocu/WeGrowHealthR/releases/download/v1.0.1/growdat2.rds'),
-#> regenerating the cohort locally.
 # }
 ```
