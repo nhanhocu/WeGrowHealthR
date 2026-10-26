@@ -10,6 +10,7 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.path = "man/figures/R
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/nhanhocu/WeGrowHealthR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nhanhocu/WeGrowHealthR/actions/workflows/R-CMD-check.yaml)
+   [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23654184.svg)](https://doi.org/10.5281/zenodo.23654184)
 <!-- badges: end -->
 
 WeGrowHealthR gives you ready-made functions and one-call workflows for

@@ -32,3 +32,9 @@ abstract: >-
   conditional growth references, functional phenotypes, multistate models,
   prediction benchmarks with SHAP explanations, reproducible parallel
   computing and a simulation engine for teaching cohorts with known truth.
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.XXXXXXX
+    description: Concept DOI (all versions)
+
+

@@ -4,6 +4,7 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/nhanhocu/WeGrowHealthR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nhanhocu/WeGrowHealthR/actions/workflows/R-CMD-check.yaml)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23654184.svg)](https://doi.org/10.5281/zenodo.23654184)
 <!-- badges: end -->
 
 WeGrowHealthR gives you ready-made functions and one-call workflows for
@@ -79,31 +80,31 @@ wgh_export(spurt, "pubertal_spurt_results")        # Excel tables, TIFF and PDF 
 
 ## What is inside
 
-| Layer              | Content                                                                                                                                                                                                                                                                                                                                                                                  |
-|--------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Foundation         | `wgh_data()` data contract (ages from dates or recorded ages), run modes (`wgh_config()`), `wgh_sample_flow()` attrition tracking, `theme_wgh()` and `wgh_plot_options()` for every plot, export and reproducibility bundles                                                                                                                                                             |
-| Modules            | Cleaning, WHO and CDC z-scores and percentiles, false band moves from measurement error, quantile random forests, paired score comparisons, prevalence and trends, mixed-model trajectories, SITAR and the pubertal spurt, quantile regression and LQMM, dispersion, conditional references, functional phenotypes, states and multistate models, prediction benchmarks, SHAP, mediation |
-| Flows              | One function per study (`wgh_flow_*()`) returning every table and figure as a `wgh_report`                                                                                                                                                                                                                                                                                               |
-| Pipeline           | `wgh_use_pipeline()` writes a `targets` pipeline that chains the flows                                                                                                                                                                                                                                                                                                                   |
-| Parallel computing | `wgh_parallel()` runs bootstraps, quantile grids and cross-validation folds on several cores, with identical results whatever the number of workers                                                                                                                                                                                                                                      |
-| Simulation         | `wgh_simulate()` builds cohorts that resemble published patterns, with a truth file                                                                                                                                                                                                                                                                                                      |
+| Layer | Content |
+|----|----|
+| Foundation | `wgh_data()` data contract (ages from dates or recorded ages), run modes (`wgh_config()`), `wgh_sample_flow()` attrition tracking, `theme_wgh()` and `wgh_plot_options()` for every plot, export and reproducibility bundles |
+| Modules | Cleaning, WHO and CDC z-scores and percentiles, false band moves from measurement error, quantile random forests, paired score comparisons, prevalence and trends, mixed-model trajectories, SITAR and the pubertal spurt, quantile regression and LQMM, dispersion, conditional references, functional phenotypes, states and multistate models, prediction benchmarks, SHAP, mediation |
+| Flows | One function per study (`wgh_flow_*()`) returning every table and figure as a `wgh_report` |
+| Pipeline | `wgh_use_pipeline()` writes a `targets` pipeline that chains the flows |
+| Parallel computing | `wgh_parallel()` runs bootstraps, quantile grids and cross-validation folds on several cores, with identical results whatever the number of workers |
+| Simulation | `wgh_simulate()` builds cohorts that resemble published patterns, with a truth file |
 
-| Study                                                                                       | Flow                                |
-|---------------------------------------------------------------------------------------------|-------------------------------------|
-| Secular trends, prevalence and regional differences (Ho et al. 2026, Sci Rep 16:7515)       | `wgh_flow_secular_trends()`         |
-| Stunting, thinness, obesity and double burden (Ho et al. 2026, medRxiv 2026.07.26.26358982) | `wgh_flow_malnutrition_trends()`    |
-| Prepubertal BMI and height trajectory (Ho et al. 2026, medRxiv 2026.07.26.26358003)         | `wgh_flow_index_trajectory()`       |
-| Pubertal growth spurt by SITAR (Ho et al. 2026, medRxiv 2026.07.26.26358986)                | `wgh_flow_pubertal_spurt()`         |
-| Late-adolescent height prediction (Ho 2026, manuscript under review)                        | `wgh_flow_height_prediction()`      |
-| BMI and the height-for-age distribution (Ho 2026, medRxiv 2026.09.08.26362487)              | `wgh_flow_distributional_height()`  |
-| Pubertal growth velocity distribution (Ho 2026, medRxiv 2026.09.04.26362313)                | `wgh_flow_velocity_distribution()`  |
-| Duration of the pubertal spurt (Ho 2026, medRxiv 2026.09.09.26362696)                       | `wgh_flow_spurt_duration()`         |
-| Peri-pubertal growth phenotypes (Ho 2026, medRxiv 2026.09.05.26362315)                      | `wgh_flow_growth_phenotypes()`      |
-| Conditional growth references (Ho 2026, medRxiv 2026.09.23.26363771)                        | `wgh_flow_conditional_references()` |
-| Canalization, catch-up and catch-down (Ho 2026, manuscript under review)                    | `wgh_flow_canalization()`           |
-| Growth inequality over age and BMI (Ho 2026, manuscript under review)                       | `wgh_flow_growth_inequality()`      |
-| Growth phenotypes and later health, growth side (Ho 2026, manuscript in preparation)        | `wgh_flow_phenotype_outcomes()`     |
-| Explainable individualized growth prediction (Ho 2026, manuscript under review)             | `wgh_flow_explain_prediction()`     |
+| Study | Flow |
+|----|----|
+| Secular trends, prevalence and regional differences (Ho et al. 2026, Sci Rep 16:7515) | `wgh_flow_secular_trends()` |
+| Stunting, thinness, obesity and double burden (Ho et al. 2026, medRxiv 2026.07.26.26358982) | `wgh_flow_malnutrition_trends()` |
+| Prepubertal BMI and height trajectory (Ho et al. 2026, medRxiv 2026.07.26.26358003) | `wgh_flow_index_trajectory()` |
+| Pubertal growth spurt by SITAR (Ho et al. 2026, medRxiv 2026.07.26.26358986) | `wgh_flow_pubertal_spurt()` |
+| Late-adolescent height prediction (Ho 2026, manuscript under review) | `wgh_flow_height_prediction()` |
+| BMI and the height-for-age distribution (Ho 2026, medRxiv 2026.09.08.26362487) | `wgh_flow_distributional_height()` |
+| Pubertal growth velocity distribution (Ho 2026, medRxiv 2026.09.04.26362313) | `wgh_flow_velocity_distribution()` |
+| Duration of the pubertal spurt (Ho 2026, medRxiv 2026.09.09.26362696) | `wgh_flow_spurt_duration()` |
+| Peri-pubertal growth phenotypes (Ho 2026, medRxiv 2026.09.05.26362315) | `wgh_flow_growth_phenotypes()` |
+| Conditional growth references (Ho 2026, medRxiv 2026.09.23.26363771) | `wgh_flow_conditional_references()` |
+| Canalization, catch-up and catch-down (Ho 2026, manuscript under review) | `wgh_flow_canalization()` |
+| Growth inequality over age and BMI (Ho 2026, manuscript under review) | `wgh_flow_growth_inequality()` |
+| Growth phenotypes and later health, growth side (Ho 2026, manuscript in preparation) | `wgh_flow_phenotype_outcomes()` |
+| Explainable individualized growth prediction (Ho 2026, manuscript under review) | `wgh_flow_explain_prediction()` |
 
 Full citations: `wgh_references(format = "text")`.
 
