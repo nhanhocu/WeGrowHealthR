@@ -35,7 +35,7 @@ mixed model with XGBoost, prediction intervals, calibration and
 Bland-Altman plots, SHAP for XGBoost and an example individual prediction.
 }
 \examples{
-\dontshow{if (rlang::is_installed(c("kernelshap", "lme4", "ranger", "sitar", "xgboost"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed(c("kernelshap", "lme4", "ranger", "sitar", "xgboost"))) withAutoprint(\{ # examplesIf}
 \donttest{
 rep <- wgh_flow_height_prediction(mode = "dev", n_children = 8000)
 rep$tables$performance

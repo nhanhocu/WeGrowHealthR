@@ -1,6 +1,9 @@
 ^data-raw$
 ^_pkgdown\.yml$
 ^README\.Rmd$
+^README\.html$
+^_problems$
+^\.quarto$
 ^\.github$
 ^docs$
 ^.*\.Rproj$

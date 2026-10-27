@@ -294,9 +294,15 @@ wgh_flow_canalization <- function(x = NULL, mode = NULL) {
 #' @return A [wgh_report].
 #' @examplesIf rlang::is_installed(c("fdapace", "mclust", "sitar"))
 #' \donttest{
-#' spurt <- wgh_flow_pubertal_spurt(growdat2_mini, mode = "dev")
-#' ph <- wgh_flow_growth_phenotypes(growdat2_mini, mode = "dev", spurt = spurt, G = 2:5)
-#' rep <- wgh_flow_phenotype_outcomes(growdat2_mini, mode = "dev", phenotypes = ph)
+#' # A small cohort with 14 school years of follow-up, so that both SITAR models are
+#' # well identified and the SITAR fits take well under a minute. On short follow-up
+#' # (such as growdat2_mini) the girls' model is barely identifiable and slow.
+#' long <- wgh_simulate(2500, seed = 1, years = 2012:2025, missing_years = integer(),
+#'                      dropout = c(intercept = -4, age = 0), entry_first_prob = 0.9,
+#'                      style = "book2")$visits
+#' spurt <- wgh_flow_pubertal_spurt(long, mode = "dev")
+#' ph <- wgh_flow_growth_phenotypes(long, mode = "dev", spurt = spurt, G = 2:4)
+#' rep <- wgh_flow_phenotype_outcomes(long, mode = "dev", phenotypes = ph)
 #' rep
 #' }
 #' @export

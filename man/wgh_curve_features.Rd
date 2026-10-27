@@ -39,9 +39,10 @@ that fall outside the curve are reported as censored, and curves whose
 peak is at the edge of the grid are flagged as degenerate.
 }
 \examples{
-\dontshow{if (rlang::is_installed("sitar")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("sitar")) withAutoprint(\{ # examplesIf}
 \donttest{
 boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+boys <- boys[boys$pid \%in\% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 pan <- wgh_velocity_panel(fit, time = "aphv", grid = seq(-4, 4, by = 0.05), observed_only = FALSE)
 cf <- wgh_curve_features(pan)

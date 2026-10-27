@@ -7,9 +7,12 @@
 #' @param merge_col Optional column whose repeated values are merged.
 #' @return A `flextable` object.
 #' @examples
+#' \donttest{
+#' # Loading flextable and its dependencies takes a few seconds the first time
 #' if (requireNamespace("flextable", quietly = TRUE)) {
 #'   cl <- wgh_classify(growdat)
 #'   wgh_flextable(wgh_prevalence(cl, "obesity", by = "sex"), caption = "Obesity by sex", digits = 1)
+#' }
 #' }
 #' @export
 wgh_flextable <- function(df, caption = NULL, digits = 2, merge_col = NULL) {

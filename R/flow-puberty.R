@@ -26,7 +26,13 @@
 #'   include `individual_effects`.
 #' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
-#' rep <- wgh_flow_pubertal_spurt(growdat2_mini, mode = "dev")
+#' # A small cohort with 14 school years of follow-up, so that both SITAR models are
+#' # well identified and the SITAR fits take well under a minute. On short follow-up
+#' # (such as growdat2_mini) the girls' model is barely identifiable and slow.
+#' long <- wgh_simulate(2500, seed = 1, years = 2012:2025, missing_years = integer(),
+#'                      dropout = c(intercept = -4, age = 0), entry_first_prob = 0.9,
+#'                      style = "book2")$visits
+#' rep <- wgh_flow_pubertal_spurt(long, mode = "dev")
 #' rep
 #' rep$tables$population_aphv
 #' }
@@ -217,8 +223,14 @@ wgh_flow_height_prediction <- function(x = NULL, mode = NULL, spurt = NULL, n_ch
 #' @return A [wgh_report].
 #' @examplesIf rlang::is_installed(c("quantreg", "sitar"))
 #' \donttest{
-#' spurt <- wgh_flow_pubertal_spurt(growdat2_mini, mode = "dev")
-#' rep <- wgh_flow_velocity_distribution(growdat2_mini, mode = "dev", spurt = spurt)
+#' # A small cohort with 14 school years of follow-up, so that both SITAR models are
+#' # well identified and the SITAR fits take well under a minute. On short follow-up
+#' # (such as growdat2_mini) the girls' model is barely identifiable and slow.
+#' long <- wgh_simulate(2500, seed = 1, years = 2012:2025, missing_years = integer(),
+#'                      dropout = c(intercept = -4, age = 0), entry_first_prob = 0.9,
+#'                      style = "book2")$visits
+#' spurt <- wgh_flow_pubertal_spurt(long, mode = "dev")
+#' rep <- wgh_flow_velocity_distribution(long, mode = "dev", spurt = spurt)
 #' rep
 #' }
 #' @export
@@ -279,8 +291,14 @@ wgh_flow_velocity_distribution <- function(x = NULL, mode = NULL, spurt = NULL) 
 #' @return A [wgh_report].
 #' @examplesIf rlang::is_installed(c("fdapace", "quantreg", "sitar"))
 #' \donttest{
-#' spurt <- wgh_flow_pubertal_spurt(growdat2_mini, mode = "dev")
-#' rep <- wgh_flow_spurt_duration(growdat2_mini, mode = "dev", spurt = spurt)
+#' # A small cohort with 14 school years of follow-up, so that both SITAR models are
+#' # well identified and the SITAR fits take well under a minute. On short follow-up
+#' # (such as growdat2_mini) the girls' model is barely identifiable and slow.
+#' long <- wgh_simulate(2500, seed = 1, years = 2012:2025, missing_years = integer(),
+#'                      dropout = c(intercept = -4, age = 0), entry_first_prob = 0.9,
+#'                      style = "book2")$visits
+#' spurt <- wgh_flow_pubertal_spurt(long, mode = "dev")
+#' rep <- wgh_flow_spurt_duration(long, mode = "dev", spurt = spurt)
 #' rep
 #' }
 #' @export
@@ -354,8 +372,14 @@ wgh_flow_spurt_duration <- function(x = NULL, mode = NULL, spurt = NULL, seed = 
 #' @return A [wgh_report].
 #' @examplesIf rlang::is_installed(c("fdapace", "mclust", "sitar"))
 #' \donttest{
-#' spurt <- wgh_flow_pubertal_spurt(growdat2_mini, mode = "dev")
-#' rep <- wgh_flow_growth_phenotypes(growdat2_mini, mode = "dev", spurt = spurt, G = 2:5)
+#' # A small cohort with 14 school years of follow-up, so that both SITAR models are
+#' # well identified and the SITAR fits take well under a minute. On short follow-up
+#' # (such as growdat2_mini) the girls' model is barely identifiable and slow.
+#' long <- wgh_simulate(2500, seed = 1, years = 2012:2025, missing_years = integer(),
+#'                      dropout = c(intercept = -4, age = 0), entry_first_prob = 0.9,
+#'                      style = "book2")$visits
+#' spurt <- wgh_flow_pubertal_spurt(long, mode = "dev")
+#' rep <- wgh_flow_growth_phenotypes(long, mode = "dev", spurt = spurt, G = 2:4)
 #' rep
 #' }
 #' @export

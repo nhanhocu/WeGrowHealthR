@@ -37,7 +37,7 @@ B-splines of age for every parameter, separately by sex, as in the cohort
 centile curves of the secular trends study (Ho et al. 2026, Sci Rep 16:7515) and Book 1 Chapter 9.
 }
 \examples{
-\dontshow{if (rlang::is_installed("gamlss")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("gamlss")) withAutoprint(\{ # examplesIf}
 \donttest{
 lms <- wgh_fit_lms(growdat[growdat$age >= 2, ], "height")
 wgh_centiles(lms, ages = c(5, 10, 15))

@@ -42,7 +42,7 @@ only three sites is poorly estimated. \code{site_effect = "random"} gives the
 the late-adolescent height prediction study (Ho 2026, manuscript under review) specification.
 }
 \examples{
-\dontshow{if (rlang::is_installed(c("lme4", "ranger", "xgboost"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed(c("lme4", "ranger", "xgboost"))) withAutoprint(\{ # examplesIf}
 \donttest{
 pc <- wgh_prediction_cohort(wgh_simulate(8000, seed = 4)$visits)
 bm <- wgh_benchmark(pc, models = c("M0", "M1", "M5", "M8"), folds = 3)

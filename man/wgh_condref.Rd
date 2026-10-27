@@ -36,7 +36,7 @@ empirical distribution of change) and the WHO band (standard normal
 quantiles).
 }
 \examples{
-\dontshow{if (rlang::is_installed(c("quantreg", "ranger"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed(c("quantreg", "ranger"))) withAutoprint(\{ # examplesIf}
 \donttest{
 cp <- wgh_conditional_panel(growdat, targets = c(12, 15))
 cr <- wgh_condref(cp)

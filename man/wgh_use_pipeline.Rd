@@ -2,13 +2,13 @@
 % Please edit documentation in R/pipeline.R
 \name{wgh_use_pipeline}
 \alias{wgh_use_pipeline}
-\title{Write a targets pipeline that chains the paper flows}
+\title{Write a targets pipeline that chains the study flows}
 \usage{
 wgh_use_pipeline(dir, data_file = NULL, mode = "analysis", overwrite = FALSE)
 }
 \arguments{
 \item{dir}{Directory in which \verb{_targets.R} is written (required, for example
-\code{"."} for the current project).}
+\code{"."} for the current project). It is created if it does not exist.}
 
 \item{data_file}{Path of an \code{.rds} file with the visit data. When \code{NULL},
 the pipeline simulates the \code{wgh_like} cohort.}

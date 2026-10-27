@@ -40,7 +40,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Nhan Thi Ho \email{nhanhocumc@gmail.com} (MD, PhD) [copyright holder]
+\strong{Maintainer}: Nhan Thi Ho \email{nhanhocumc@gmail.com} (\href{https://orcid.org/0000-0002-7898-0956}{ORCID}) (MD, PhD) [copyright holder]
 
 }
 \keyword{internal}

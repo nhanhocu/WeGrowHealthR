@@ -23,7 +23,7 @@ Draws the centile curves of a fitted cohort LMS-type reference, by group,
 optionally against the WHO curves for the same centiles.
 }
 \examples{
-\dontshow{if (rlang::is_installed("gamlss")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("gamlss")) withAutoprint(\{ # examplesIf}
 \donttest{
 lms <- wgh_fit_lms(growdat[growdat$age >= 2, ], "height")
 plot(lms)

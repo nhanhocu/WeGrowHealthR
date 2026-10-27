@@ -37,7 +37,10 @@ Expected on CRAN: the note `New submission`.
   Vietnamese) that the cleaning functions are taught to recognise.
 * Examples that fit models for more than a few seconds are wrapped in
   `\donttest{}`. Long tests are skipped on CRAN. No example in the regular
-  run takes more than 5 seconds.
+  run takes more than 5 seconds. The `\donttest{}` examples that fit SITAR
+  growth curve models use small simulated cohorts so that the run with
+  `--run-donttest` stays short. The longest examples are the study flows
+  that chain several models (one to three minutes each).
 * Suggested packages are used conditionally everywhere: examples that need
   one are guarded with `rlang::is_installed()` through `@examplesIf`, tests
   use `skip_if_not_installed()`, and functions stop with a message naming the

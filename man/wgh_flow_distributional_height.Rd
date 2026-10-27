@@ -37,7 +37,7 @@ regression and (optionally) qgam as sensitivity analyses, and crossing
 checks.
 }
 \examples{
-\dontshow{if (rlang::is_installed(c("lme4", "lqmm", "qgam", "quantreg"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed(c("lme4", "lqmm", "qgam", "quantreg"))) withAutoprint(\{ # examplesIf}
 \donttest{
 rep <- wgh_flow_distributional_height(growdat, mode = "dev", engine = "rq")
 rep

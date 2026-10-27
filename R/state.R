@@ -321,7 +321,9 @@ wgh_msm_prevalence <- function(object, times = NULL) {
 #' @examples
 #' \donttest{
 #' if (requireNamespace("msm", quietly = TRUE)) {
-#'   st <- wgh_states(growdat2_mini[growdat2_mini$age >= 5, ])
+#'   # 1,000 children keep the example to well under a minute
+#'   kids <- unique(growdat2_mini$pid)[1:1000]
+#'   st <- wgh_states(growdat2_mini[growdat2_mini$age >= 5 & growdat2_mini$pid %in% kids, ])
 #'   hm <- wgh_hmm(wgh_msm_data(st))
 #'   hm$misclassification
 #' }

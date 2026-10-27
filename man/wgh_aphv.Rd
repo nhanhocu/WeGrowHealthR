@@ -29,9 +29,10 @@ intensity. Nothing is ever substituted when extraction fails: the
 function stops with an error.
 }
 \examples{
-\dontshow{if (rlang::is_installed("sitar")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("sitar")) withAutoprint(\{ # examplesIf}
 \donttest{
 boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+boys <- boys[boys$pid \%in\% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 wgh_aphv(fit)$population
 }

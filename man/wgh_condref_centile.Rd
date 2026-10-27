@@ -29,7 +29,7 @@ centile flag growth that departs from the child's own expected course,
 even when the child is still inside the WHO -2 to +2 SD band.
 }
 \examples{
-\dontshow{if (rlang::is_installed(c("quantreg", "ranger"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed(c("quantreg", "ranger"))) withAutoprint(\{ # examplesIf}
 \donttest{
 cp <- wgh_conditional_panel(growdat, targets = c(10, 12, 14))
 cr <- wgh_condref(cp)

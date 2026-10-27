@@ -36,7 +36,7 @@ across folds and sites, an interaction term and waterfall explanations
 of individual children.
 }
 \examples{
-\dontshow{if (rlang::is_installed("quantreg")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("quantreg")) withAutoprint(\{ # examplesIf}
 \donttest{
 rep <- wgh_flow_explain_prediction(growdat, mode = "dev", window = c(5, 9), targets = c(10, 12))
 rep

@@ -17,6 +17,7 @@
 #' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
 #' boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+#' boys <- boys[boys$pid %in% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 #' fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 #' pan <- wgh_velocity_panel(fit, time = "aphv", grid = seq(-4, 4, by = 0.1), observed_only = FALSE)
 #' head(pan)
@@ -85,6 +86,7 @@ wgh_velocity_panel <- function(fit, ids = NULL, time = c("age", "aphv"), grid = 
 #' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
 #' boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+#' boys <- boys[boys$pid %in% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 #' fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 #' pan <- wgh_velocity_panel(fit, time = "aphv", grid = seq(-4, 4, by = 0.05), observed_only = FALSE)
 #' cf <- wgh_curve_features(pan)
@@ -136,6 +138,7 @@ wgh_curve_features <- function(panel, thresholds = c(0.25, 0.50, 0.75), referenc
 #' \donttest{
 #' if (requireNamespace("fdapace", quietly = TRUE)) {
 #'   boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+#'   boys <- boys[boys$pid %in% unique(boys$pid)[1:300], ]
 #'   fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 #'   pan <- wgh_velocity_panel(fit, time = "aphv", grid = seq(-4, 4, by = 0.1), observed_only = FALSE)
 #'   fp <- wgh_fpca_curves(pan[pan$id %in% unique(pan$id)[1:150], ])

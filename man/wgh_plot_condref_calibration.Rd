@@ -43,7 +43,7 @@ median, and so on. Predictions are made out of fold when \code{folds} is set,
 so the check is honest.
 }
 \examples{
-\dontshow{if (rlang::is_installed(c("quantreg", "ranger"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed(c("quantreg", "ranger"))) withAutoprint(\{ # examplesIf}
 \donttest{
 cp <- wgh_conditional_panel(growdat, targets = c(10, 12, 14))
 wgh_plot_condref_calibration(cp, folds = 3)

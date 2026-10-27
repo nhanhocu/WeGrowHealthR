@@ -44,9 +44,10 @@ comparable across windows) improves BIC by more than \code{bic_margin} while
 leaving APHV and PHV stable. The reason for the choice is returned.
 }
 \examples{
-\dontshow{if (rlang::is_installed("sitar")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("sitar")) withAutoprint(\{ # examplesIf}
 \donttest{
 boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+boys <- boys[boys$pid \%in\% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 sel <- wgh_sitar_select(boys, candidates = list(
   F1 = list(df = 4, fixed = "a + b + c", random = "a + b + c", age_range = c(6, 18)),
   F2 = list(df = 5, fixed = "a + b + c", random = "a + b + c", age_range = c(6, 18))))

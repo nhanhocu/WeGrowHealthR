@@ -31,7 +31,7 @@ A matrix with one row per case and one column per quantile
 Predict conditional quantiles for new children
 }
 \examples{
-\dontshow{if (rlang::is_installed(c("quantreg", "ranger"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed(c("quantreg", "ranger"))) withAutoprint(\{ # examplesIf}
 \donttest{
 cp <- wgh_conditional_panel(growdat, targets = c(10, 12))
 cr <- wgh_condref(cp)

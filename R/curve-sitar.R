@@ -32,6 +32,7 @@
 #' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
 #' boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+#' boys <- boys[boys$pid %in% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 #' fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 #' fit
 #' wgh_aphv(fit)
@@ -126,6 +127,7 @@ print.wgh_sitar <- function(x, ...) {
 #' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
 #' boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+#' boys <- boys[boys$pid %in% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 #' fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 #' wgh_aphv(fit)$population
 #' }
@@ -167,6 +169,7 @@ wgh_aphv <- function(fit, age_range = NULL) {
 #' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
 #' boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+#' boys <- boys[boys$pid %in% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 #' fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 #' eff <- wgh_sitar_effects(fit)
 #' head(eff)
@@ -234,6 +237,7 @@ wgh_age_density <- function(x, by = "sex", bin = 0.5, share = 0.10) {
 #' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
 #' boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+#' boys <- boys[boys$pid %in% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 #' fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 #' wgh_check_identifiable(fit)
 #' }
@@ -269,6 +273,7 @@ wgh_check_identifiable <- function(fit, max_abs_corr = 0.95) {
 #' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
 #' boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+#' boys <- boys[boys$pid %in% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 #' fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 #' wgh_sitar_diagnostics(fit)
 #' }
@@ -314,6 +319,7 @@ wgh_sitar_diagnostics <- function(fit, tail_start = NULL) {
 #' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
 #' boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+#' boys <- boys[boys$pid %in% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 #' sel <- wgh_sitar_select(boys, candidates = list(
 #'   F1 = list(df = 4, fixed = "a + b + c", random = "a + b + c", age_range = c(6, 18)),
 #'   F2 = list(df = 5, fixed = "a + b + c", random = "a + b + c", age_range = c(6, 18))))
@@ -394,6 +400,7 @@ print.wgh_sitar_selection <- function(x, ...) {
 #' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
 #' boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+#' boys <- boys[boys$pid %in% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 #' fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 #' wgh_sitar_ci(fit, B = 5)
 #' }
@@ -446,6 +453,7 @@ wgh_sitar_ci <- function(fit, B = 50, method = c("bootstrap", "legacy"), seed = 
 #' @examplesIf rlang::is_installed("sitar")
 #' \donttest{
 #' boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+#' boys <- boys[boys$pid %in% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 #' fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 #' plot(fit)
 #' plot(fit, type = "height", show_data = FALSE, line_width = 1.5)

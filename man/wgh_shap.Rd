@@ -30,7 +30,7 @@ TreeSHAP contributions are used. For any other model, exact kernel SHAP
 the explainable growth prediction study (Ho 2026, manuscript under review) used for quantile regression models.
 }
 \examples{
-\dontshow{if (rlang::is_installed(c("kernelshap", "xgboost"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed(c("kernelshap", "xgboost"))) withAutoprint(\{ # examplesIf}
 \donttest{
 fit <- lm(height ~ age + baz, data = growdat)
 X <- growdat[1:100, c("age", "baz")]

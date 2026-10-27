@@ -52,7 +52,7 @@ bootstrap. Worker functions carry only what they need, which avoids the
 gigabyte-sized parallel exports documented in the BMI and height-for-age distribution study (Ho 2026, medRxiv 2026.09.08.26362487).
 }
 \examples{
-\dontshow{if (rlang::is_installed("lqmm")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("lqmm")) withAutoprint(\{ # examplesIf}
 \donttest{
 d <- growdat[growdat$sex == "Male" & growdat$age >= 5, ]
 d <- d[d$pid \%in\% names(which(table(d$pid) >= 3)), ]

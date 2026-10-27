@@ -54,7 +54,7 @@ Write spline knots into the formula (for example
 the basis does not change between replicates.
 }
 \examples{
-\dontshow{if (rlang::is_installed("quantreg")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("quantreg")) withAutoprint(\{ # examplesIf}
 \donttest{
 d <- growdat[growdat$sex == "Female" & growdat$age >= 5, ]
 f <- haz ~ splines::ns(age, knots = c(8, 11, 14), Boundary.knots = c(5, 18.5)) * baz

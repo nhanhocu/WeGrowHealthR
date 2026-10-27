@@ -26,7 +26,7 @@ the top-minus-bottom difference with a bootstrap interval.
 fitted models (girls minus boys) per quantile and jointly.
 }
 \examples{
-\dontshow{if (rlang::is_installed("quantreg")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("quantreg")) withAutoprint(\{ # examplesIf}
 \donttest{
 f <- haz ~ splines::ns(age, knots = c(8, 11, 14), Boundary.knots = c(5, 18.5)) * baz
 d <- growdat[growdat$age >= 5, ]

@@ -33,7 +33,7 @@ centile, and fan charts for two example children with their later
 measurements.
 }
 \examples{
-\dontshow{if (rlang::is_installed(c("quantreg", "ranger"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed(c("quantreg", "ranger"))) withAutoprint(\{ # examplesIf}
 \donttest{
 rep <- wgh_flow_conditional_references(growdat, mode = "dev", window = c(5, 9), targets = c(10, 12))
 rep

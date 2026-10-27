@@ -22,8 +22,11 @@ A \code{flextable} object.
 Publication-style flextable
 }
 \examples{
+\donttest{
+# Loading flextable and its dependencies takes a few seconds the first time
 if (requireNamespace("flextable", quietly = TRUE)) {
   cl <- wgh_classify(growdat)
   wgh_flextable(wgh_prevalence(cl, "obesity", by = "sex"), caption = "Obesity by sex", digits = 1)
+}
 }
 }

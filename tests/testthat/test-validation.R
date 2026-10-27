@@ -319,7 +319,10 @@ test_that("the frozen Book 2 cohort on the GitHub release is the one documented"
   b <- wgh_download(destfile = tempfile(fileext = ".rds"))
   expect_identical(attr(a, "provenance")$source, "downloaded")
   expect_true(attr(a, "provenance")$md5_verified)
-  expect_identical(as.data.frame(a), as.data.frame(b))     # repeated downloads give identical data
+  # Repeated downloads give identical data. The provenance attribute records
+  # the temporary file and the download time, so it differs by design.
+  strip <- function(x) { x <- as.data.frame(x); attr(x, "provenance") <- NULL; x }
+  expect_identical(strip(a), strip(b))
   expect_error(wgh_download(destfile = tempfile(fileext = ".rds"), md5 = "0123456789abcdef0123456789abcdef"),
                "Checksum")
 })

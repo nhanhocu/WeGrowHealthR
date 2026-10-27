@@ -64,9 +64,10 @@ compared (as \code{fit_sitar_safe()} did in the analysis code of Ho et al.
 2026, medRxiv 2026.07.26.26358986). Diagnostics are attached.
 }
 \examples{
-\dontshow{if (rlang::is_installed("sitar")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("sitar")) withAutoprint(\{ # examplesIf}
 \donttest{
 boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+boys <- boys[boys$pid \%in\% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 fit
 wgh_aphv(fit)

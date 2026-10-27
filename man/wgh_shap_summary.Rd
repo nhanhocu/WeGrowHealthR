@@ -24,7 +24,7 @@ feature (with intervals when \code{B > 0}).
 Global SHAP importance with bootstrap intervals
 }
 \examples{
-\dontshow{if (rlang::is_installed(c("kernelshap", "xgboost"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed(c("kernelshap", "xgboost"))) withAutoprint(\{ # examplesIf}
 \donttest{
 fit <- lm(height ~ age + baz + sex, data = growdat)
 X <- growdat[1:200, c("age", "baz", "sex")]
