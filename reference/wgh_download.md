@@ -99,7 +99,7 @@ attr(small, "provenance")
 #> [1] "4.6.1"
 #> 
 #> $time
-#> [1] "2026-10-27 01:57:00 UTC"
+#> [1] "2026-10-27 04:46:26 UTC"
 #> 
 # \donttest{
 growdat2 <- wgh_download()
