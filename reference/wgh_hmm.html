@@ -100,16 +100,18 @@ element holds the estimated misclassification matrix.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"msm"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="va">st</span> <span class="op">&lt;-</span> <span class="fu"><a href="wgh_states.html">wgh_states</a></span><span class="op">(</span><span class="va">growdat2_mini</span><span class="op">[</span><span class="va">growdat2_mini</span><span class="op">$</span><span class="va">age</span> <span class="op">&gt;=</span> <span class="fl">5</span>, <span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="co"># 1,000 children keep the example to well under a minute</span></span></span>
+<span class="r-in"><span>  <span class="va">kids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">growdat2_mini</span><span class="op">$</span><span class="va">pid</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">]</span></span></span>
+<span class="r-in"><span>  <span class="va">st</span> <span class="op">&lt;-</span> <span class="fu"><a href="wgh_states.html">wgh_states</a></span><span class="op">(</span><span class="va">growdat2_mini</span><span class="op">[</span><span class="va">growdat2_mini</span><span class="op">$</span><span class="va">age</span> <span class="op">&gt;=</span> <span class="fl">5</span> <span class="op">&amp;</span> <span class="va">growdat2_mini</span><span class="op">$</span><span class="va">pid</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">kids</span>, <span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">hm</span> <span class="op">&lt;-</span> <span class="fu">wgh_hmm</span><span class="op">(</span><span class="fu"><a href="wgh_msm_data.html">wgh_msm_data</a></span><span class="op">(</span><span class="va">st</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">hm</span><span class="op">$</span><span class="va">misclassification</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              State 1      State 2      State 3      State 4      State 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> State 1 0.8836881797 1.163118e-01 0.0000000000 0.000000e+00 0.0000000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> State 2 0.0003364902 9.549541e-01 0.0447093776 0.000000e+00 0.0000000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> State 3 0.0000000000 9.231675e-06 0.9999623521 2.841623e-05 0.0000000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> State 4 0.0000000000 0.000000e+00 0.0007792688 9.985948e-01 0.0006258844</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> State 5 0.0000000000 0.000000e+00 0.0000000000 1.402195e-03 0.9985978054</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              State 1      State 2      State 3      State 4     State 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> State 1 0.8117527316 1.882473e-01 0.0000000000 0.000000e+00 0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> State 2 0.0002952567 9.292736e-01 0.0704310969 0.000000e+00 0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> State 3 0.0000000000 1.966271e-07 0.9999979570 1.846327e-06 0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> State 4 0.0000000000 0.000000e+00 0.0004105133 9.964469e-01 0.003142537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> State 5 0.0000000000 0.000000e+00 0.0000000000 1.855318e-03 0.998144682</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

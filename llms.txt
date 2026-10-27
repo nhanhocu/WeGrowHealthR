@@ -524,7 +524,7 @@ wgh_references(format = "text")
   : Flow: prepubertal BMI and the distribution of pubertal velocity (Ho
   2026, medRxiv 2026.09.04.26362313)
 - [`wgh_use_pipeline()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_use_pipeline.md)
-  : Write a targets pipeline that chains the paper flows
+  : Write a targets pipeline that chains the study flows
 
 ## Simulation and data
 

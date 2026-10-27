@@ -50,6 +50,7 @@ A ggplot object (a patchwork for `"both"`).
 ``` r
 # \donttest{
 boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+boys <- boys[boys$pid %in% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 plot(fit)
 

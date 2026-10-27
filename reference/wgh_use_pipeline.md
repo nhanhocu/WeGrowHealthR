@@ -1,4 +1,4 @@
-# Write a targets pipeline that chains the paper flows
+# Write a targets pipeline that chains the study flows
 
 Writes a `_targets.R` file in which the flows run in the program's real
 order: data preparation, then the SITAR models of the pubertal spurt
@@ -25,7 +25,7 @@ wgh_use_pipeline(dir, data_file = NULL, mode = "analysis", overwrite = FALSE)
 - dir:
 
   Directory in which `_targets.R` is written (required, for example
-  `"."` for the current project).
+  `"."` for the current project). It is created if it does not exist.
 
 - data_file:
 
@@ -48,7 +48,7 @@ The path of the written file, invisibly.
 
 ``` r
 f <- wgh_use_pipeline(tempdir(), overwrite = TRUE)
-#> Wrote /tmp/Rtmpf520PH/_targets.R. Run it with `targets::tar_make()`.
+#> Wrote /tmp/Rtmp3qNi4R/_targets.R. Run it with `targets::tar_make()`.
 cat(readLines(f)[1:10], sep = "\n")
 #> ## Pipeline written by WeGrowHealthR::wgh_use_pipeline()
 #> library(targets)
@@ -57,7 +57,7 @@ cat(readLines(f)[1:10], sep = "\n")
 #> 
 #> list(
 #>   tar_target(visits, wgh_simulate(30000, preset = "wgh_like", seed = 2026)$visits),
-#>   tar_target(scirep, wgh_flow_secular_trends(visits)),
-#>   tar_target(paper02, wgh_flow_malnutrition_trends(visits)),
-#>   tar_target(paper03, wgh_flow_index_trajectory(visits)),
+#>   tar_target(secular_trends, wgh_flow_secular_trends(visits)),
+#>   tar_target(malnutrition, wgh_flow_malnutrition_trends(visits)),
+#>   tar_target(trajectory, wgh_flow_index_trajectory(visits)),
 ```

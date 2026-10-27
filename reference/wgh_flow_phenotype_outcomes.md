@@ -60,14 +60,21 @@ A
 
 ``` r
 # \donttest{
-spurt <- wgh_flow_pubertal_spurt(growdat2_mini, mode = "dev")
-#> SITAR fit failed with df = 4; retrying with df = 3.
-ph <- wgh_flow_growth_phenotypes(growdat2_mini, mode = "dev", spurt = spurt, G = 2:5)
+# A small cohort with 14 school years of follow-up, so that both SITAR models are
+# well identified and the SITAR fits take well under a minute. On short follow-up
+# (such as growdat2_mini) the girls' model is barely identifiable and slow.
+long <- wgh_simulate(2500, seed = 1, years = 2012:2025, missing_years = integer(),
+                     dropout = c(intercept = -4, age = 0), entry_first_prob = 0.9,
+                     style = "book2")$visits
+spurt <- wgh_flow_pubertal_spurt(long, mode = "dev")
+ph <- wgh_flow_growth_phenotypes(long, mode = "dev", spurt = spurt, G = 2:4)
 #> Warning: The selected number of clusters (2) is at the edge of the search range. Widen
 #> `G`.
-#> Warning: The selected number of clusters (2) is at the edge of the search range. Widen
+#> Warning: The selected number of clusters (4) is at the edge of the search range. Widen
 #> `G`.
-rep <- wgh_flow_phenotype_outcomes(growdat2_mini, mode = "dev", phenotypes = ph)
+rep <- wgh_flow_phenotype_outcomes(long, mode = "dev", phenotypes = ph)
+#> Warning: Fewer than 5 outcome events in phenotype(s) Late, slow, Early, fast: estimates
+#> are unstable.
 rep
 #> 
 #> ── Growth phenotypes and later outcomes, growth side (Ho 2026, manuscript in preparation) ──

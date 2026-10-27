@@ -57,17 +57,18 @@ A tibble with `id`, `age`, `time` (age or offset), `height` and
 ``` r
 # \donttest{
 boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+boys <- boys[boys$pid %in% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 pan <- wgh_velocity_panel(fit, time = "aphv", grid = seq(-4, 4, by = 0.1), observed_only = FALSE)
 head(pan)
 #> # A tibble: 6 × 5
 #>   id        age  time height velocity
 #>   <chr>   <dbl> <dbl>  <dbl>    <dbl>
-#> 1 C000044  7.70  -4     128.     5.67
-#> 2 C000044  7.80  -3.9   128.     5.67
-#> 3 C000044  7.90  -3.8   129.     5.67
-#> 4 C000044  8.00  -3.7   130.     5.67
-#> 5 C000044  8.10  -3.6   130.     5.67
-#> 6 C000044  8.20  -3.5   131.     5.67
+#> 1 C000044  7.78  -4     128.     5.63
+#> 2 C000044  7.88  -3.9   129.     5.63
+#> 3 C000044  7.98  -3.8   129.     5.63
+#> 4 C000044  8.08  -3.7   130.     5.63
+#> 5 C000044  8.18  -3.6   131.     5.63
+#> 6 C000044  8.28  -3.5   131.     5.63
 # }
 ```

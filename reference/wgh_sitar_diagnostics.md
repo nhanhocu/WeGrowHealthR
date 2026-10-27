@@ -29,12 +29,13 @@ random-effect correlation and population APHV and PHV.
 ``` r
 # \donttest{
 boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+boys <- boys[boys$pid %in% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 wgh_sitar_diagnostics(fit)
 #> # A tibble: 1 × 15
 #>   model    converged n_children   AIC   BIC sigma  RMSE  sd_a  sd_b   sd_c  sd_d
 #>   <chr>    <lgl>          <int> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>  <dbl> <dbl>
-#> 1 6-18 a+… TRUE             418 6198. 6274. 0.535 0.372  3.89 0.526 0.0670    NA
+#> 1 6-18 a+… TRUE              86 1310. 1365. 0.544 0.385  3.53 0.556 0.0616    NA
 #> # ℹ 4 more variables: min_velocity_tail <dbl>, max_re_corr <dbl>, APHV <dbl>,
 #> #   PHV <dbl>
 # }

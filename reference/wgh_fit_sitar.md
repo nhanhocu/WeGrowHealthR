@@ -93,14 +93,15 @@ An object of class `wgh_sitar` with `model` (the sitar fit or `NULL`),
 ``` r
 # \donttest{
 boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+boys <- boys[boys$pid %in% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 fit
-#> <wgh_sitar> "6-18 a+b+c": 1676 visits from 418 children, df = 4
-#> Population APHV 12.21 y, PHV 10.17 cm/y
+#> <wgh_sitar> "6-18 a+b+c": 352 visits from 86 children, df = 4
+#> Population APHV 12.3 y, PHV 10.08 cm/y
 #> # A tibble: 1 × 15
 #>   model    converged n_children   AIC   BIC sigma  RMSE  sd_a  sd_b   sd_c  sd_d
 #>   <chr>    <lgl>          <int> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>  <dbl> <dbl>
-#> 1 6-18 a+… TRUE             418 6198. 6274. 0.535 0.372  3.89 0.526 0.0670    NA
+#> 1 6-18 a+… TRUE              86 1310. 1365. 0.544 0.385  3.53 0.556 0.0616    NA
 #> # ℹ 4 more variables: min_velocity_tail <dbl>, max_re_corr <dbl>, APHV <dbl>,
 #> #   PHV <dbl>
 wgh_aphv(fit)
@@ -108,23 +109,23 @@ wgh_aphv(fit)
 #> # A tibble: 1 × 2
 #>    aphv   phv
 #>   <dbl> <dbl>
-#> 1  12.2  10.2
+#> 1  12.3  10.1
 #> 
 #> $individual
-#> # A tibble: 418 × 6
-#>    id           a       b       c  aphv   phv
-#>    <chr>    <dbl>   <dbl>   <dbl> <dbl> <dbl>
-#>  1 C000044  1.64  -0.491   0.101   11.7 11.2 
-#>  2 C000118 -0.684 -0.686   0.0511  11.5 10.7 
-#>  3 C000150 -4.79   0.270  -0.0326  12.5  9.84
-#>  4 C000169  3.62  -0.475   0.0550  11.7 10.7 
-#>  5 C000344  4.61  -0.142   0.0122  12.1 10.3 
-#>  6 C000362  1.71  -0.943   0.116   11.2 11.4 
-#>  7 C000428  4.38  -0.264   0.0188  11.9 10.4 
-#>  8 C000438 -1.59  -0.302   0.0616  11.9 10.8 
-#>  9 C000443  0.660  0.0625 -0.0262  12.3  9.91
-#> 10 C000496 -3.10   0.371  -0.0414  12.6  9.76
-#> # ℹ 408 more rows
+#> # A tibble: 86 × 6
+#>    id           a        b       c  aphv   phv
+#>    <chr>    <dbl>    <dbl>   <dbl> <dbl> <dbl>
+#>  1 C000044  1.67  -0.506    0.0947  11.8 11.1 
+#>  2 C000118 -0.765 -0.764    0.0560  11.5 10.7 
+#>  3 C000150 -4.78   0.386   -0.0292  12.7  9.79
+#>  4 C000169  3.23  -0.584    0.0539  11.7 10.6 
+#>  5 C000344  4.50  -0.222    0.0122  12.1 10.2 
+#>  6 C000362  1.49  -1.03     0.116   11.2 11.3 
+#>  7 C000428  4.09  -0.365    0.0209  11.9 10.3 
+#>  8 C000438 -0.946 -0.230    0.0617  12.1 10.7 
+#>  9 C000443  0.633  0.00967 -0.0231  12.3  9.85
+#> 10 C000496 -3.19   0.296   -0.0352  12.6  9.73
+#> # ℹ 76 more rows
 #> 
 # }
 ```

@@ -2,6 +2,26 @@
 
 ## WeGrowHealthR 1.0.1
 
+### Checks, examples and pipeline
+
+- The `\donttest` examples of the SITAR-based flows now use a small
+  simulated cohort with 14 school years of follow-up, on which both
+  SITAR models are well identified. On the short follow-up of
+  `growdat2_mini` the girls’ model was barely identifiable, so each of
+  these examples took more than ten minutes. The SITAR examples fit 300
+  boys. The examples run with `--run-donttest` now take minutes instead
+  of more than an hour.
+- [`wgh_use_pipeline()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_use_pipeline.md)
+  names its targets after the studies (`secular_trends`, `spurt`,
+  `height_prediction`, …) and creates `dir` when it does not exist.
+- The download test compares the downloaded data without the
+  `provenance` attribute, which records the temporary file and time and
+  so differs by design between two downloads.
+- The
+  [`wgh_flextable()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_flextable.md)
+  example is in `\donttest{}`, because loading ‘flextable’ the first
+  time takes several seconds.
+
 ### Corrections
 
 - The CRPS in

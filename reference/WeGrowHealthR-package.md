@@ -47,5 +47,6 @@ Useful links:
 
 ## Author
 
-**Maintainer**: Nhan Thi Ho <nhanhocumc@gmail.com> (MD, PhD) \[copyright
+**Maintainer**: Nhan Thi Ho <nhanhocumc@gmail.com>
+([ORCID](https://orcid.org/0000-0002-7898-0956)) (MD, PhD) \[copyright
 holder\]

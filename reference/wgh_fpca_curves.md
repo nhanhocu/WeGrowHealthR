@@ -33,11 +33,12 @@ variance explained.
 # \donttest{
 if (requireNamespace("fdapace", quietly = TRUE)) {
   boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+  boys <- boys[boys$pid %in% unique(boys$pid)[1:300], ]
   fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
   pan <- wgh_velocity_panel(fit, time = "aphv", grid = seq(-4, 4, by = 0.1), observed_only = FALSE)
   fp <- wgh_fpca_curves(pan[pan$id %in% unique(pan$id)[1:150], ])
   fp$variance_explained
 }
-#> [1] 0.9016470 0.9997287 0.9999467 1.0000000
+#> [1] 0.8964266 0.9997677 0.9999531 1.0000000
 # }
 ```

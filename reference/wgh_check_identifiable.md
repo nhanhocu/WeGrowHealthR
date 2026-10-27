@@ -32,19 +32,20 @@ A list with `ok`, `max_abs_corr`, the pair and a `reason`.
 ``` r
 # \donttest{
 boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+boys <- boys[boys$pid %in% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 wgh_check_identifiable(fit)
 #> $ok
 #> [1] TRUE
 #> 
 #> $max_abs_corr
-#> [1] 0.5851787
+#> [1] 0.5234471
 #> 
 #> $pair
 #> [1] "c-b"
 #> 
 #> $reason
-#> [1] "OK: random effects c-b correlated at r = -0.585"
+#> [1] "OK: random effects c-b correlated at r = -0.523"
 #> 
 # }
 ```

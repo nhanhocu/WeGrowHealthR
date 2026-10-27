@@ -116,8 +116,13 @@ include <code>individual_effects</code>.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
-<span class="r-in"><span><span class="va">rep</span> <span class="op">&lt;-</span> <span class="fu">wgh_flow_pubertal_spurt</span><span class="op">(</span><span class="va">growdat2_mini</span>, mode <span class="op">=</span> <span class="st">"dev"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> SITAR fit failed with df = 4; retrying with df = 3.</span>
+<span class="r-in"><span><span class="co"># A small cohort with 14 school years of follow-up, so that both SITAR models are</span></span></span>
+<span class="r-in"><span><span class="co"># well identified and the SITAR fits take well under a minute. On short follow-up</span></span></span>
+<span class="r-in"><span><span class="co"># (such as growdat2_mini) the girls' model is barely identifiable and slow.</span></span></span>
+<span class="r-in"><span><span class="va">long</span> <span class="op">&lt;-</span> <span class="fu"><a href="wgh_simulate.html">wgh_simulate</a></span><span class="op">(</span><span class="fl">2500</span>, seed <span class="op">=</span> <span class="fl">1</span>, years <span class="op">=</span> <span class="fl">2012</span><span class="op">:</span><span class="fl">2025</span>, missing_years <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                     dropout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>intercept <span class="op">=</span> <span class="op">-</span><span class="fl">4</span>, age <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, entry_first_prob <span class="op">=</span> <span class="fl">0.9</span>,</span></span>
+<span class="r-in"><span>                     style <span class="op">=</span> <span class="st">"book2"</span><span class="op">)</span><span class="op">$</span><span class="va">visits</span></span></span>
+<span class="r-in"><span><span class="va">rep</span> <span class="op">&lt;-</span> <span class="fu">wgh_flow_pubertal_spurt</span><span class="op">(</span><span class="va">long</span>, mode <span class="op">=</span> <span class="st">"dev"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">rep</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Pubertal growth spurt by SITAR (Ho et al. 2026, medRxiv 2026.07.26.26358986)</span> ──</span>

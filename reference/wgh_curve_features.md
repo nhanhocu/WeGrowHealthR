@@ -55,12 +55,13 @@ curves whose peak is at the edge of the grid are flagged as degenerate.
 ``` r
 # \donttest{
 boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+boys <- boys[boys$pid %in% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 pan <- wgh_velocity_panel(fit, time = "aphv", grid = seq(-4, 4, by = 0.05), observed_only = FALSE)
 cf <- wgh_curve_features(pan)
 summary(cf$width_p50)
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>   1.977   2.181   2.258   2.266   2.343   2.763 
+#>   2.056   2.245   2.307   2.313   2.379   2.797 
 # The legacy definition (fraction of peak velocity) is often censored
 mean(wgh_curve_features(pan, thresholds = 0.5, reference = "zero")$censored_left_p50)
 #> [1] 1

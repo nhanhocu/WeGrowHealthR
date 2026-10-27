@@ -52,12 +52,13 @@ A tibble with estimates, limits and the number of successful replicates.
 ``` r
 # \donttest{
 boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+boys <- boys[boys$pid %in% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 wgh_sitar_ci(fit, B = 5)
 #> # A tibble: 1 × 9
 #>   method         aphv aphv_lower aphv_upper   phv phv_lower phv_upper n_children
 #>   <chr>         <dbl>      <dbl>      <dbl> <dbl>     <dbl>     <dbl>      <int>
-#> 1 cluster boot…  12.2       12.0       12.3  10.2     10.00      10.4        418
+#> 1 cluster boot…  12.3       12.1       12.3  10.1      9.55      10.2         86
 #> # ℹ 1 more variable: replicates <int>
 # }
 ```

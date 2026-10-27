@@ -61,6 +61,7 @@ not acceptable), `selected` (name) and `reason`.
 ``` r
 # \donttest{
 boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+boys <- boys[boys$pid %in% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 sel <- wgh_sitar_select(boys, candidates = list(
   F1 = list(df = 4, fixed = "a + b + c", random = "a + b + c", age_range = c(6, 18)),
   F2 = list(df = 5, fixed = "a + b + c", random = "a + b + c", age_range = c(6, 18))))
@@ -68,8 +69,8 @@ sel$table
 #> # A tibble: 2 × 21
 #>   model converged n_children   AIC   BIC sigma  RMSE  sd_a  sd_b   sd_c  sd_d
 #>   <chr> <lgl>          <int> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>  <dbl> <dbl>
-#> 1 F1    TRUE             418 6198. 6274. 0.535 0.372  3.89 0.526 0.0670    NA
-#> 2 F2    TRUE             418 6218. 6299. 0.533 0.368  3.98 0.491 0.0658    NA
+#> 1 F1    TRUE              86 1310. 1365. 0.544 0.385  3.53 0.556 0.0616    NA
+#> 2 F2    TRUE              86 1319. 1377. 0.550 0.388  3.62 0.524 0.0590    NA
 #> # ℹ 10 more variables: min_velocity_tail <dbl>, max_re_corr <dbl>, APHV <dbl>,
 #> #   PHV <dbl>, identifiable <lgl>, plausible_tail <lgl>, good_fit <lgl>,
 #> #   acceptable <lgl>, why_not <chr>, stable <lgl>

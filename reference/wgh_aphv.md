@@ -39,11 +39,12 @@ A list with `population` (tibble with `aphv`, `phv`) and `individual`
 ``` r
 # \donttest{
 boys <- growdat2_mini[growdat2_mini$sex == "Male", ]
+boys <- boys[boys$pid %in% unique(boys$pid)[1:300], ]  # 300 boys keep the example quick
 fit <- wgh_fit_sitar(boys, df = 4, age_range = c(6, 18))
 wgh_aphv(fit)$population
 #> # A tibble: 1 × 2
 #>    aphv   phv
 #>   <dbl> <dbl>
-#> 1  12.2  10.2
+#> 1  12.3  10.1
 # }
 ```

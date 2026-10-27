@@ -48,6 +48,14 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.1" id="wegrowhealthr-101">WeGrowHealthR 1.0.1<a class="anchor" aria-label="anchor" href="#wegrowhealthr-101"></a></h2>
 <div class="section level3">
+<h3 id="checks-examples-and-pipeline-1-0-1">Checks, examples and pipeline<a class="anchor" aria-label="anchor" href="#checks-examples-and-pipeline-1-0-1"></a></h3>
+<ul><li>The <code>\donttest</code> examples of the SITAR-based flows now use a small simulated cohort with 14 school years of follow-up, on which both SITAR models are well identified. On the short follow-up of <code>growdat2_mini</code> the girls’ model was barely identifiable, so each of these examples took more than ten minutes. The SITAR examples fit 300 boys. The examples run with <code>--run-donttest</code> now take minutes instead of more than an hour.</li>
+<li>
+<code><a href="../reference/wgh_use_pipeline.html">wgh_use_pipeline()</a></code> names its targets after the studies (<code>secular_trends</code>, <code>spurt</code>, <code>height_prediction</code>, …) and creates <code>dir</code> when it does not exist.</li>
+<li>The download test compares the downloaded data without the <code>provenance</code> attribute, which records the temporary file and time and so differs by design between two downloads.</li>
+<li>The <code><a href="../reference/wgh_flextable.html">wgh_flextable()</a></code> example is in <code>\donttest{}</code>, because loading ‘flextable’ the first time takes several seconds.</li>
+</ul></div>
+<div class="section level3">
 <h3 id="corrections-1-0-1">Corrections<a class="anchor" aria-label="anchor" href="#corrections-1-0-1"></a></h3>
 <ul><li>The CRPS in <code><a href="../reference/wgh_score.html">wgh_score()</a></code> and <code><a href="../reference/wgh_score_rows.html">wgh_score_rows()</a></code> is now the trapezoid-rule integral of the pinball loss over the quantile levels, with the loss taken to fall linearly to zero in the tails. Each quantile is weighted by the spacing of its neighbours. The earlier equal-weight mean underestimated the CRPS on unevenly spaced grids by about 30% for the default conditional reference grid. <code><a href="../reference/wgh_condref_compare.html">wgh_condref_compare()</a></code>, <code><a href="../reference/wgh_condref_cv.html">wgh_condref_cv()</a></code> and the conditional references flow use the corrected score. New tests compare it with the closed form on uneven grids and with forecasts of wrong tail behaviour.</li>
 <li>
