@@ -16,7 +16,7 @@ parallel, and whatever the number of workers.
 
 ``` r
 wgh_parallel(
-  workers = max(1L, parallel::detectCores() - 1L),
+  workers = getOption("mc.cores", 2L),
   strategy = c("multisession", "multicore"),
   max_size = 2
 )
@@ -26,7 +26,10 @@ wgh_parallel(
 
 - workers:
 
-  Number of workers. `1` returns to sequential processing.
+  Number of workers. `1` returns to sequential processing. The default
+  is the `mc.cores` option, or 2 when it is not set, so the package
+  never starts more than two workers unless asked. On a larger machine
+  pass a higher number, for example `parallel::detectCores() - 1`.
 
 - strategy:
 

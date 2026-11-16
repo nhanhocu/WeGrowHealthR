@@ -22,5 +22,5 @@ wgh_parallel_info()
 #> # A tibble: 1 × 5
 #>   plan       workers cores globals_max_size_gb parallel_active
 #>   <chr>        <int> <int>               <dbl> <lgl>          
-#> 1 sequential       1     4                 0.5 FALSE          
+#> 1 sequential       1     4                 Inf FALSE          
 ```

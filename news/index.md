@@ -2,6 +2,28 @@
 
 ## WeGrowHealthR 1.0.1
 
+### Changes requested in the CRAN review
+
+- [`wgh_parallel()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_parallel.md)
+  now starts `getOption("mc.cores", 2L)` workers by default instead of
+  all cores but one, so the package never uses more than two cores
+  unless the user asks for more.
+- The XGBoost data matrices and the random forest predictions now run on
+  one thread, like the models themselves.
+- The parallel computing vignette uses two workers throughout.
+- The `Description` field of `DESCRIPTION` was rewritten as requested.
+
+### Corrections
+
+- [`wgh_slopes()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_slopes.md)
+  failed with “dim(X) must have a positive length” when a bootstrap was
+  run with a single quantile, because
+  [`apply()`](https://rdrr.io/r/base/apply.html) dropped the dimensions
+  of the replicate array. The draws are now built with
+  [`vapply()`](https://rdrr.io/r/base/lapply.html) and
+  [`matrix()`](https://rdrr.io/r/base/matrix.html), and a test covers
+  one quantile at one age.
+
 ### Checks, examples and pipeline
 
 - The `\donttest` examples of the SITAR-based flows now use a small

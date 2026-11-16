@@ -40,8 +40,9 @@ sending the work to other processes would cost more than it saves.
 starts the workers with
 [`future::plan()`](https://future.futureverse.org/reference/plan.html):
 
-- `workers` is the number of R processes. The default leaves one core
-  free for the rest of the computer.
+- `workers` is the number of R processes. The default is the `mc.cores`
+  option, or two when it is not set. On a machine with more cores, ask
+  for more, for example `wgh_parallel(parallel::detectCores() - 1)`.
 - `strategy = "multisession"` (default) starts separate R sessions and
   works on every platform. `"multicore"` forks the current session,
   which starts faster but is not available on Windows or inside RStudio.
@@ -181,10 +182,10 @@ study. With your own data in publication mode:
 
 ``` r
 
-wgh_parallel(workers = 8)
+wgh_parallel(workers = 2)    # raise this on a machine with more cores
 wgh_config("publication")
-rep <- wgh_flow_distributional_height(mydata)     # quantile grid and bootstrap on 8 workers
-spurt <- wgh_flow_pubertal_spurt(mydata)          # SITAR bootstrap intervals on 8 workers
+rep <- wgh_flow_distributional_height(mydata)     # quantile grid and bootstrap in parallel
+spurt <- wgh_flow_pubertal_spurt(mydata)          # SITAR bootstrap intervals in parallel
 wgh_parallel(1)
 ```
 

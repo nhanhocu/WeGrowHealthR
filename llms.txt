@@ -7,6 +7,8 @@ Data Analysis and Modeling with R* (Book 1) and its advanced companion
 (Book 2), and it reproduces the main analyses of a child growth research
 program on urban schoolchildren, with published and ongoing studies (see
 [`wgh_references()`](https://nhanhocu.github.io/WeGrowHealthR/reference/wgh_references.md)).
+Both books are in preparation, and this site will link to them when they
+are published.
 
 The package is separate from the WeGrow-Health mobile application.
 
@@ -29,7 +31,7 @@ install.packages("WeGrowHealthR_1.0.1.tar.gz", repos = NULL, type = "source")
 ```
 
 Parallel computing needs the package installed (not loaded with
-[`devtools::load_all()`](https://devtools.r-lib.org/reference/load_all.html)).
+`devtools::load_all()`).
 
 Modelling engines (`sitar`, `quantreg`, `lqmm`, `msm`, `fdapace`,
 `mclust`, `xgboost`, `ranger`, `kernelshap`, `gamlss` and others) are

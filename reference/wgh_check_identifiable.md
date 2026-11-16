@@ -39,7 +39,7 @@ wgh_check_identifiable(fit)
 #> [1] TRUE
 #> 
 #> $max_abs_corr
-#> [1] 0.5234471
+#> [1] 0.523447
 #> 
 #> $pair
 #> [1] "c-b"
