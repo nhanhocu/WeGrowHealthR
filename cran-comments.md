@@ -33,14 +33,22 @@ I also fixed a bug in `wgh_slopes()` with a single quantile and added a test.
   CPU time stayed equal to elapsed time throughout: examples 53 s / 53 s,
   examples with `--run-donttest` 145 s / 149 s, tests 12 s / 12 s and
   vignettes 14 s / 14 s.
-* win-builder, R devel: FILL IN BEFORE SUBMITTING
+* win-builder, R devel (2026-11-14 r90890 ucrt): 0 errors, 0 warnings,
+  1 note. The note lists "New submission" and possibly misspelled words
+  in DESCRIPTION (see below).
 * GitHub Actions (Ubuntu R devel, release and oldrel-1, Windows and macOS
-  release): FILL IN BEFORE SUBMITTING
+  release): 0 errors, 0 warnings
 
 Expected on CRAN: the note `New submission`.
 
 ## Notes for the reviewer
 
+* The words flagged as possibly misspelled in DESCRIPTION are correct:
+  Geraci and Shlomo (Ben-Shlomo) are author surnames,
+  "SuperImposition" is the official spelling in the name of SITAR,
+  "SHapley Additive exPlanations" and "SHAP" are the official name and
+  acronym of the method, and "multistate" is the standard term for
+  multistate models.
 * The teaching dataset `growdat_raw` is a raw export with entry errors. It
   contains a few non-ASCII characters on purpose (a sex code written in
   Vietnamese) that the cleaning functions are taught to recognise.
