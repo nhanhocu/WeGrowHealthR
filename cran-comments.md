@@ -1,32 +1,41 @@
-## Submission
+## Resubmission
 
-This is a new submission.
+This is a resubmission of a new package. Thank you for the review. In this
+version I have:
+
+* Rewritten the Description field so that it no longer starts with "Tools
+  ... for", the package name or the title.
+* Kept single quotes only for package names ('sitar', 'quantreg', 'lqmm',
+  'msm', 'fdapace', 'mclust'), written in their correct case, and put the
+  book title in double quotes.
+* Added the author, year and a link for the book, in the form
+  Ho (2026) "Child Growth Data Analysis and Modeling with R"
+  <https://nhanhocu.github.io/WeGrowHealthR/>. The book is in preparation
+  and has no DOI or ISBN yet, so the link goes to the package website, which
+  names the book and will link to it once it is published.
+* Made sure that no more than 2 cores are used. `wgh_parallel()` now
+  defaults to `getOption("mc.cores", 2L)` workers instead of all cores but
+  one. The XGBoost data matrices are now built with `nthread = 1`, and the
+  'ranger' predictions use `num.threads = 1`, as the XGBoost and 'ranger'
+  models already did. The parallel computing vignette uses 2 workers
+  throughout. Examples, vignettes and tests never start more than 2
+  workers.
+
+I also fixed a bug in `wgh_slopes()` with a single quantile and added a test.
 
 ## Test environments and results
 
-Only results that were actually observed are listed. Fill in the pending
-rows before submitting, and delete any row that was not run.
-
-| Environment | Command | Errors | Warnings | Notes | Status |
-|---|---|---|---|---|---|
-| Ubuntu 24.04, R 4.3.3, offline | `R CMD check --as-cran --no-manual` | 0 | 0 | 2 | Done 2026-10-21 |
-| Ubuntu 24.04, R 4.3.3 | `R CMD Rd2pdf` (PDF manual alone) | 0 | | | Done 2026-10-21, 157 pages |
-| GitHub Actions: Ubuntu R devel, release, oldrel-1, Windows release, macOS release | `R CMD check --as-cran --no-manual` | | | | Pending |
-| win-builder, R devel | `devtools::check_win_devel()` | | | | Pending |
-| win-builder, R release | `devtools::check_win_release()` | | | | Pending |
-| macOS builder, R release | `devtools::check_mac_release()` | | | | Pending |
-| R-hub | `rhub::rhub_check()` | | | | Pending |
-
-Notes in the local check, both from the check machine:
-
-* `Packages suggested but not available for checking: 'learnr', 'targets'`.
-  The two packages were not installed on that machine.
-* `checking for future file timestamps ... unable to verify current time`.
-  The machine had no network access.
-
-The PDF manual was built separately with `R CMD Rd2pdf` (157 pages, no
-errors). Inside `R CMD check` on the same machine it failed only because the
-LaTeX font `inconsolata` was not installed.
+* Local, Ubuntu 24.04, R 4.3.3, `R CMD check --as-cran --no-manual`:
+  0 errors, 0 warnings, 2 notes. Both notes come from the check machine,
+  which had no internet access: the suggested packages were not all
+  installed there, and future file timestamps could not be verified.
+  The check was run with the CPU to elapsed time thresholds set to 2.5.
+  CPU time stayed equal to elapsed time throughout: examples 53 s / 53 s,
+  examples with `--run-donttest` 145 s / 149 s, tests 12 s / 12 s and
+  vignettes 14 s / 14 s.
+* win-builder, R devel: FILL IN BEFORE SUBMITTING
+* GitHub Actions (Ubuntu R devel, release and oldrel-1, Windows and macOS
+  release): FILL IN BEFORE SUBMITTING
 
 Expected on CRAN: the note `New submission`.
 
@@ -62,7 +71,9 @@ Expected on CRAN: the note `New submission`.
   `future.globals.maxSize`. No other function changes options, `par()` or
   the working directory.
 * Parallel workers are only started when the user sets a plan with
-  `wgh_parallel()` or `future::plan()`. Examples and tests use at most two
-  workers.
+  `wgh_parallel()` or `future::plan()`. `wgh_parallel()` starts two workers
+  unless the user asks for more, and examples, vignettes and tests use at
+  most two workers. Model engines that can use threads (XGBoost and
+  'ranger') are always called with one thread.
 * Eight vignettes are precomputed because their models take several minutes.
   Their sources are kept in the package repository.

@@ -13,7 +13,8 @@ publication tables and figures. It accompanies the books *Child Growth
 Data Analysis and Modeling with R* (Book 1) and its advanced companion
 (Book 2), and it reproduces the main analyses of a child growth research
 program on urban schoolchildren, with published and ongoing studies (see
-`wgh_references()`).
+`wgh_references()`). Both books are in preparation, and this site will link
+to them when they are published.
 
 The package is separate from the WeGrow-Health mobile application.
 

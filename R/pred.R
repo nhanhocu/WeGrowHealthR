@@ -190,21 +190,21 @@ wgh_features <- function(x, max_age = 10, min_age = 5) {
       X <- .xgb_X(tr)
       prm <- list(objective = "reg:squarederror", max_depth = 3, eta = 0.05, subsample = 0.8,
                   colsample_bytree = 0.8, min_child_weight = 5, nthread = 1)
-      dm <- xgboost::xgb.DMatrix(X, label = tr$height_late)
+      dm <- xgboost::xgb.DMatrix(X, label = tr$height_late, nthread = 1)
       cv <- xgboost::xgb.cv(params = prm, data = dm, nrounds = 400, nfold = 5, early_stopping_rounds = 25, verbose = 0)
       best <- cv$early_stop$best_iteration %||% cv$best_iteration %||% 200
       list(model = xgboost::xgb.train(params = prm, data = dm, nrounds = best, verbose = 0), cols = colnames(X))
     }, predict = function(m, te) {
       X <- .xgb_X(te)
       miss <- setdiff(m$cols, colnames(X)); for (cc in miss) { X <- cbind(X, 0); colnames(X)[ncol(X)] <- cc }
-      stats::predict(m$model, xgboost::xgb.DMatrix(X[, m$cols, drop = FALSE]))
+      stats::predict(m$model, xgboost::xgb.DMatrix(X[, m$cols, drop = FALSE], nthread = 1))
     }),
     M8 = list(label = "Random forest", fit = function(tr) {
       cols <- intersect(c("height_late", "height_base", "haz_base", "baz_base", "vel_short", "vel_long", "baz_slope",
                           "haz_slope", "age_base", "birth_year", "bmi_cat_base", "hfa_base", "bmi_traj3", "site"), names(tr))
       ranger::ranger(height_late ~ ., data = as.data.frame(tr[, cols]), num.trees = 500, min.node.size = 5,
                      seed = 2025, num.threads = 1)
-    }, predict = function(m, te) stats::predict(m, as.data.frame(te))$predictions)
+    }, predict = function(m, te) stats::predict(m, as.data.frame(te), num.threads = 1)$predictions)
   )
 }
 

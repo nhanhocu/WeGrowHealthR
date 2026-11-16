@@ -135,7 +135,12 @@ wgh_slopes <- function(object, ages = NULL, fixed = list(), level = 0.95) {
   out <- tibble::tibble(age = rep(ages, times = length(object$taus)), tau = rep(object$taus, each = length(ages)),
                         estimate = as.vector(est))
   if (!is.null(object$boot)) {
-    dr <- apply(object$boot, 3, function(Bm) as.vector(L %*% Bm))
+    ## one row per slope (age by quantile) and one column per replicate. Built
+    ## with vapply and matrix() so that one quantile or one age keeps the
+    ## dimensions (apply() over the third margin drops them).
+    nt <- length(object$taus); nb <- dim(object$boot)[3]
+    dr <- matrix(vapply(seq_len(nb), function(b) as.vector(L %*% matrix(object$boot[, , b], ncol = nt)),
+                        numeric(nrow(L) * nt)), ncol = nb)
     a <- (1 - level) / 2
     out$boot_se <- apply(dr, 1, stats::sd)
     out$lower <- apply(dr, 1, stats::quantile, a); out$upper <- apply(dr, 1, stats::quantile, 1 - a)

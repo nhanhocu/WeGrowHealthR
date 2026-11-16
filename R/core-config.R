@@ -141,6 +141,9 @@ wgh_taus <- function(which = "headline", require = NULL) {
 #' were.
 #'
 #' @param workers Number of workers. `1` returns to sequential processing.
+#'   The default is the `mc.cores` option, or 2 when it is not set, so the
+#'   package never starts more than two workers unless asked. On a larger
+#'   machine pass a higher number, for example `parallel::detectCores() - 1`.
 #' @param strategy `"multisession"` (default, separate R sessions, works on
 #'   all platforms) or `"multicore"` (forked processes, faster to start but
 #'   not available on Windows or inside RStudio).
@@ -166,7 +169,7 @@ wgh_taus <- function(which = "headline", require = NULL) {
 #' }
 #' }
 #' @export
-wgh_parallel <- function(workers = max(1L, parallel::detectCores() - 1L),
+wgh_parallel <- function(workers = getOption("mc.cores", 2L),
                         strategy = c("multisession", "multicore"), max_size = 2) {
   .need("future"); .need("furrr")
   strategy <- match.arg(strategy)

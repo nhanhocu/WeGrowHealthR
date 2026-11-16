@@ -72,7 +72,8 @@ predict.wgh_qrf <- function(object, newdata, ...) {
     k <- which(as.character(nd$sex) == m$sex & nd$target_nominal == m$target_nominal &
                  stats::complete.cases(nd[, object$vars, drop = FALSE]))
     if (!length(k)) next
-    q <- stats::predict(m$fit, nd[k, object$vars, drop = FALSE], type = "quantiles", quantiles = object$taus)$predictions
+    q <- stats::predict(m$fit, nd[k, object$vars, drop = FALSE], type = "quantiles", quantiles = object$taus,
+                          num.threads = 1)$predictions
     P[k, ] <- wgh_rearrange(matrix(q, nrow = length(k)))
   }
   P

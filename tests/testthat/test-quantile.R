@@ -42,3 +42,14 @@ test_that("conformal intervals reach nominal coverage", {
   ci <- wgh_conformal(y[1:2000], rep(-0.5, 2000), rep(0.5, 2000), rep(-0.5, 2000), rep(0.5, 2000), level = 0.9)
   expect_equal(mean(y[2001:4000] >= ci$lower & y[2001:4000] <= ci$upper), 0.9, tolerance = 0.03)
 })
+
+test_that("bootstrap slopes work with one quantile and one age", {
+  skip_if_not_installed("quantreg")
+  d <- growdat2_mini[growdat2_mini$sex == "Female" & growdat2_mini$age >= 5, ]
+  fit <- wgh_rq(d, haz ~ baz * splines::ns(age, df = 3), taus = 0.5, exposure = "baz",
+                anchor_ages = 9, B = 5, seed = 1)
+  s <- wgh_slopes(fit)
+  expect_equal(nrow(s), 1)
+  expect_true(all(c("boot_se", "lower", "upper") %in% names(s)))
+  expect_true(is.finite(s$boot_se) && s$lower <= s$upper)
+})

@@ -28,7 +28,7 @@ wgh_shap <- function(object, X, bg_X = NULL, pred_fun = NULL, feature_names = NU
   if (inherits(object, "xgb.Booster")) {
     .need("xgboost")
     Xm <- as.matrix(X)
-    S <- stats::predict(object, xgboost::xgb.DMatrix(Xm), predcontrib = TRUE)
+    S <- stats::predict(object, xgboost::xgb.DMatrix(Xm, nthread = 1), predcontrib = TRUE)
     base <- S[1, ncol(S)]
     S <- S[, -ncol(S), drop = FALSE]
     return(structure(list(S = S, X = as.data.frame(Xm), baseline = base, method = "TreeSHAP"), class = "wgh_shap"))

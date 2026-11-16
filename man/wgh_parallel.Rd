@@ -5,13 +5,16 @@
 \title{Set up parallel workers with reproducible random streams}
 \usage{
 wgh_parallel(
-  workers = max(1L, parallel::detectCores() - 1L),
+  workers = getOption("mc.cores", 2L),
   strategy = c("multisession", "multicore"),
   max_size = 2
 )
 }
 \arguments{
-\item{workers}{Number of workers. \code{1} returns to sequential processing.}
+\item{workers}{Number of workers. \code{1} returns to sequential processing.
+The default is the \code{mc.cores} option, or 2 when it is not set, so the
+package never starts more than two workers unless asked. On a larger
+machine pass a higher number, for example \code{parallel::detectCores() - 1}.}
 
 \item{strategy}{\code{"multisession"} (default, separate R sessions, works on
 all platforms) or \code{"multicore"} (forked processes, faster to start but
